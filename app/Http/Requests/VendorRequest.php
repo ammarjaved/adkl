@@ -33,7 +33,7 @@ class VendorRequest extends FormRequest
             'ba' => 'required',
             'year' => 'required',
             'erms_amount' => 'required',
-            'name' => ['required', Rule::unique('users'))],
+            'name' => ['required', Rule::unique('users')],
             'password' => 'required|string|min:8',
             'password_confirmation' => 'required|same:password|min:8',
             // 'address' => 'required',
