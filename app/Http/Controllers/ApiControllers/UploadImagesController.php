@@ -19,8 +19,10 @@ class UploadImagesController extends Controller
             return response()->json(['message'=>'application id is required']);
         }
         
+        
         $destinationPath = 'asset/images/upload-images';
         $img_exits = public_path().'/asset/images/upload-images/';
+        $url = "http://121.121.232.54:9090/";
 
         $application = ServiceNo::find($request->id);
         if(!$application){
@@ -42,7 +44,7 @@ class UploadImagesController extends Controller
                 $exc = $file5->getClientOriginalExtension();    
                 $filename =   $application->ref_num.'-image-before-image-1-'.strtotime(now()).'.'.$exc;
                 $file5->move($destinationPath, $filename);
-                $application->before_image_1="http://dbkl.aerosynergy.com.my/".$destinationPath."/". $filename;
+                $application->before_image_1=$url.$destinationPath."/". $filename;
     
             }
 
@@ -58,7 +60,7 @@ class UploadImagesController extends Controller
                 $exc = $file5->getClientOriginalExtension();    
                 $filename =   $application->ref_num.'-image-before-image-2-'.strtotime(now()).'.'.$exc;
                 $file5->move($destinationPath, $filename);
-                $application->before_image_2="http://dbkl.aerosynergy.com.my/".$destinationPath."/". $filename;
+                $application->before_image_2=$url.$destinationPath."/". $filename;
     
             }
 
@@ -74,7 +76,7 @@ class UploadImagesController extends Controller
                 $exc = $file5->getClientOriginalExtension();    
                 $filename =   $application->ref_num.'-image-during-image-1-'.strtotime(now()).'.'.$exc;
                 $file5->move($destinationPath, $filename);
-                $application->during_image_1="http://dbkl.aerosynergy.com.my/".$destinationPath."/". $filename;
+                $application->during_image_1=$url.$destinationPath."/". $filename;
     
             }
 
@@ -90,7 +92,7 @@ class UploadImagesController extends Controller
                 $exc = $file5->getClientOriginalExtension();    
                 $filename =   $application->ref_num.'-image-during-image-2-'.strtotime(now()).'.'.$exc;
                 $file5->move($destinationPath, $filename);
-                $application->during_image_2="http://dbkl.aerosynergy.com.my/".$destinationPath."/". $filename;
+                $application->during_image_2=$url.$destinationPath."/". $filename;
     
             }
 
@@ -106,7 +108,7 @@ class UploadImagesController extends Controller
                 $exc = $file5->getClientOriginalExtension();    
                 $filename =   $application->ref_num.'-image-after-image-1-'.strtotime(now()).'.'.$exc;
                 $file5->move($destinationPath, $filename);
-                $application->after_image_1="http://dbkl.aerosynergy.com.my/".$destinationPath."/". $filename;
+                $application->after_image_1=$url.$destinationPath."/". $filename;
     
             }
     
@@ -122,7 +124,7 @@ class UploadImagesController extends Controller
                 $exc = $file5->getClientOriginalExtension();    
                 $filename =   $application->ref_num.'-image-after-image-2-'.strtotime(now()).'.'.$exc;
                 $file5->move($destinationPath, $filename);
-                $application->after_image_2="http://dbkl.aerosynergy.com.my/".$destinationPath."/". $filename;
+                $application->after_image_2=$url.$destinationPath."/". $filename;
     
             }
 
@@ -133,7 +135,8 @@ class UploadImagesController extends Controller
 
         try {
             $application->update();
-            DB::raw("UPDATE service_no_details set geometry = st_geomfromtext('POINT('||$request->long||' '||$request->lat||')',4326) where id = $re");
+            
+            DB::insert("UPDATE service_no_details set geom = st_geomfromtext('POINT('||$request->long||' '||$request->lat||')',4326) where id = $request->id");
         }catch(Exception $e){ 
             return response()->json(['status'=>'500' ,'message'=>"failed"]);
             return $e->getMessage();

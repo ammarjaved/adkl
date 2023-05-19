@@ -23,7 +23,7 @@ class LoginController extends Controller
                     ->json([
                         'statusCode' => 200, 
                         'message' => 'Success', 
-                        'type' => Auth::user()->app_user_type,
+                        'type' => Auth::user()->type,
                         
                     ]);
         } else {
