@@ -7,6 +7,7 @@ use App\Models\ServiceNo;
 use Illuminate\Http\Request;
 use Exception;
 use File;
+use Illuminate\Support\Facades\DB;
 
 class UploadImagesController extends Controller
 {
@@ -132,6 +133,7 @@ class UploadImagesController extends Controller
 
         try {
             $application->update();
+            DB::raw("UPDATE service_no_details set geometry = st_geomfromtext('POINT('||$request->long||' '||$request->lat||')',4326) where id = $re");
         }catch(Exception $e){ 
             return response()->json(['status'=>'500' ,'message'=>"failed"]);
             return $e->getMessage();
