@@ -11,12 +11,12 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aplikasi</a></li>
-                        <li class="breadcrumb-item active">Buat</li>
+                        <li class="breadcrumb-item"><a href="/">Aero</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Vendor</a></li>
+                        <li class="breadcrumb-item active">index</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Aplikasi</h4>
+                <h4 class="page-title">Vendor</h4>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="card-body">
-                    <h4 class="header-title">Applications</h4>
+                    <h4 class="header-title">Vendors</h4>
        
                     <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                         <thead>

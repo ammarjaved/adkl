@@ -3,47 +3,98 @@
 
     <div class="h-100" data-simplebar>
 
-
         <div id="sidebar-menu">
 
             <ul id="side-menu">
+                <li class="menu-title">Navigation</li>
+                <li>
+                    <a href="/">
+                        <i data-feather="airplay"></i>
+
+                        <span> Dashboard </span>
+                    </a>
+
+                </li>
 
 
+                <li class="menu-title mt-2">Apps</li>
 
-              
-                    <div class="card ml-3 side-bar-card">
-                        <div class="card-body  left-sidebar">
+
+                <li>
+                    <a href="#sidebarMaid" data-bs-toggle="collapse">
+                        <i class="fa fas fa-male"></i>
+                        <span> Vendor </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarMaid">
+                        <ul class="nav-second-level">
                             <li>
-                                <a href="#sidebarVendor" class="text-center" data-bs-toggle="collapse">
-                                    <p class="text-center"> <i data-feather="file-text" style="color:white"></i></p>
-                                    <div class="text-center"><span class="text-white "> Vendor </span></div>
+                                <a href="{{ route('vendor.create') }}">
+
+                                    <span>create</span>
 
                                 </a>
-                                <div class="collapse" id="sidebarVendor">
-                                    <ul class="nav-second-level">
-                                        <li>
-                                            <a href="{{ route('vendor.create') }}">
-                                                <p class="text-center"><i class="mdi mdi-book-plus-outline"></i></p>
-                                               <div class="text-center"><span class="text-white"> Create</span></div> 
-
-                                            </a>
-                                        </li>
-                                        <li>
-
-                                            <a href="{{ route('vendor.index') }}">
-                                                <p class="text-center"><i class="mdi mdi-format-list-text"></i></p>
-                                             <div class="text-center">  <span class="text-white">Index</span></div> 
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </div>
+                            </li>
+                            <li>
+                                <a href="{{ route('vendor.index') }}">show</a>
                             </li>
 
-                          
-                        </div>
-                   
+                        </ul>
+                    </div>
+                </li>
+
+
+
+
+
+            </ul>
         </div>
+        </li>
+        </ul>
+
+    </div>
+    <!-- End Sidebar -->
+
+    <div id="sidebar-menu">
+
+        <ul id="side-menu">
+
+
+
+
+            <div class="card ml-3 side-bar-card">
+                <div class="card-body  left-sidebar">
+                    <li>
+                        <a href="#sidebarVendor" class="text-center" data-bs-toggle="collapse">
+                            <p class="text-center"> <i data-feather="file-text" style="color:white"></i></p>
+                            <div class="text-center"><span class="text-white "> Vendor </span></div>
+
+                        </a>
+                        <div class="collapse" id="sidebarVendor">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="{{ route('vendor.create') }}">
+                                        <p class="text-center"><i class="mdi mdi-book-plus-outline"></i></p>
+                                        <div class="text-center"><span class="text-white"> Create</span></div>
+
+                                    </a>
+                                </li>
+                                <li>
+
+                                    <a href="{{ route('vendor.index') }}">
+                                        <p class="text-center"><i class="mdi mdi-format-list-text"></i></p>
+                                        <div class="text-center"> <span class="text-white">Index</span></div>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+
+                </div>
+
+            </div>
 
 
 
@@ -65,7 +116,7 @@
 <!-- Left Sidebar End -->
 
 
-<style>
+{{-- <style>
     ul.sidebar-menu {
         margin-top: 80px;
         margin-left: 20px;
@@ -139,4 +190,4 @@
     .card.ml-3.show {
         background-color: #F3F4F6;
     }
-</style>
+</style> --}}

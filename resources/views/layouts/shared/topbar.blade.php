@@ -276,18 +276,7 @@
                         <h6 class="text-overflow m-0">Welcome !</h6>
                     </div>
 
-                    @if (Auth::user()->type == "agency")
-                    <a href="/my-account/{{ Auth::user()->name}}" class="dropdown-item notify-item">
-                        <i class="fe-user"></i>
-                        <span>My Account</span>
-                    </a> 
-                    @endif
-                    @if (Auth::user()->type == "superAdmin")
-                    <a href="/change-password/{{Auth::user()->name}}" class="dropdown-item notify-item">
-                        <i class="fe-lock"></i>
-                        <span>Change Password</span>
-                    </a> 
-                    @endif
+                   
               
                         
                     
@@ -331,7 +320,7 @@
 
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="/application" class="logo logo-dark text-center">
+            <a href="/" class="logo logo-dark text-center">
                 <span class="logo-sm">
                     <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
                     <!-- <span class="logo-lg-text-light">UBold</span> -->
@@ -342,7 +331,7 @@
                 </span>
             </a>
 
-            <a href="/application" class="logo logo-light text-center">
+            <a href="/" class="logo logo-light text-center">
                 <span class="logo-sm">
                     <img src="{{asset('images/main-logo-sm.png')}}" alt="" height="35">
                 </span>
@@ -353,14 +342,14 @@
         </div>
 
         <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
-            @if (!request()->is("agency/create"))
+       
            
             <li class="pb-0">
                 <button class="button-menu-mobile waves-effect waves-light">
                     <i class="fe-menu"></i>
                 </button>
             </li>
-            @endif
+          
 
              
 
@@ -513,7 +502,7 @@
     </div>
 </div>
 <!-- end Topbar -->
-
+{{-- 
 <style>
     body[data-sidebar-size=condensed] .left-side-menu {display: none !important}
     ul.sidebar-menu {
@@ -569,4 +558,4 @@ span.text-white.ml-3 {
     background-color: #F3F4F6;
 }
   
-</style>
+</style> --}}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ServiceNo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
 use File;
@@ -15,6 +16,17 @@ class UploadImagesController extends Controller
 
     public function insert(Request $request)
     {
+        if($request->has('created_by')){
+           
+        $created_by =  DB::select($request->created_by);
+        // return $created_by;
+        if(!$created_by){
+            return response()->json(['message'=>'no user found for created by']);
+        }
+        }else{
+            return response()->json(['message'=>'application created by is required']);
+        }
+        // return $created_by[0]->id;
         if(!$request->has('id')){
             return response()->json(['message'=>'application id is required']);
         }
@@ -128,7 +140,7 @@ class UploadImagesController extends Controller
     
             }
 
-            $application->created_by = $request->created_by;
+            $application->created_by = $created_by[0]->id;
             $application->date       = $request->date;
 
         // return $application;
