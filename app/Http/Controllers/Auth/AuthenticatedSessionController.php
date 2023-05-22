@@ -45,7 +45,8 @@ class AuthenticatedSessionController extends Controller
             // }else{
 
            
-            return redirect()->route('vendor.index');
+            // return redirect()->route('vendor.index');
+            return redirect('/');
 
             }
             else{

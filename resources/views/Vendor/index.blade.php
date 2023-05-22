@@ -39,8 +39,8 @@
                             <tr>
                                 <th>Username</th>
                                 <th>Vendor Name</th>
-                                <th>Ba</th>
-                                <th>Phone no</th>
+                                <th>BA</th>
+                                <th>Phone No</th>
                                 <th>Action</th>
 
                             </tr>
@@ -77,14 +77,13 @@
                                             </form>
                                         </li>
 
-                                        {{-- <li>
+                                        <li>
+                                            
+                                        </li>
 
-                                            <button type="button" class="btn  btn-sm dropdown-item"
-                                                data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                                onclick="conDestory({{ $application->id }})">Delete</button>
-
-                                        </li> --}}
-
+                                        <button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal"
+                                        onclick="maidID({{ $user->id }})">Add PO</button>
 
                                     </ul>
                                 </div>
@@ -102,6 +101,47 @@
         </div><!-- end col-->
     </div>
     <!-- end row-->
+    <div class="modal fade" id="exampleModal" class="rounded-0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Purchase Order No</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+
+                <form onsubmit="return vendorID()" method="POST" action=" /assign/vendor-po">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" id="maid_id" name="vendor_id" class="form-control">
+                        <div class="">
+                        <span id="er_client_id" class="text-danger"></span>
+                        <label for="">Add PO No</label>
+                        <input type="text" name="po_no" id="po_no" class="form-control" required>
+                        </div>
+
+                        {{-- <div class="my-3">
+                        <span id="er_client_boundary" class="text-danger"></span>
+                        <select name="client_boundary_address" class="form-control" id="client_boundary">
+                            <option value="" hidden>Select Address</option>
+
+
+                        </select>
+
+                        </div> --}}
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save </button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 
 
 
@@ -118,7 +158,9 @@
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
     <!-- end demo js-->
 
-
-
-  
+<script>
+    function maidID($id){
+        $("#maid_id").val($id);
+    }
+  </script>
 @endsection

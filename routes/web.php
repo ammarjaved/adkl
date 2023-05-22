@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\PurchaseOrder ;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\VendorController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +20,10 @@ use App\Http\Controllers\VendorController;
 require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [VendorController::class, 'index']);
+    // Route::get('/', [VendorController::class, 'index']);
+    Route::view('/','index');
     Route::resource('vendor', VendorController::class);
+    Route::post('/assign/vendor-po',[PurchaseOrder ::class,'insert']);
 });
 
 // Route::group(['prefix' => '/'], function () {
