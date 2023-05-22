@@ -10,4 +10,18 @@ class ServiceNo extends Model
     use HasFactory;
     public $table ="service_no_details";
     public $timestamps = false;
+    public $fillable =[
+        'po_no',
+        'address',
+        'after_image_2',
+        'after_image_1',
+        'during_image_2',
+        'during_image_1',
+        'before_image_2',
+        'before_image_1',
+        'created_by',
+        'geom',
+        'date',
+        'sn'
+    ];
 }

@@ -5,6 +5,11 @@
 <link href="{{asset('assets/libs/flatpickr/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/libs/selectize/selectize.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- third party css end -->
+<style>
+    .table-responsive::-webkit-scrollbar{
+        display: none;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -17,7 +22,7 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <form class="d-flex align-items-center mb-3">
-                        <div class="input-group input-group-sm">
+                        {{-- <div class="input-group input-group-sm">
                             <input type="text" class="form-control border" id="dash-daterange">
                             <span class="input-group-text bg-blue border-blue text-white">
                                 <i class="mdi mdi-calendar-range"></i>
@@ -28,7 +33,7 @@
                         </a>
                         <a href="javascript: void(0);" class="btn btn-blue btn-sm ms-1">
                             <i class="mdi mdi-filter-variant"></i>
-                        </a>
+                        </a> --}}
                     </form>
                 </div>
                 <h4 class="page-title">Dashboard</h4>
@@ -44,13 +49,13 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="avatar-lg rounded-circle bg-soft-primary border-primary border">
-                                <i class="fe-heart font-22 avatar-title text-primary"></i>
+                                <i class="fe-user font-22 avatar-title text-primary"></i>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="text-end">
-                                <h3 class="text-dark mt-1">$<span data-plugin="counterup">58,947</span></h3>
-                                <p class="text-muted mb-1 text-truncate">Total Revenue</p>
+                                <h3 class="text-dark mt-1"><span data-plugin="counterup">{{$data['count'][0]->total_vendor}}</span></h3>
+                                <p class="text-muted mb-1 text-truncate">Total Vendor</p>
                             </div>
                         </div>
                     </div> <!-- end row-->
@@ -69,8 +74,8 @@
                         </div>
                         <div class="col-6">
                             <div class="text-end">
-                                <h3 class="text-dark mt-1"><span data-plugin="counterup">127</span></h3>
-                                <p class="text-muted mb-1 text-truncate">Today's Sales</p>
+                                <h3 class="text-dark mt-1"><span data-plugin="counterup">{{$data['count'][0]->total_po}}</span></h3>
+                                <p class="text-muted mb-1 text-truncate">Total Purchase Order</p>
                             </div>
                         </div>
                     </div> <!-- end row-->
@@ -89,8 +94,8 @@
                         </div>
                         <div class="col-6">
                             <div class="text-end">
-                                <h3 class="text-dark mt-1"><span data-plugin="counterup">0.58</span>%</h3>
-                                <p class="text-muted mb-1 text-truncate">Conversion</p>
+                                <h3 class="text-dark mt-1"><span data-plugin="counterup">{{$data['count'][0]->total_po}}</span></h3>
+                                <p class="text-muted mb-1 text-truncate">Total Service Order</p>
                             </div>
                         </div>
                     </div> <!-- end row-->
@@ -109,8 +114,8 @@
                         </div>
                         <div class="col-6">
                             <div class="text-end">
-                                <h3 class="text-dark mt-1"><span data-plugin="counterup">78.41</span>k</h3>
-                                <p class="text-muted mb-1 text-truncate">Today's Visits</p>
+                                <h3 class="text-dark mt-1"><span data-plugin="counterup">{{$data['count'][0]->today_po}}</span></h3>
+                                <p class="text-muted mb-1 text-truncate">Today's PO</p>
                             </div>
                         </div>
                     </div> <!-- end row-->
@@ -119,58 +124,42 @@
         </div> <!-- end col-->
     </div>
     <!-- end row-->
-
+    
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-xl-4 col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="dropdown float-end">
-                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-vertical"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                        </div>
+                    <div class="card-widgets">
+                        <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+                        <a data-bs-toggle="collapse" href="#cardCollpase3" role="button" aria-expanded="false" aria-controls="cardCollpase3"><i class="mdi mdi-minus"></i></a>
+                        <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
                     </div>
-
-                    <h4 class="header-title mb-0">Total Revenue</h4>
-
-                    <div class="widget-chart text-center" dir="ltr">
-
-                        <div id="total-revenue" class="mt-0" data-colors="#f1556c"></div>
-
-                        <h5 class="text-muted mt-0">Total sales made today</h5>
-                        <h2>$178</h2>
-
-                        <p class="text-muted w-75 mx-auto sp-line-2">Traditional heading elements are designed to work best in the meat of your page content.</p>
-
-                        <div class="row mt-3">
-                            <div class="col-4">
-                                <p class="text-muted font-15 mb-1 text-truncate">Target</p>
-                                <h4><i class="fe-arrow-down text-danger me-1"></i>$7.8k</h4>
-                            </div>
-                            <div class="col-4">
-                                <p class="text-muted font-15 mb-1 text-truncate">Last week</p>
-                                <h4><i class="fe-arrow-up text-success me-1"></i>$1.4k</h4>
-                            </div>
-                            <div class="col-4">
-                                <p class="text-muted font-15 mb-1 text-truncate">Last Month</p>
-                                <h4><i class="fe-arrow-down text-danger me-1"></i>$15k</h4>
-                            </div>
+                    <h4 class="header-title mb-0">Total Users</h4>
+    
+                    <div id="cardCollpase3" class="collapse pt-3 show">
+                        <div class="text-center">
+                            <div id="total-users" data-colors="#00acc1,#4b88e4,#e3eaef,#fd7e14"></div>
+                            <div class="row mt-3">
+                                <div class="col-4">
+                                    <p class="text-muted font-15 mb-1 text-truncate">Target</p>
+                                    <h4><i class="fe-arrow-down text-danger me-1"></i>18k</h4>
+                                </div>
+                                <div class="col-4">
+                                    <p class="text-muted font-15 mb-1 text-truncate">Last week</p>
+                                    <h4><i class="fe-arrow-up text-success me-1"></i>3.25k</h4>
+                                </div>
+                                <div class="col-4">
+                                    <p class="text-muted font-15 mb-1 text-truncate">Last Month</p>
+                                    <h4><i class="fe-arrow-up text-success me-1"></i>28k</h4>
+                                </div>
+                            </div> <!-- end row -->
                         </div>
-
-                    </div>
-                </div>
-            </div> <!-- end card -->
+                    </div> <!-- collapsed end -->
+                </div> <!-- end card-body -->
+            </div> <!-- end card-->
         </div> <!-- end col-->
-
+   
+    <!-- end row -->
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-body pb-2">
@@ -203,166 +192,38 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Edit Report</a>
+                            {{-- <a href="javascript:void(0);" class="dropdown-item">Edit Report</a> --}}
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                            {{-- <a href="javascript:void(0);" class="dropdown-item">Export Report</a> --}}
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                            <a href="{{route('vendor.index')}}" class="dropdown-item">Action</a>
                         </div>
                     </div>
 
-                    <h4 class="header-title mb-3">Top 5 Users Balances</h4>
+                    <h4 class="header-title mb-3">Vendors</h4>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="overflow-y:auto ; max-height:400px;">
                         <table class="table table-borderless table-hover table-nowrap table-centered m-0">
 
                             <thead class="table-light">
                                 <tr>
-                                    <th colspan="2">Profile</th>
-                                    <th>Currency</th>
-                                    <th>Balance</th>
-                                    <th>Reserved in orders</th>
-                                    <th>Action</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone No</th>
+                                    <th>Detail</th>
+                                 
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td style="width: 36px;">
-                                        <img src="{{asset('assets/images/users/user-2.jpg')}}" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                    </td>
-
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Tomaslau</h5>
-                                        <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                    </td>
-
-                                    <td>
-                                        <i class="mdi mdi-currency-btc text-primary"></i> BTC
-                                    </td>
-
-                                    <td>
-                                        0.00816117 BTC
-                                    </td>
-
-                                    <td>
-                                        0.00097036 BTC
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td style="width: 36px;">
-                                        <img src="{{asset('assets/images/users/user-3.jpg')}}" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                    </td>
-
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Erwin E. Brown</h5>
-                                        <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                    </td>
-
-                                    <td>
-                                        <i class="mdi mdi-currency-eth text-primary"></i> ETH
-                                    </td>
-
-                                    <td>
-                                        3.16117008 ETH
-                                    </td>
-
-                                    <td>
-                                        1.70360009 ETH
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 36px;">
-                                        <img src="{{asset('assets/images/users/user-4.jpg')}}" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                    </td>
-
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Margeret V. Ligon</h5>
-                                        <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                    </td>
-
-                                    <td>
-                                        <i class="mdi mdi-currency-eur text-primary"></i> EUR
-                                    </td>
-
-                                    <td>
-                                        25.08 EUR
-                                    </td>
-
-                                    <td>
-                                        12.58 EUR
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 36px;">
-                                        <img src="{{asset('assets/images/users/user-5.jpg')}}" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                    </td>
-
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Jose D. Delacruz</h5>
-                                        <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                    </td>
-
-                                    <td>
-                                        <i class="mdi mdi-currency-cny text-primary"></i> CNY
-                                    </td>
-
-                                    <td>
-                                        82.00 CNY
-                                    </td>
-
-                                    <td>
-                                        30.83 CNY
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 36px;">
-                                        <img src="{{asset('assets/images/users/user-6.jpg')}}" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                    </td>
-
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Luke J. Sain</h5>
-                                        <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                    </td>
-
-                                    <td>
-                                        <i class="mdi mdi-currency-btc text-primary"></i> BTC
-                                    </td>
-
-                                    <td>
-                                        2.00816117 BTC
-                                    </td>
-
-                                    <td>
-                                        1.00097036 BTC
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                    </td>
-                                </tr>
-
+                                @foreach ($data['vendor'] as $vendor)
+                                    <tr>
+                                        <td>{{$vendor->vendor_name}}</td>
+                                        <td>{{$vendor->email}}</td>
+                                        <td>{{$vendor->phone_no}}</td>
+                                        <td><a href="{{route ('vendor.show',$vendor->id)}}" class="btn btn-sm btn-dark rounded-0">Detail</a></td>
+                                    </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -379,160 +240,41 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Edit Report</a>
+                            {{-- <a href="javascript:void(0);" class="dropdown-item">Edit Report</a> --}}
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                            {{-- <a href="javascript:void(0);" class="dropdown-item">Export Report</a> --}}
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                            <a href="{{route('purchase-order.index')}}" class="dropdown-item">Detail</a>
                         </div>
                     </div>
 
-                    <h4 class="header-title mb-3">Revenue History</h4>
+                    <h4 class="header-title mb-3">Purchase Orders</h4>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="overflow-y:auto ; max-height:400px;">
                         <table class="table table-borderless table-nowrap table-hover table-centered m-0">
 
                             <thead class="table-light">
                                 <tr>
-                                    <th>Marketplaces</th>
+                                    <th>PO Number</th>
+                                    <th>SN Number</th>
                                     <th>Date</th>
-                                    <th>Payouts</th>
-                                    <th>Status</th>
+                                    {{-- <th>Status</th> --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($data['po'] as $po)
                                 <tr>
+                                    <td>{{$po->po_no}}</td>
+                                    <td>{{$po->sn}} </td>
+                                    <td>{{$po->date}} </td>
                                     <td>
-                                        <h5 class="m-0 fw-normal">Themes Market</h5>
-                                    </td>
 
-                                    <td>
-                                        Oct 15, 2018
-                                    </td>
-
-                                    <td>
-                                        $5848.68
-                                    </td>
-
-                                    <td>
-                                        <span class="badge bg-soft-warning text-warning">Upcoming</span>
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-pencil"></i></a>
+                                        <a href="{{route('purchase-order.show',$po->id)}}" class="btn btn-sm btn-dark">Detail</a>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Freelance</h5>
-                                    </td>
-
-                                    <td>
-                                        Oct 12, 2018
-                                    </td>
-
-                                    <td>
-                                        $1247.25
-                                    </td>
-
-                                    <td>
-                                        <span class="badge bg-soft-success text-success">Paid</span>
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-pencil"></i></a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Share Holding</h5>
-                                    </td>
-
-                                    <td>
-                                        Oct 10, 2018
-                                    </td>
-
-                                    <td>
-                                        $815.89
-                                    </td>
-
-                                    <td>
-                                        <span class="badge bg-soft-success text-success">Paid</span>
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-pencil"></i></a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Envato's Affiliates</h5>
-                                    </td>
-
-                                    <td>
-                                        Oct 03, 2018
-                                    </td>
-
-                                    <td>
-                                        $248.75
-                                    </td>
-
-                                    <td>
-                                        <span class="badge bg-soft-danger text-danger">Overdue</span>
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-pencil"></i></a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Marketing Revenue</h5>
-                                    </td>
-
-                                    <td>
-                                        Sep 21, 2018
-                                    </td>
-
-                                    <td>
-                                        $978.21
-                                    </td>
-
-                                    <td>
-                                        <span class="badge bg-soft-warning text-warning">Upcoming</span>
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-pencil"></i></a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <h5 class="m-0 fw-normal">Advertise Revenue</h5>
-                                    </td>
-
-                                    <td>
-                                        Sep 15, 2018
-                                    </td>
-
-                                    <td>
-                                        $358.10
-                                    </td>
-
-                                    <td>
-                                        <span class="badge bg-soft-success text-success">Paid</span>
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-pencil"></i></a>
-                                    </td>
-                                </tr>
+                                @endforeach
+                                
 
                             </tbody>
                         </table>
@@ -543,6 +285,11 @@
     </div>
     <!-- end row -->
 
+    <div class="p-3 bg-white">
+        <h4 class="text-center">Purchase Orders</h4>
+        <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
+
+    </div>
 </div> <!-- container -->
 @endsection
 
@@ -553,7 +300,74 @@
 <script src="{{asset('assets/libs/selectize/selectize.min.js')}}"></script>
 <!-- third party js ends -->
 
-<!-- demo app -->
+<!-- demo app --><script src="{{asset('assets/libs/jquery-sparkline/jquery-sparkline.min.js')}}"></script>
+<script src="{{asset('assets/libs/admin-resources/admin-resources.min.js')}}"></script>
 <script src="{{asset('assets/js/pages/dashboard-1.init.js')}}"></script>
 <!-- end demo js-->
+
+<script src="{{asset('assets/js/pages/dashboard-2.init.js')}}"></script>
+
+
+    <script>
+        map = L.map('map').setView([3.016603, 101.858382], 11);
+        document.getElementById('map').style.cursor = 'pointer'
+
+        var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+        //.addTo(map);
+        var st1 = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }).addTo(map);
+
+        var myLayer;
+
+        $(document).ready(function() {
+
+
+        $.ajax({
+            type: "GET",
+            url: `/get-geom`,
+
+            success: function(data) {
+                // console.log(JSON.parse(data));
+                var myLayer = L.geoJSON(JSON.parse(data), {
+                    onEachFeature: function(feature, layer) {
+                        
+                        layer.bindPopup(` <table class="table table-striped table-bordered table-condensed custom-table-css" >
+                    <tr>
+                        <th>PO No</th>
+                        <td>${feature.properties.po_no}</td>
+                        </tr>
+                        <tr>
+                        <th>SN No</th>
+                        <td>${feature.properties.sn}</td>
+                        </tr>
+                        <tr>
+                        <th>Date</th>
+                        <td>${feature.properties.date}</td>
+                        </tr>
+                        <tr>
+                        <th>Detail</th>
+                        <td><a href="/purchase-order/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
+                        </tr>
+                        
+                    </table>`);
+                    }
+                }).addTo(map);
+                setTimeout(function () {
+  map.fitBounds(myLayer.getBounds());
+}, 1000);
+                //   console.log(JSON.parse(data))
+                //   $('#GeomID').val(JSON.parse(data));
+                // addNonGroupLayers(myLayer, drawnItems);
+                //   map.fitBounds(myLayer.getBounds());
+            },
+        });
+
+        //},2000)
+        });
+   
+    </script>
+
+
 @endsection

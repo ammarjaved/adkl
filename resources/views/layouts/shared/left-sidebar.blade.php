@@ -43,6 +43,26 @@
                     </div>
                 </li>
 
+                <li>
+                    <a href="{{route('purchase-order.index')}}">
+                        <i data-feather="airplay"></i>
+
+                        <span> Purchase Orders </span>
+                    </a>
+
+                </li>
+
+{{-- 
+                <li>
+                    <a href="/">
+                        <i data-feather="airplay"></i>
+
+                        <span> SN </span>
+                    </a>
+
+                </li>
+ --}}
+
 
 
 
@@ -55,57 +75,6 @@
     </div>
     <!-- End Sidebar -->
 
-    <div id="sidebar-menu">
-
-        <ul id="side-menu">
-
-
-
-
-            <div class="card ml-3 side-bar-card">
-                <div class="card-body  left-sidebar">
-                    <li>
-                        <a href="#sidebarVendor" class="text-center" data-bs-toggle="collapse">
-                            <p class="text-center"> <i data-feather="file-text" style="color:white"></i></p>
-                            <div class="text-center"><span class="text-white "> Vendor </span></div>
-
-                        </a>
-                        <div class="collapse" id="sidebarVendor">
-                            <ul class="nav-second-level">
-                                <li>
-                                    <a href="{{ route('vendor.create') }}">
-                                        <p class="text-center"><i class="mdi mdi-book-plus-outline"></i></p>
-                                        <div class="text-center"><span class="text-white"> Create</span></div>
-
-                                    </a>
-                                </li>
-                                <li>
-
-                                    <a href="{{ route('vendor.index') }}">
-                                        <p class="text-center"><i class="mdi mdi-format-list-text"></i></p>
-                                        <div class="text-center"> <span class="text-white">Index</span></div>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-
-
-                </div>
-
-            </div>
-
-
-
-
-        </ul>
-    </div>
-    </li>
-    </ul>
-
-</div>
-<!-- End Sidebar -->
 
 <div class="clearfix"></div>
 

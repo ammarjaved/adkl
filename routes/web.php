@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\PurchaseOrder ;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MapController;
+use App\Http\Controllers\PurchaseOrder;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\VendorController;
@@ -21,9 +23,13 @@ require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => 'auth'], function () {
     // Route::get('/', [VendorController::class, 'index']);
-    Route::view('/','index');
+    Route::get('/',[DashboardController::class,'index']);
     Route::resource('vendor', VendorController::class);
-    Route::post('/assign/vendor-po',[PurchaseOrder ::class,'insert']);
+    Route::resource('purchase-order',PurchaseOrder::class);
+    Route::get('/get-map-point-by-sn-number/{id}',[MapController::class,'show']);
+    Route::get('/get-geom-by-vendor-no/{id}',[MapController::class,'showByVendor']);
+    Route::get('/get-geom',[MapController::class,'index']);
+
 });
 
 // Route::group(['prefix' => '/'], function () {

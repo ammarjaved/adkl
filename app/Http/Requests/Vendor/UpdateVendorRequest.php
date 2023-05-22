@@ -27,13 +27,13 @@ class UpdateVendorRequest extends FormRequest
     {
         return [
             'vendor_name' => 'required',
-            // 'email' => ['required', 'email', Rule::unique('users') . $this->user()->id],
-            // 'phone_no' => 'required|min:9|max:11',
+            'email' => ['required', 'email', Rule::unique('users')->ignore($_REQUEST['id'])],
+            'phone_no' => 'required|min:9|max:11',
             'ba' => 'required',
             'year' => 'required',
             'erms_amount' => 'required',
             'name' => ['required', Rule::unique('users')->ignore($_REQUEST['id'])],
-            // 'address' => 'required',
+            'address' => 'required',
         ];
     }
 }
