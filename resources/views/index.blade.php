@@ -7,9 +7,10 @@
     <link href="{{ asset('assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- third party css end -->
     <style>
-        .table-responsive::-webkit-scrollbar {
+        .table-responsive::-webkit-scrollbar ,text.highcharts-credits  {
             display: none;
         }
+     
     </style>
 @endsection
 
@@ -128,37 +129,11 @@
     </div>
     <!-- end row-->
      --}}
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-xl-4 col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-widgets">
-                                <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                                <a data-bs-toggle="collapse" href="#cardCollpase3" role="button" aria-expanded="false"
-                                    aria-controls="cardCollpase3"><i class="mdi mdi-minus"></i></a>
-                                <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
-                            </div>
-                            <h4 class="header-title mb-0">Total Users</h4>
-
-                            <div id="cardCollpase3" class="collapse pt-3 show">
-                                <div class="text-center">
-                                    <div id="total-users" data-colors="#00acc1,#4b88e4,#e3eaef,#fd7e14"></div>
-                                    <div class="row mt-3">
-                                        <div class="col-4">
-                                            <p class="text-muted font-15 mb-1 text-truncate">Target</p>
-                                            <h4><i class="fe-arrow-down text-danger me-1"></i>18k</h4>
-                                        </div>
-                                        <div class="col-4">
-                                            <p class="text-muted font-15 mb-1 text-truncate">Last week</p>
-                                            <h4><i class="fe-arrow-up text-success me-1"></i>3.25k</h4>
-                                        </div>
-                                        <div class="col-4">
-                                            <p class="text-muted font-15 mb-1 text-truncate">Last Month</p>
-                                            <h4><i class="fe-arrow-up text-success me-1"></i>28k</h4>
-                                        </div>
-                                    </div> <!-- end row -->
-                                </div>
-                            </div> <!-- collapsed end -->
+                            <div id="container_pie1" ></div>
                         </div> <!-- end card-body -->
                     </div> <!-- end card-->
                 </div> <!-- end col-->
@@ -184,8 +159,10 @@
                     </div> <!-- end card -->
                 </div> <!-- end col-->
             </div>
-            <!-- end row -->
+            <!-- end row --> --}}
 
+           
+            </div>
             <div class="row">
                 <div class="col-xl-6">
                     <div class="card">
@@ -350,7 +327,7 @@
 
             $(document).ready(function() {
 
-
+                addpie()
                 $.ajax({
                     type: "GET",
                     url: `/get-geom`,
@@ -522,5 +499,57 @@
                 }, 1000);
 
             }
+
+
+            
+function addpie(){
+    Highcharts.chart('container_pie1', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Statistics',
+        align: 'left'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Total Po',
+            y: {{ $data['count'][0]->total_po }},
+            sliced: true,
+            selected: true
+        },  {
+            name: 'Total Vendor',
+            y: {{ $data['count'][0]->total_po }}
+        },  {
+            name: 'Total Sn',
+            y: {{ $data['count'][0]->total_po }}
+        }]
+    }]
+});
+}
+
         </script>
     @endsection
