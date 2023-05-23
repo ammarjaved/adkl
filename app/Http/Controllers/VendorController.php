@@ -159,13 +159,15 @@ class VendorController extends Controller
                 ->route('vendor.index')
                 ->with('message', 'Something is worng try again later');
         }
+        return redirect()->route('vendor.index');
     }
+
 
 
     public function getPoByVendor($id)
     {
         $user = User::with('PoDetail')->where('id',$id)->get();
-        
+
         return response()->json(['data',$user[0]]);
     }
 }
