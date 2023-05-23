@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Aplikasi'])
+@extends('layouts.vertical', ['page_title' => 'Vendor'])
 @section('css')
     <!-- third party css -->
     <link href="{{ asset('assets/libs/ladda/ladda.min.css') }}" rel="stylesheet" type="text/css" />

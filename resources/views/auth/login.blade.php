@@ -11,29 +11,35 @@
 <style>
 
     body{
-        background-image: url('/assets/images/background.jpg') !important;
-        background-size: cover;
+        /* background-image: url('/assets/images/background.jpg') !important; */
+        /* background-size: cover; */
+        background-color: #F5F6F8 !important;
     }
     .card{
-        background-color: rgb(209, 186, 81,0.8) !important ;
+        /* background-color: rgb(209, 186, 81,0.8) !important ; */
+        /* background-color: #FEF79D !important; */
+        background-color: white !important;
     }
     label{color: black}
-    input.form-control {
-    background: #E6E7E9;
-    padding: 20px 15px;
+     input.form-control { 
+    /* background: #E6E7E9;
+    padding: 20px 15px; */
     border: 1px solid #C3C4C8;
-    border-radius: 5px;
+    border-radius: 0px;
+} 
+.bg-pattern {
+    background-image: none;
 }
-.form-control {
+/* .form-control {
     position: relative;
     font-size: 16px;
     height: auto;}
      .btn {
-    /* background: url(../images/login-btn.png) no-repeat; */
+    /* background: url(../images/login-btn.png) no-repeat; 
     width: 208px;
     margin: 30px auto 0;
     border: 0;
-}
+} */
  @media only screen and (max-width: 500px) {
     .logo-lg img{
         height: 50px;
@@ -46,17 +52,18 @@
 
     <div class="account-pages mt-5 mb-5">
         <div class="container">
-            <div class="row justify-content-start">
+            <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-4">
                     <div class="card bg-pattern">
 
-                        <div class="card-body p-4">
+                        <div class="card-body p-4 pt-3">
 
                             <div class="text-center w-75 m-auto">
+                               
                                 <div class="auth-logo">
                                     <a href="#" class="logo logo-dark text-center">
                                         <span class="logo-lg">
-                                            <img src="{{asset('images/main-logo.png')}}" alt="" height="75" width="200">
+                                            <img src="{{asset('assets/images/new-logo.png')}}" alt="" height="130" width="130">
                                         </span>
                                     </a>
 
@@ -66,7 +73,8 @@
                                         </span>
                                     </a>
                                 </div>
-                                {{-- <p class="text-muted mb-4 mt-3">Enter your email address and password to access admin panel.</p> --}}
+
+                                <p class="text-muted mb-2 mt-2">Enter your email address and password to access admin panel.</p>
                             </div>
 
 
@@ -114,7 +122,7 @@
                                 </div>
 
                                 <div class="text-center d-grid">
-                                    <button class="btn btn-primary" type="submit"> Log In </button>
+                                    <button class="btn btn-dark" type="submit"> Log In </button>
                                 </div>
 
                             </form>
@@ -128,7 +136,7 @@
                     <div class="row mt-3">
                         <div class="col-12 text-center">
                             {{-- <p> <a href="{{route('password.request')}}" class="text-white-50 ms-1">Forgot your password?</a></p> --}}
-                          <p class="text-white-50">Don't have an account? <a href="/register" class="text-white ms-1"><b>Sign Up</b></a></p>
+                          {{-- <p class="text-white-50">Don't have an account? <a href="/register" class="text-white ms-1"><b>Sign Up</b></a></p> --}}
                         </div> <!-- end col --> 
                      </div>
                     <!-- end row -->

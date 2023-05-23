@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Aplikasi'])
+@extends('layouts.vertical', ['page_title' => 'Vendor'])
 @section('css')
     <!-- third party css -->
     <link href="{{ asset('assets/libs/ladda/ladda.min.css') }}" rel="stylesheet" type="text/css" />
@@ -30,9 +30,10 @@
         label {
             margin-left: 20px
         }
+
         span.text-danger {
-    padding-left: 1rem;
-}
+            padding-left: 1rem;
+        }
     </style>
 @endsection
 
@@ -43,11 +44,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('vendor.index')}}">vendor</a></li>
-                        <li class="breadcrumb-item active">edit</li>
+                        <li class="breadcrumb-item"><a href="{{ route('vendor.index') }}">vendor</a></li>
+                        <li class="breadcrumb-item active">show</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Edit Vendor</h4>
+                <h4 class="page-title">Vendor</h4>
             </div>
         </div>
     </div>
@@ -59,95 +60,150 @@
 
                 <h3 class="text-center">Vendor</h3>
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="vendor_name">Vendor Name</label><br>
-                                                   </div>
-                        <div class="col-md-5"><input type="text" readonly disabled
-                                class="form-control "
-                                id="vendor_name" value="{{$user->name}}"></div>
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="vendor_name">Vendor Name</label><br>
+                    </div>
+                    <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="vendor_name"
+                            value="{{ $user->name }}"></div>
+
+                </div>
+
+
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="email">Email</label><br>
 
                     </div>
+                    <div class="col-md-5"><input type="email" class="form-control "readonly disabled id="email"
+                            value="{{ $user->email }}"></div>
 
+                </div>
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="email">Email</label><br>
-                           
-                        </div>
-                        <div class="col-md-5"><input type="email"
-                                class="form-control "readonly disabled
-                                id="email" value="{{ $user->email }}"></div>
-                       
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="phone_no">Phone no</label><br>
+
                     </div>
+                    <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="phone_no"
+                            value="{{ $user->phone_no }}"></div>
+                </div>
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="phone_no">Phone no</label><br>
-                        
-                        </div>
-                        <div class="col-md-5"><input type="text" readonly disabled
-                                class="form-control " id="phone_no"
-                                value="{{ $user->phone_no }}"></div>
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="ba">Business Administrative</label><br>
+
                     </div>
+                    <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="ba"
+                            value="{{ $user->vendor->ba }}"></div>
+                </div>
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="ba">Business Administrative</label><br>
-                            
-                        </div>
-                        <div class="col-md-5"><input type="text" readonly disabled
-                                class="form-control " id="ba"
-                                value="{{ $user->vendor->ba }}"></div>
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="erms_se_no">ERMS SE No</label><br>
+
                     </div>
+                    <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="erms_se_no"
+                            value="{{ $user->vendor->erms_se_no }}"></div>
+                </div>
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="erms_se_no">ERMS SE No</label><br>
-                           
-                        </div>
-                        <div class="col-md-5"><input type="text" readonly disabled
-                                class="form-control " id="erms_se_no"
-                                value="{{ $user->vendor->erms_se_no}}"></div>
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="year">Year</label><br>
+
                     </div>
+                    <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="year"
+                            value="{{ $user->vendor->year }}"></div>
+                </div>
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="erms_amount">ERMS Amount</label><br>
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="year">Year</label><br>
-                            
-                        </div>
-                        <div class="col-md-5"><input type="text" readonly disabled
-                                class="form-control " id="year"
-                                value="{{ $user->vendor->year }}"></div>
                     </div>
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="erms_amount">ERMS Amount</label><br>
-                          
-                        </div>
-                        <div class="col-md-5"><input type="text" disabled
-                                class="form-control" readonly  id="erms_amount"
-                                value="{{$user->vendor->erms_amount }}"></div>
+                    <div class="col-md-5"><input type="text" disabled class="form-control" readonly id="erms_amount"
+                            value="{{ $user->vendor->erms_amount }}"></div>
+                </div>
+
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="name">Username</label><br>
                     </div>
+                    <div class="col-md-5"><input type="text" readonly disabled class="form-control" id="name"
+                            value="{{ $user->name }}"></div>
+                </div>
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="name">Username</label><br>
-                        </div>
-                        <div class="col-md-5"><input type="text" readonly disabled
-                                class="form-control" id="name"
-                                value="{{ $user->name }}"></div>
+
+
+
+
+
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="address">Address</label><br>
                     </div>
-
-                   
-
-                    
-
-
-                                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="address">Address</label><br>
-                        </div>
-                        <div class="col-md-5">
-                            <textarea type="text" disabled class="form-control" readonly
-                                id="address" rows="7">{{ $user->address }}</textarea>
-                        </div>
+                    <div class="col-md-5">
+                        <textarea type="text" disabled class="form-control" readonly id="address" rows="7">{{ $user->address }}</textarea>
                     </div>
+                </div>
+                <div class="p-3">
+                    <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
 
+                </div>
             </div>
 
 
         </div>
     </div>
+@endsection
+
+
+@section('script')
+    <script>
+        map = L.map('map').setView([3.016603, 101.858382], 11);
+        document.getElementById('map').style.cursor = 'pointer'
+
+        var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+        //.addTo(map);
+        var st1 = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }).addTo(map);
+
+        var myLayer;
+
+        $(document).ready(function() {
+
+
+        $.ajax({
+            type: "GET",
+            url: `/get-geom-by-vendor-no/`+{{$user->id}},
+
+            success: function(data) {
+                // console.log(JSON.parse(data));
+                var myLayer = L.geoJSON(JSON.parse(data), {
+                    onEachFeature: function(feature, layer) {
+                        
+                        layer.bindPopup(` <table class="table table-striped table-bordered table-condensed custom-table-css" >
+                    <tr>
+                        <th>PO No</th>
+                        <td>${feature.properties.po_no}</td>
+                        </tr>
+                        <tr>
+                        <th>SN No</th>
+                        <td>${feature.properties.sn}</td>
+                        </tr>
+                        <tr>
+                        <th>Date</th>
+                        <td>${feature.properties.date}</td>
+                        </tr>
+                        <tr>
+                        <th>Detail</th>
+                        <td><a href="/purchase-order/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
+                        </tr>
+                        
+                    </table>`);
+                    }
+                }).addTo(map);
+                //   console.log(JSON.parse(data))
+                //   $('#GeomID').val(JSON.parse(data));
+                // addNonGroupLayers(myLayer, drawnItems);
+                //   map.fitBounds(myLayer.getBounds());
+            },
+        });
+
+        //},2000)
+        });
+   
+    </script>
 @endsection

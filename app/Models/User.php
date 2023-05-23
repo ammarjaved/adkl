@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use PhpOffice\PhpSpreadsheet\Calculation\Web\Service;
 
 class User extends Authenticatable
 {
@@ -49,5 +50,9 @@ class User extends Authenticatable
 
     public function vendor() {
         return $this->hasOne(Vendor::class, 'user_id');
+    }
+
+    public function serviceNo() {
+        return $this->hasMany(ServiceNo::class, 'created_by');
     }
 }
