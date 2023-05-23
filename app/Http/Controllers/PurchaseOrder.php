@@ -9,6 +9,7 @@ use App\Models\Vendor;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Psr\Http\Message\ResponseInterface;
 
 class PurchaseOrder extends Controller
 {
@@ -56,9 +57,11 @@ class PurchaseOrder extends Controller
                 ->route('vendor.index')
                 ->with('message', 'Purhase Order Number Already Exists');
         }
+        $vendor_id = Vendor::where('user_id',$request->vendor_id)->first();
         try {
             ModelsPurchaseOrder::create([
-                'vendor_id' => $request->vendor_id,
+                'vendor_id' => $vendor_id->id,
+                'user_id' => $request->vendor_id,
                 'po_number' => $request->po_no,
             ]);
         } catch (Exception $e) {
@@ -117,5 +120,11 @@ class PurchaseOrder extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getSnByPo($id)
+    {
+        $purchase = ServiceNo::where('po_no',$id)->get();
+        return response()->json([$purchase]);
     }
 }

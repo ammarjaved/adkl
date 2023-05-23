@@ -15,5 +15,6 @@ class Vendor extends Model
         'erms_se_no',
         'year',
         'erms_amount',
+        'vendor_name',
     ];
 }
