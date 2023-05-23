@@ -127,8 +127,15 @@ class UploadImagesController extends Controller
                 $application->after_image_2=$url.$destinationPath."/". $filename;
     
             }
+            $user_sql="Select id from users where name = '$request->created_by' limit 1";
+           // echo $user_sql;
+            $user_id=DB::select($user_sql);
 
-            $application->created_by = $request->created_by;
+           // print_r($user_id);
+            // echo $user_id[0]->id;
+            // exit();
+           // $application->created_by = $request->created_by;
+           $application->created_by = $user_id[0]->id;
             $application->date       = $request->date;
 
         // return $application;
