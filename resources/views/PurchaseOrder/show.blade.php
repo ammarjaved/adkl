@@ -56,7 +56,9 @@
         <div class="container col-md-12">
 
             <div class="card p-3 ">
-
+                <div class="text-end">
+                    <button class="btn btn-sm btn-success" onclick="window.print()">Print</button>
+                </div>
                 <h3 class="text-center">Purchase Order</h3>
 
                     <div class="row p-3 pb-0">
@@ -97,58 +99,60 @@
                                 class="form-control " id="ba"
                                 value="{{$order['service']->date }}"></div>
                     </div>
+                    <div class="row p-3">
+                    
+                        <div class="col-md-6"><h5><label for="erms_se_no">Before Image 1</label></h5><br>
+                           <div class="text-center mb-3">
+                            <a href="{{ $order['service']->before_image_1 }}" class="ml-4"
+                                data-lightbox="roadtrip"><img src="{{$order['service']->before_image_1}}" width="400" height="400"  ></a>
+                           </div>
+                        </div>
+                        
+                  
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="erms_se_no">Before Image 1</label><br>
-                           
-                        </div>
-                        <div class="col-md-5 text-center"><a href="{{ $order['service']->before_image_1 }}"
-                            data-lightbox="roadtrip"><img src="{{$order['service']->before_image_1}}" width="150" height="150"  ></a></div>
-                    </div>
 
-                    <div class="row p-3 pb-0 ">
-                        <div class="col-md-4"><label for="year">Before Image 2</label><br>
-                            
+                        <div class="col-md-6"><h5><label for="year">Before Image 2</label></h5><br>
+                            <div class="text-center mb-3">
+                                <a href="{{ $order['service']->before_image_2 }}"
+                                    data-lightbox="roadtrip"><img src="{{$order['service']->before_image_2}}" width="400" height="400"></a>
+                            </div>
                         </div>
-                        <div class="col-md-5 text-center"><a href="{{ $order['service']->before_image_2 }}"
-                            data-lightbox="roadtrip"><img src="{{$order['service']->before_image_2}}" width="150" height="150"></a></div>
-                    </div>
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="year">During Image 1</label><br>
-                            
-                        </div>
-                        <div class="col-md-5 text-center"><a href="{{ $order['service']->during_image_1 }}"
-                            data-lightbox="roadtrip"><img src="{{$order['service']->during_image_1}}" width="150" height="150"></a></div>
-                    </div>
-
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="year">During Image 2</label><br>
-                            
-                        </div>
-                        <div class="col-md-5 text-center"><a href="{{ $order['service']->during_image_2 }}"
-                            data-lightbox="roadtrip"><img src="{{$order['service']->during_image_2}}" width="150" height="150"></a></div>
-                    </div>
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="year">After Image 1</label><br>
-                            
-                        </div> 
-                        <div class="col-md-5 text-center"><a href="{{ $order['service']->after_image_1 }}"
-                            data-lightbox="roadtrip"><img src="{{$order['service']->after_image_1}}" width="150" height="150"></a></div>
-                    </div>
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="year">After Image 2</label><br>
-                            
-                        </div>
-                        <div class="col-md-5 text-center"><a href="{{ $order['service']->after_image_2 }}"
-                            data-lightbox="roadtrip"><img src="{{$order['service']->after_image_2}}" width="150" height="150"></a></div>
-                    </div>
+                       
+                    
+               
                    
+                        <div class="col-md-6"><h5><label for="year">During Image 1</label></h5><br>
+                            <div class="text-center mb-3"><a href="{{ $order['service']->during_image_1 }}"
+                                data-lightbox="roadtrip"><img src="{{$order['service']->during_image_1}}" width="400" height="400"></a></div>
+                        </div>
+                      
+                    
+
+                
+                        <div class="col-md-6"><h5><label for="year">During Image 2</label></h5><br>
+                            <div class="text-center mb-3"><a href="{{ $order['service']->during_image_2 }}"
+                                data-lightbox="roadtrip"><img src="{{$order['service']->during_image_2}}" width="400" height="400"></a></div>
+                        </div>
+                
+                   
+                        <div class="col-md-6"><h5><label for="year">After Image 1</label></h5><br>
+                            <div class="text-center mb-3"><a href="{{ $order['service']->after_image_1 }}"
+                                data-lightbox="roadtrip"><img src="{{$order['service']->after_image_1}}" width="400" height="400"></a></div>
+                        </div> 
+                                        
+                        <div class="col-md-6"><h5><label for="year">After Image 2</label></h5><br>
+                            <div class="text-center mb-3"><a href="{{ $order['service']->after_image_2 }}"
+                                data-lightbox="roadtrip"><img src="{{$order['service']->after_image_2}}" width="400" height="400"></a></div>
+                        </div>
+                      
+                </div>
+               
                     <div class="p-3">
                         <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
 
                     </div>
                     
-
+ </div>
 
                                   
 

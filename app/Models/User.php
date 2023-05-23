@@ -55,4 +55,8 @@ class User extends Authenticatable
     public function serviceNo() {
         return $this->hasMany(ServiceNo::class, 'created_by');
     }
+
+    public function PoDetail() {
+        return $this->hasMany(PurchaseOrder::class, 'user_id');
+    }
 }
