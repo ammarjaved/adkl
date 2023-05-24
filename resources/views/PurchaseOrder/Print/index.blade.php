@@ -44,12 +44,27 @@
 .content-page {
     margin: 0px !important;
 }
-@media print {
-  .url {
-    display: none !important;
-  }
-}
+
+
     </style>
+
+<style type="text/css" media="print">
+   
+
+    
+      @media print
+      {
+         @page {
+           margin-top: 30px;
+           margin-bottom: 0;
+         }
+         body  {
+           padding-top: 72px;
+           padding-bottom: 72px ;
+         }
+      } 
+
+</style>
 @endsection
 
 @section('content')
