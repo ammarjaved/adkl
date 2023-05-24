@@ -12,8 +12,13 @@ class PurchaseOrder extends Model
     public $fillable = ['vendor_id', 'po_number', 'user_id'];
     // public $timestamps = false;
 
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     public function service_no()
     {
-        return $this->hasOne(ServiceNo::class, 'po_no');
+        return $this->hasMany(ServiceNo::class, 'po_no', 'po_number');
     }
 }

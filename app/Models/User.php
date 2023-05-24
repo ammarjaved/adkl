@@ -59,4 +59,5 @@ class User extends Authenticatable
     public function PoDetail() {
         return $this->hasMany(PurchaseOrder::class, 'user_id');
     }
+   
 }

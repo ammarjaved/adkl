@@ -24,4 +24,9 @@ class ServiceNo extends Model
         'date',
         'sn'
     ];
+
+    public function poDetail()
+    {
+        return $this->belongsTo(PurchaseOrder::class, 'po_number', 'po_no');
+    }
 }
