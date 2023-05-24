@@ -15,14 +15,16 @@ class DashboardController extends Controller
 
     public function index()
     {
+        
         $data = [];
         $data['count'] = DB::select("SELECT a.total_vendor ,b.total_po ,c.today_po FROM
         (SELECT count(*) total_vendor from users where type = 'vendor') a,
         (SELECT count(*) total_po from service_no_details ) b,
         (select count(*) today_po from service_no_details where date::date < now()::date )c");
         $data['vendor'] = User::where('type', 'vendor')->get();
-        $data['po'] = ServiceNo::all();
-
+         $data['po'] = PurchaseOrder::count();
+      $data['chart'] = User::select('name')->withCount(['PoDetail', 'serviceNo'])->where('type','vendor')->get();
+        //   return $data;
         return view('index', ['data' => $data]);
     }
 }

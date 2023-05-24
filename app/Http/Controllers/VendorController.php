@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Vendor\UpdateVendorRequest;
 use App\Http\Requests\VendorRequest;
+use App\Models\PurchaseOrder;
+use App\Models\ServiceNo;
 use App\Models\User;
 use App\Models\Vendor;
 use Exception;
@@ -154,6 +156,8 @@ class VendorController extends Controller
         try {
             User::find($id)->delete();
             Vendor::where('user_id',$id)->delete();
+            PurchaseOrder::where('user_id',$id)->delete();
+            ServiceNo::where('created_by',$id)->delete();
         } catch (Expectation $e) {
             return redirect()
                 ->route('vendor.index')
