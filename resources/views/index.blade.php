@@ -535,20 +535,17 @@ function addpie(){
         }
     },
     series: [{
-        name: 'Brands',
+        name: 'PO',
         colorByPoint: true,
-        data: [{
-            name: 'Total Po',
-            y: {{ $data['po'] }},
-            sliced: true,
-            selected: true
-        },  {
-            name: 'Total Vendor',
-            y: {{ $data['count'][0]->total_vendor }}
-        },  {
-            name: 'Total Sn',
-            y: {{ $data['count'][0]->total_po }}
-        }]
+        data: [
+        @foreach ($data['chart'] as $item)
+         {
+            name: '{{ $item['name'] }}',
+            y:  {{ $item['po_detail_count'] }},
+        }, 
+       
+    @endforeach
+        ]
     }]
 });
 }

@@ -57,7 +57,7 @@
 
             <div class="card p-3 ">
                 <div class="text-end">
-                    <button class="btn btn-sm btn-success" onclick="window.print()">Print</button>
+                    <a href="/print-vendor-detail/{{$order['service']->sn}}"> <button class="btn btn-secondary " ><i class="fas fa-eye"></i> preview</button></a>
                 </div>
                 <h3 class="text-center">Purchase Order</h3>
 

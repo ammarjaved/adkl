@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\PrintServiceController;
 use App\Http\Controllers\PurchaseOrder;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get-purchase-order-by-vendor/{id}',[VendorController::class,'getPoByVendor']);
     Route::get('/get-serive-number-by-purchase-order/{id}',[PurchaseOrder::class,'getSnByPo']);
     Route::get('/get-geom-by-purchase-order/{id}',[MapController::class,'getMapByPo']);
+    Route::get('/print-vendor-detail/{id}',[PrintServiceController::class,'index']);
 
 });
 
