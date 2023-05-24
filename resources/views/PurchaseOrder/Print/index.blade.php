@@ -154,7 +154,6 @@
 
         $(document).ready(function() {
 
-
         $.ajax({
             type: "GET",
             url: `/get-map-point-by-sn-number/`+{{$order['service']->id}},
@@ -200,6 +199,8 @@
         window.addEventListener('afterprint', function() {
   // Change the location to a new URL
   window.location.href = '/purchase-order/'+{{ $order['service']->sn}};
+
+  $(document).ready()
 });
     </script>
 @endsection
