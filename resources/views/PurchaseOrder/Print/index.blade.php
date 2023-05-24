@@ -62,6 +62,9 @@
            padding-top: 72px;
            padding-bottom: 72px ;
          }
+         #printPageButton {
+    display: none;
+  }
       } 
 
 </style>
@@ -75,7 +78,7 @@
 
             <div class="card p-3 ">
                 <div class="text-end">
-                    <button class="btn btn-sm btn-secondary border-0" onclick="window.print()"><i class="fas fa-print p-1"></i>Print</button>
+                    <button class="btn btn-sm btn-secondary border-0" id="printPageButton" onclick="window.print()"><i class="fas fa-print p-1"></i>Export to PDF</button>
                 </div>
                 <h3 class="text-center">Purchase Order</h3>
                 <?php $name =  App\Models\User::find($order['service']->created_by)  ?>
@@ -145,7 +148,7 @@
 
         var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
         //.addTo(map);
-        var st1 = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        var st1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 20,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);

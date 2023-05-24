@@ -136,6 +136,7 @@ class VendorController extends Controller
                 'erms_se_no' => $request->erms_se_no,
                 'year' => $request->year,
                 'erms_amount' => $request->erms_amount,
+                'vendor_name' => $request->vendor_name,
             ]);
         } catch (Exception $e) {
             // return redirect()->route('vendor.index')->witth('message','something is worng try again later');

@@ -57,7 +57,7 @@
 
             <div class="card p-3 ">
                 <div class="text-end">
-                    <a href="/print-vendor-detail/{{$order['service']->sn}}"> <button class="btn btn-secondary " ><i class="fas fa-eye"></i> preview</button></a>
+                    <a href="/print-vendor-detail/{{$order['service']->sn}}"> <button class="btn btn-secondary " ><i class="fas fa-eye"></i> Preview</button></a>
                 </div>
                 <h3 class="text-center">Purchase Order</h3>
 
@@ -167,11 +167,12 @@
         map = L.map('map').setView([3.016603, 101.858382], 11);
         document.getElementById('map').style.cursor = 'pointer'
 
-        var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+        // var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
         //.addTo(map);
-        var st1 = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        var st1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            
         }).addTo(map);
 
         var myLayer;
