@@ -43,7 +43,7 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">ADKL</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('vendor.index') }}">vendor</a></li>
                         <li class="breadcrumb-item active">show</li>
                     </ol>
@@ -67,6 +67,13 @@
                             value="{{ $user->name }}"></div>
 
                 </div>
+                <div class="row p-3 pb-0">
+                    <div class="col-md-4"><label for="ba">Vendor No</label><br>
+
+                    </div>
+                    <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="ba"
+                            value="{{ $user->vendor->vendor_no }}"></div>
+                </div>
 
 
                 <div class="row p-3 pb-0">
@@ -86,21 +93,9 @@
                             value="{{ $user->phone_no }}"></div>
                 </div>
 
-                <div class="row p-3 pb-0">
-                    <div class="col-md-4"><label for="ba">Business Administrative</label><br>
+               
 
-                    </div>
-                    <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="ba"
-                            value="{{ $user->vendor->ba }}"></div>
-                </div>
-
-                <div class="row p-3 pb-0">
-                    <div class="col-md-4"><label for="erms_se_no">ERMS SE No</label><br>
-
-                    </div>
-                    <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="erms_se_no"
-                            value="{{ $user->vendor->erms_se_no }}"></div>
-                </div>
+              
 
                 <div class="row p-3 pb-0">
                     <div class="col-md-4"><label for="year">Year</label><br>
@@ -109,13 +104,7 @@
                     <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="year"
                             value="{{ $user->vendor->year }}"></div>
                 </div>
-                <div class="row p-3 pb-0">
-                    <div class="col-md-4"><label for="erms_amount">ERMS Amount</label><br>
-
-                    </div>
-                    <div class="col-md-5"><input type="text" disabled class="form-control" readonly id="erms_amount"
-                            value="{{ $user->vendor->erms_amount }}"></div>
-                </div>
+             
 
                 <div class="row p-3 pb-0">
                     <div class="col-md-4"><label for="name">Username</label><br>
@@ -155,7 +144,7 @@
 
         var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
         //.addTo(map);
-        var st1 = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        var st1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 20,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
@@ -189,7 +178,7 @@
                         </tr>
                         <tr>
                         <th>Detail</th>
-                        <td><a href="/purchase-order/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
+                        <td><a href="/service-no/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
                         </tr>
                         
                     </table>`);

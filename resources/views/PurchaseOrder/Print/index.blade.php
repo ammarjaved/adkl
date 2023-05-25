@@ -149,7 +149,7 @@
         var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
         //.addTo(map);
         var st1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 20,
+            maxZoom: 19,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
 
@@ -201,9 +201,10 @@
         });
         window.addEventListener('afterprint', function() {
   // Change the location to a new URL
-  window.location.href = '/purchase-order/'+{{ $order['service']->sn}};
+//   window.location.href = '/purchase-order/'+{{ $order['service']->sn}}
+window.close()
 
-  $(document).ready()
+
 });
     </script>
 @endsection

@@ -42,7 +42,7 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">ADKL</a></li>
                         <li class="breadcrumb-item"><a href="{{route('vendor.index')}}">vendor</a></li>
                         <li class="breadcrumb-item active">create</li>
                     </ol>
@@ -78,6 +78,19 @@
 
 
                     <div class="row p-3 pb-0">
+                        <div class="col-md-4"><label for="vendor_no">Vendor No</label><br>
+                            <span class="text-danger">
+                                @error('vendor_no')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                        </div>
+                        <div class="col-md-5"><input type="text"
+                                class="form-control @error('vendor_no') is-invalid @enderror" name="vendor_no" id="vendor_no"
+                                value="{{ 'vendor_no' }}"></div>
+                    </div>
+
+                    <div class="row p-3 pb-0">
                         <div class="col-md-4"><label for="email">Email</label><br>
                             <span class="text-danger">
                                 @error('email')
@@ -106,32 +119,7 @@
                                 value="{{ old('phone_no') }}"></div>
                     </div>
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="ba">Business Administrative</label><br>
-                            <span class="text-danger">
-                                @error('ba')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div>
-                        <div class="col-md-5"><input type="text"
-                                class="form-control @error('ba') is-invalid @enderror" name="ba" id="ba"
-                                value="{{ old('ba') }}"></div>
-                    </div>
-
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="erms_se_no">ERMS SE No</label><br>
-                            <span class="text-danger">
-                                @error('erms_se_no')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div>
-                        <div class="col-md-5"><input type="text"
-                                class="form-control @error('erms_se_no') is-invalid @enderror" name="erms_se_no" id="erms_se_no"
-                                value="{{ old('erms_se_no') }}"></div>
-                    </div>
-
+                    
                     <div class="row p-3 pb-0">
                         <div class="col-md-4"><label for="year">Year</label><br>
                             <span class="text-danger">
@@ -144,18 +132,7 @@
                                 class="form-control @error('year') is-invalid @enderror" name="year" id="year"
                                 value="{{ old('year') }}"></div>
                     </div>
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="erms_amount">ERMS Amount</label><br>
-                            <span class="text-danger">
-                                @error('erms_amount')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div>
-                        <div class="col-md-5"><input type="text"
-                                class="form-control @error('erms_amount') is-invalid @enderror" name="erms_amount" id="erms_amount"
-                                value="{{ old('erms_amount') }}"></div>
-                    </div>
+                  
 
                     <div class="row p-3 pb-0">
                         <div class="col-md-4"><label for="name">Username</label><br>

@@ -60,16 +60,13 @@ class VendorController extends Controller
                 'password' => Hash::make($request->password),
                 'type' => 'vendor',
                 'vendor_name' => $request->vendor_name,
-                'address' => $request->address,
             ]);
 
             $vendor = Vendor::create([
                 'user_id' => $user->id,
-                'ba' => $request->ba,
-                'erms_se_no' => $request->erms_se_no,
                 'year' => $request->year,
-                'erms_amount' => $request->erms_amount,
                 'vendor_name' => $request->vendor_name,
+                'vendor_no'=>$request->vendor_no
             ]);
         } catch (Exception $e) {
             // return redirect()->route('vendor.index')->witth('message','something is worng try again later');
@@ -125,18 +122,13 @@ class VendorController extends Controller
                 'email' => $request->email,
                 'phone_no' => $request->phone_no,
                 'address' => $request->address,
-                'password' => Hash::make($request->password),
-                'type' => 'vendor',
                 'vendor_name' => $request->vendor_name,
-                'address' => $request->address,
             ]);
 
             $vendor = Vendor::where('user_id', $id)->update([
-                'ba' => $request->ba,
-                'erms_se_no' => $request->erms_se_no,
                 'year' => $request->year,
-                'erms_amount' => $request->erms_amount,
                 'vendor_name' => $request->vendor_name,
+                'vendor_no'=>$request->vendor_no
             ]);
         } catch (Exception $e) {
             // return redirect()->route('vendor.index')->witth('message','something is worng try again later');

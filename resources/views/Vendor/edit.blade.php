@@ -42,7 +42,7 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">ADKL</a></li>
                         <li class="breadcrumb-item"><a href="{{route('vendor.index')}}">vendor</a></li>
                         <li class="breadcrumb-item active">edit</li>
                     </ol>
@@ -73,8 +73,20 @@
                         </div>
                         <div class="col-md-5"><input type="text"
                                 class="form-control @error('vendor_name') is-invalid @enderror" name="vendor_name"
-                                id="vendor_name" value="{{ old('vendor_name',$user->name) }}"></div>
+                                id="vendor_name" value="{{ old('vendor_name',$user->vendor_name) }}"></div>
 
+                    </div>
+                    <div class="row p-3 pb-0">
+                        <div class="col-md-4"><label for="vendor_no">Vendor No</label><br>
+                            <span class="text-danger">
+                                @error('vendor_no')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                        </div>
+                        <div class="col-md-5"><input type="text"
+                                class="form-control @error('vendor_no') is-invalid @enderror" name="vendor_no" id="vendor_no"
+                                value="{{ old('vendor_no',$user->vendor->vendor_no) }}"></div>
                     </div>
 
 
@@ -106,31 +118,9 @@
                                 value="{{ old('phone_no',$user->phone_no) }}"></div>
                     </div>
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="ba">Business Administrative</label><br>
-                            <span class="text-danger">
-                                @error('ba')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div>
-                        <div class="col-md-5"><input type="text"
-                                class="form-control @error('ba') is-invalid @enderror" name="ba" id="ba"
-                                value="{{ old('ba',$user->vendor->ba) }}"></div>
-                    </div>
+                    
 
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="erms_se_no">ERMS SE No</label><br>
-                            <span class="text-danger">
-                                @error('erms_se_no')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div>
-                        <div class="col-md-5"><input type="text"
-                                class="form-control @error('erms_se_no') is-invalid @enderror" name="erms_se_no" id="erms_se_no"
-                                value="{{ old('erms_se_no',$user->vendor->erms_se_no) }}"></div>
-                    </div>
+                    
 
                     <div class="row p-3 pb-0">
                         <div class="col-md-4"><label for="year">Year</label><br>
@@ -144,18 +134,7 @@
                                 class="form-control @error('year') is-invalid @enderror" name="year" id="year"
                                 value="{{ old('year',$user->vendor->year) }}"></div>
                     </div>
-                    <div class="row p-3 pb-0">
-                        <div class="col-md-4"><label for="erms_amount">ERMS Amount</label><br>
-                            <span class="text-danger">
-                                @error('erms_amount')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div>
-                        <div class="col-md-5"><input type="text"
-                                class="form-control @error('erms_amount') is-invalid @enderror" name="erms_amount" id="erms_amount"
-                                value="{{ old('erms_amount',$user->vendor->erms_amount) }}"></div>
-                    </div>
+                  
 
                     <div class="row p-3 pb-0">
                         <div class="col-md-4"><label for="name">Username</label><br>

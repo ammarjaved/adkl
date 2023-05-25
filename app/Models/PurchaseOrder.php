@@ -9,9 +9,8 @@ class PurchaseOrder extends Model
 {
     use HasFactory;
     public $table = 'po_details';
-    public $fillable = ['vendor_id', 'po_number', 'user_id'];
+    public $fillable = ['vendor_id', 'po_number', 'user_id', 'po_number', 'erms_amount', 'erms_se_no', 'ba', 'vendor_no','status'];
     // public $timestamps = false;
-
 
     public function user()
     {

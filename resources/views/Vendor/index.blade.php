@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Aplikasi'])
+@extends('layouts.vertical', ['page_title' => 'Vendor'])
 
 @section('css')
     <link href="{{ asset('assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -11,7 +11,7 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="/">Aero</a></li>
+                        <li class="breadcrumb-item"><a href="/">ADKL</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Vendor</a></li>
                         <li class="breadcrumb-item active">index</li>
                     </ol>
@@ -24,23 +24,34 @@
     <div class="row">
         <div class="col-12">
             <div class="card ">
-                <div class="col-md-12 text-center p-3">
+                <div class="col-md-12 text-center ">
                     @if (Session::has('message'))
-                        <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}
-                        </p>
+                        <div class="alert {{ Session::get('alert-class', 'alert-secondary') }}" role="alert">
+                            {{ Session::get('message') }}
+                       
+                            <button type="button" class="close border-0 bg-transparent" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                  
+                        </div>
                     @endif
-
                     @if (Session::has('success'))
-                    <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}
-                    </p>
-                @endif
+                        <div class="alert {{ Session::get('alert-class', 'alert-success') }}" role="alert">
+                            {{ Session::get('success') }}
+                            <button type="button" class="close border-0 bg-transparent" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+               
                 </div>
 
                 <div class="card-body">
                     <h4 class="header-title">Vendors</h4>
        
-                    <table id="basic-datatable" class="table dt-responsive nowrap w-100">
-                        <thead>
+                    <table class="table table-borderless table-hover table-nowrap table-centered m-0 nowrap "
+                    id="basic-datatable">
+                    <thead class="table-light">
                             <tr>
                                 <th>Username</th>
                                 <th>Vendor Name</th>
@@ -86,9 +97,11 @@
                                             
                                         </li>
 
-                                        <button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
+                                        {{-- <button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal"
-                                        onclick="maidID({{ $user->id }})">Add PO</button>
+                                        onclick="maidID({{ $user->id }})">Add PO</button> --}}
+                                        <a href="{{ route('purchase-order.show', $user->id) }}"
+                                            class="btn btn-sm dropdown-item">Po Detail</a>
 
                                     </ul>
                                 </div>
@@ -119,21 +132,59 @@
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="maid_id" name="vendor_id" class="form-control">
-                        <div class="">
-                        <span id="er_client_id" class="text-danger"></span>
-                        <label for="">Add PO No</label>
-                        <input type="text" name="po_no" id="po_no" class="form-control" required>
+                      
+
+                        <div class="row p-3 pb-0">
+                            <div class="col-md-6"><label for="po_no">Add PO No</label><br>
+                                <span class="text-danger">
+                                    @error('po_no')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+                            <div class="col-md-6"><input type="text"
+                                    class="form-control @error('po_no') is-invalid @enderror" name="po_no" id="po_no"
+                                    value="{{ old('po_no') }}"></div>
                         </div>
 
-                        {{-- <div class="my-3">
-                        <span id="er_client_boundary" class="text-danger"></span>
-                        <select name="client_boundary_address" class="form-control" id="client_boundary">
-                            <option value="" hidden>Select Address</option>
-
-
-                        </select>
-
-                        </div> --}}
+                        <div class="row p-3 pb-0">
+                            <div class="col-md-6"><label for="erms_amount">ERMS Amount</label><br>
+                                <span class="text-danger">
+                                    @error('erms_amount')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+                            <div class="col-md-6"><input type="text"
+                                    class="form-control @error('erms_amount') is-invalid @enderror" name="erms_amount" id="erms_amount"
+                                    value="{{ old('erms_amount') }}"></div>
+                        </div>
+                        <div class="row p-3 pb-0">
+                            <div class="col-md-6"><label for="ba">Business Administrative</label><br>
+                                <span class="text-danger">
+                                    @error('ba')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+                            <div class="col-md-6"><input type="text"
+                                    class="form-control @error('ba') is-invalid @enderror" name="ba" id="ba"
+                                    value="{{ old('ba') }}"></div>
+                        </div>
+    
+                        <div class="row p-3 pb-0">
+                            <div class="col-md-6"><label for="erms_se_no">ERMS SE No</label><br>
+                                <span class="text-danger">
+                                    @error('erms_se_no')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+                            <div class="col-md-6"><input type="text"
+                                    class="form-control @error('erms_se_no') is-invalid @enderror" name="erms_se_no" id="erms_se_no"
+                                    value="{{ old('erms_se_no') }}"></div>
+                        </div>
+    
 
                     </div>
 
