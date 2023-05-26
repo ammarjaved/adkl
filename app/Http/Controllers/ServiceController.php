@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PurchaseOrder;
 use App\Models\ServiceNo;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,11 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($poNo)
     {
-        //
+        $order['service'] = ServiceNo::where('po_no',$poNo)->get();
+
+        return view('ServiceNo.index',['order'=>$order]);
     }
 
     /**
@@ -47,8 +50,15 @@ class ServiceController extends Controller
     public function show($id)
     {
         //
-        $order['service'] = ServiceNo::where('sn',$id)->first();
-        return view('ServiceNo.show',['order'=>$order]);
+        $order['service'] = ServiceNo::where('sn', $id)->first();
+
+        $order['during_images'] = $order['service']->during_images != '' ? json_decode($order['service']->during_images) : '';
+
+        $order['after_images']  = $order['service']->after_images  != '' ? json_decode($order['service']->after_images)  : '';
+
+        $order['before_images'] = $order['service']->before_images != '' ? json_decode($order['service']->before_images) : '';
+
+        return view('ServiceNo.show', ['order' => $order]);
     }
 
     /**
