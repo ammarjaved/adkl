@@ -202,7 +202,7 @@
                                     <option value="KL Selatan">KL Selatan</option>
                                 </select> </div>
                             <div class="col-md-2 p-1"><button class="btn btn-secondary rounded-0"
-                                    onclick="">Search</button></div>
+                                    onclick="getBA()">Search</button></div>
                         </div>
                         <div class="table-responsive" style="overflow-y:auto ; max-height:400px;" id="vendor-table">
 
@@ -225,7 +225,7 @@
                                             <td>{{ $vendor->email }}</td>
                                             <td>{{ $vendor->phone_no }}</td>
                                             <td><a href="{{ route('vendor.show', $vendor->id) }}"
-                                                    class="btn btn-sm btn-dark rounded-0">Detail</a></td>
+                                                    class="btn btn-sm btn-secondary rounded-0">Detail</a></td>
                                         </tr>
                                         {{-- <tr id="tr">
                                             <td id="tr" colspan="4">
@@ -405,7 +405,7 @@
                                                         <td>${data[1].vendor_name}</td>
                                                         <td>${data[1].created_at}</td>
                                                         <td>
-                                                             <a  class="btn btn-primary" onclick="getService(${po.po_number})">Detail</a>
+                                                             <a  class="btn btn-secondary" onclick="getService(${po.po_number})">Detail</a>
                                                         </td>
                                                     </tr>
                                                     <tr id="tr">
@@ -449,7 +449,7 @@
                 success: function(data) {
                     console.log(data[0]);
 
-                    $(`#collapseExample-${id}`).html(
+                    $(`#collapseExample-${id}`).append(
                         `
                                 <table class="table table-borderless table-nowrap table-dark table-hover table-centered m-0" id="purchase-order">
                                     <thead >
@@ -544,11 +544,11 @@
                 type: "GET",
                 url: `/get-vendor-by-vendor/${vendor}/${po}`,
                 success: function(data) {
-                    $('#vendor-table').remove()
+                    $('#vendor-table').children().remove()
                     console.log(data[0])
                     $('#vendor-table').html(`
-                    <table class="table table-borderless table-nowrap table-hover table-centered m-0" id="purchase-order">
-                                    <thead >
+                    <table class="table table-borderless table-nowrap table-hover table-centered m-0"  id="basic-datatable">
+                                    <thead class="table-light">
                                         <tr>
                                             <th>Vendor Name</th>
                                             <th>PO No</th>
@@ -563,7 +563,7 @@
                                             : 
                                             data[0].map(po => `
                                                                                 <tr>
-                                                        <td>${po.user.vendor_name}</td>
+                                                        <td>${po.user ?  po.user.vendor_name : `nan`}</td>
                                                         <td>${po.po_number}</td>
                                                         <td>${po.ba}</td>
                                                         <td>
@@ -577,6 +577,7 @@
                                         </tbody>
                                     </table>
                                     `)
+                                    $('#basic-datatable').DataTable();
               
                 }
             })
