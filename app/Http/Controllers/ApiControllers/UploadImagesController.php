@@ -55,10 +55,10 @@ class UploadImagesController extends Controller
              $exc = $image->getClientOriginalExtension();    
                 $filename =   $application->sn.'-before-image-'.$before.'-'.strtotime(now()).'.'.$exc;
                 $image->move($destinationPath, $filename);
-                $before_image['image_'.$before]=$url."/". $filename;
+                $before_image[]=$url."/". $filename;
                 $before ++ ;
             }
-            $application->before_images = json_encode( $before_image);
+            $application->before_images =  $before_image;
         }
     
 
@@ -71,10 +71,10 @@ class UploadImagesController extends Controller
              $exc = $image->getClientOriginalExtension();    
                 $filename =   $application->sn.'-during-image-'.$during.'-'.strtotime(now()).'.'.$exc;
                 $image->move($destinationPath, $filename);
-                $during_image['image_'.$during]=$url."/". $filename;
+                $during_image[]=$url."/". $filename;
                 $during ++ ;
             }
-            $application->during_images = json_encode($during_image);
+            $application->during_images = $during_image;
         }
 
         if ($request->hasFile('after')) {
@@ -86,10 +86,10 @@ class UploadImagesController extends Controller
              $exc = $image->getClientOriginalExtension();    
                 $filename =   $application->sn.'-after-image-'.$after.'-'.strtotime(now()).'.'.$exc;
                 $image->move($destinationPath, $filename);
-                $after_image['image_'.$after]=$url."/". $filename;
+                $after_image[]=$url."/". $filename;
                 $after ++ ;
             }
-            $application->after_images = json_encode($after_image);
+            $application->after_images = $after_image;
         }
      
             // if($request->has('before_image_1')){
