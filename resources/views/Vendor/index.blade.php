@@ -55,7 +55,8 @@
                             <tr>
                                 <th>Username</th>
                                 <th>Vendor Name</th>
-                                <th>BA</th>
+                                <th>EMAIL</th>
+                                {{-- <th>VENDOR NO</th> --}}
                                 <th>Phone No</th>
                                 <th>Action</th>
 
@@ -65,7 +66,9 @@
                             <tr>
                               <td>{{$user->name}}</td>
                               <td>{{$user->vendor_name}}</td>
-                              <td>{{$user->vendor->ba}}</td>
+                              <td>{{$user->email}}</td>
+                        
+
                               <td>{{$user->phone_no}}</td>
                               <td class="text-center p-1">
                                 <div class="dropdown">
