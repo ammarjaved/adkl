@@ -67,7 +67,7 @@ class PurchaseOrder extends Controller
                 'erms_se_no' => $request->erms_se_no,
                 'ba' => $request->ba,
                 'vendor_no' => $vendor_id->vendor_no,
-                'status' => 'new',
+                'status' => 'in-progress',
             ]);
         } catch (Exception $e) {
             return $e->getMessage();
