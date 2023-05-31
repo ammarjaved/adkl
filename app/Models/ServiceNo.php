@@ -22,7 +22,10 @@ class ServiceNo extends Model
         'created_by',
         'geom',
         'date',
-        'sn'
+        'sn',
+        'before_images',
+        'during_images',
+        'after_images'
     ];
 
     public function poDetail()

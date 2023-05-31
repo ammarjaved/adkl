@@ -17,4 +17,9 @@ class Vendor extends Model
         'erms_amount',
         'vendor_name',
     ];
+
+    public function PurchaseOrder()
+    {
+        return $this->hasMany(PurchaseOrder::class, 'vendor_id');
+    }
 }

@@ -11,12 +11,12 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="/">Aero</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Vendor</a></li>
+                        <li class="breadcrumb-item"><a href="/">ADKL</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Purchase Order</a></li>
                         <li class="breadcrumb-item active">index</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Vendor</h4>
+                <h4 class="page-title">Purchase Order</h4>
             </div>
         </div>
     </div>
@@ -37,10 +37,11 @@
                 </div>
 
                 <div class="card-body">
-                    <h4 class="header-title">Vendors</h4>
+                    <h4 class="header-title">Purchase Order</h4>
        
-                    <table id="basic-datatable" class="table dt-responsive nowrap w-100">
-                        <thead>
+                    <table class="table table-borderless table-hover table-nowrap table-centered m-0 nowrap "
+                    id="basic-datatable">
+                    <thead class="table-light">
                             <tr>
             
                                 <th>Vendor Name</th>
@@ -59,7 +60,7 @@
                               <td>{{$order->sn}}</td>
                               <td>{{$order->year}}</td>
                               <td class="text-center p-1">
-                                <a href="{{ route('purchase-order.show', $order->sn) }}"
+                                <a href="{{ route('service-no.show', $order->sn) }}"
                                     class="btn  btn-sm btn-secondary">Detail</a>
                                 {{-- <div class="dropdown">
                                     <button class="btn" type="button" id="dropdownMenuButton1"
