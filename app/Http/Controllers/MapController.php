@@ -124,4 +124,7 @@ class MapController extends Controller
          ");
             return $data[0]->geojson;
     }
+
+
+    
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PurchaseOrder;
 use App\Models\ServiceNo;
+use Exception;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -93,5 +94,16 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function getAll($po_no)
+    {
+        try{
+       $getPo =  PurchaseOrder::with('service_no','user')->where('po_number',$po_no)->first();
+       return $getPo ? view('PurchaseOrder.getAllSn',['order'=>$getPo]) : abort(404) ;
+        }catch(Exception $e){
+            return redirect()->route('vendor.index')->with('message', 'Something is wrong try again later');
+        }
     }
 }

@@ -38,7 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('service-no',ServiceController::class);
     Route::get('/get-ba-by-vendor/{id}',[DashboardController::class,'getBA']);
     Route::get('/get-vendor-by-vendor/{vendor}/{ba}',[DashboardController::class,'getData']);
-
+    Route::get('/get-all-service-no/{po_no}',[ServiceController::class,'getAll']);
+    // Route::get('/get-map-point-by-po-number/{po}',[MapController::class,'getByPo']);
 });
 
 // Route::group(['prefix' => '/'], function () {

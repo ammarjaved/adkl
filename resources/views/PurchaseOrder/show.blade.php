@@ -130,7 +130,9 @@
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                                                        <li><a href="" class="btn  btn-sm dropdown-item">Detail</a>
+                                                        <li><a target="_blank"
+                                                                href="/get-all-service-no/{{ $order->po_number }}"
+                                                                class="btn  btn-sm dropdown-item">Detail</a>
                                                         </li>
 
                                                         <li><button class="btn btn-sm dropdown-item"
@@ -218,6 +220,7 @@
                                         <option value="KL Barat">KL Barat</option>
                                         <option value="KL TImur">KL TImur</option>
                                         <option value="KL Selatan">KL Selatan</option>
+                                        <option value="KL Pusat">KL Pusat</option>
                                     </select>
                                 </div>
                             </div>
@@ -289,9 +292,9 @@
 
                                     </span>
                                 </div>
-                                <div class="col-md-6"> 
+                                <div class="col-md-6">
                                     <select name="ba" id="e_ba" class="form-select">
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -402,26 +405,28 @@
 
             function editModal(id) {
                 $.ajax({
-            type: "GET",
-            url: `/purchase-order/${id}/edit`,
-            success: function(data) {
+                    type: "GET",
+                    url: `/purchase-order/${id}/edit`,
+                    success: function(data) {
 
-                console.log(data);
-                $('#e_maid_id').val(id)
-                $('#e_erms_se_no').val(data[0].erms_se_no)
+                        console.log(data);
+                        $('#e_maid_id').val(id)
+                        $('#e_erms_se_no').val(data[0].erms_se_no)
 
-                $('#e_po_no').val(data[0].po_number)
-                $('#e_ba').append(`
+                        $('#e_po_no').val(data[0].po_number)
+                        $('#e_ba').append(`
                 <option value="${data[0].ba}" hidden selected>${data[0].ba}</option>
                                         <option value="KL Barat">KL Barat</option>
                                         <option value="KL TImur">KL TImur</option>
                                         <option value="KL Selatan">KL Selatan</option>
+                                        <option value="KL Pusat">KL Pusat</option>
                 `)
 
-                $('#e_erms_amount').val(data[0].erms_amount)
+                        $('#e_erms_amount').val(data[0].erms_amount)
 
-                $("#editModal").modal('show');
+                        $("#editModal").modal('show');
+                    }
+                })
             }
-            })}
         </script>
     @endsection

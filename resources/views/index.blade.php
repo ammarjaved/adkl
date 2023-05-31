@@ -471,7 +471,7 @@
                                                         <td>${po.address}</td>
                                                         <td>${po.date}</td>
                                                         <td>
-                                                             <a  class="btn btn-dark btn-sm" href="/purchase-order/${po.sn}" >Detail</a>
+                                                             <a  class="btn btn-dark btn-sm" href="/service-no/${po.sn}" >Detail</a>
                                                         </td>
                                                     </tr>
                                                     
@@ -488,7 +488,7 @@
             })
             $.ajax({
                 type: "GET",
-                
+
                 url: `/get-geom-by-purchase-order/${id}`,
                 success: function(data) {
                     if (myLayer) {
@@ -520,7 +520,7 @@
                         </tr>
                         <tr>
                         <th>Detail</th>
-                        <td><a href="/purchase-order/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
+                        <td><a href="/service-no/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
                         </tr>
                         
                     </table>`);
