@@ -479,7 +479,7 @@
                                                 `).join('')
                                             }
                                         </tbody>
-                                        
+
                                     </table>
                                     `
                     );
@@ -488,6 +488,7 @@
             })
             $.ajax({
                 type: "GET",
+                
                 url: `/get-geom-by-purchase-order/${id}`,
                 success: function(data) {
                     if (myLayer) {

@@ -80,7 +80,7 @@ class UploadImagesController extends Controller
      
        
     
-            }
+            
             $user_sql="Select id from users where name = '$request->created_by' limit 1";
            // echo $user_sql;
             $user_id=DB::select($user_sql);
