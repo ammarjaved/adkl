@@ -179,7 +179,7 @@
         document.getElementById('map').style.cursor = 'pointer'
 
         var st = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 20,
+            maxZoom: 16,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
 

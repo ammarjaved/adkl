@@ -343,7 +343,7 @@
         document.getElementById('map').style.cursor = 'pointer'
 
         var st = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 20,
+            maxZoom: 16,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
 
@@ -391,6 +391,7 @@
                                         <th>Vendor Name</th>
                                         <th>Date</th>
                                         <th>Action</th>
+                                        <th>Print</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -407,6 +408,11 @@
                                                         <td>
                                                              <a  class="btn btn-secondary" onclick="getService(${po.po_number})">Detail</a>
                                                         </td>
+                                                        <td>
+                                                            <a target="_blank"
+                                                                href="/get-all-service-no/${po.po_number}"
+                                                                class="btn  btn-print btn-primary">Print</a>
+                                                            </td>
                                                     </tr>
                                                     <tr id="tr">
                                                       <td colspan='4' id="tr"> 
@@ -473,6 +479,7 @@
                                                         <td>
                                                              <a  class="btn btn-dark btn-sm" href="/service-no/${po.sn}" >Detail</a>
                                                         </td>
+                                                        
                                                     </tr>
                                                     
                                         
@@ -527,6 +534,7 @@
                 }
             }).addTo(map);
             setTimeout(function() {
+               
                 map.fitBounds(myLayer.getBounds());
             }, 1000);
 

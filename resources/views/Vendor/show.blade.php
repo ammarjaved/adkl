@@ -145,7 +145,7 @@
         var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
         //.addTo(map);
         var st1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 20,
+            maxZoom: 16,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
 
