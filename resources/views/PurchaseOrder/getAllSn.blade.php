@@ -85,18 +85,22 @@
 
                 <div class="row p-3">
                     <div class="row">
-                        <div class="col-md-3">Vendor Name</div>
+                        <div class="col-md-3"><strong> Vendor Name</strong></div>
                         <div class="col-md-5">{{ $order->user->name }}</div>
                     </div>
         
                     <div class="row">
-                        <div class="col-md-3">Vendor No</div>
+                        <div class="col-md-3"><strong> Vendor No</strong></div>
                         <div class="col-md-5">{{ $order->vendor_no }}</div>
                     </div>
     
                     <div class="row">
-                        <div class="col-md-3">Vendor Email</div>
+                        <div class="col-md-3"><strong>Vendor Email</strong> </div>
                         <div class="col-md-5">{{ $order->user->email }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><strong> Purchase No</strong></div>
+                        <div class="col-md-5">{{ $order->po_number }}</div>
                     </div>
                 </div>
                 @foreach ($order->service_no as $item)

@@ -372,8 +372,7 @@
                 },
             });
 
-            //},2000)
-            // getPO(8)
+           
         });
 
         function getPO(id) {
