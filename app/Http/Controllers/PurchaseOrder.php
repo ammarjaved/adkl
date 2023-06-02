@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PurchaseOrder\StorePurchaseOrder;
 use App\Models\PurchaseOrder as ModelsPurchaseOrder;
 use App\Models\ServiceNo;
 use App\Models\User;
@@ -22,12 +23,13 @@ class PurchaseOrder extends Controller
     {
         //
         // $order = ModelsPurchaseOrder::with('service_no')->get();
-        $order = DB::select("SELECT *
-        FROM po_details
-        INNER JOIN service_no_details
-        ON po_details.po_number=service_no_details.po_no
-        INNER JOIN vendor ON po_details.vendor_id= vendor.id
-        INNER JOIN users ON vendor.user_id=users.id");
+        // $order = DB::select("SELECT *
+        // FROM po_details
+        // INNER JOIN service_no_details
+        // ON po_details.po_number=service_no_details.po_no
+        // INNER JOIN vendor ON po_details.vendor_id= vendor.id
+        // INNER JOIN users ON vendor.user_id=users.id");
+      $order = ModelsPurchaseOrder::withCount('service_no')->with('user')->get();
         return view('PurchaseOrder.index', ['orders' => $order]);
     }
 
@@ -39,6 +41,8 @@ class PurchaseOrder extends Controller
     public function create()
     {
         //
+        $vendor = Vendor::all();
+        return view('PurchaseOrder.create',['vendor'=>$vendor]);
     }
 
     /**
@@ -47,17 +51,19 @@ class PurchaseOrder extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePurchaseOrder $request)
     {
+        // return $request;
         //
         // $vendor =  DB::select("SELECT id from po_details where po_number = '$request->po_no'");
         $vendor = ModelsPurchaseOrder::where('po_number', $request->po_no)->first();
         if ($vendor) {
             return redirect()
-                ->route('purchase-order.show')
+                ->route('purchase-order.index')
                 ->with('message', 'Purhase Order Number Already Exists');
         }
         $vendor_id = Vendor::where('user_id', $request->vendor_id)->first();
+        // return $vendor_id;
         try {
             ModelsPurchaseOrder::create([
                 'vendor_id' => $vendor_id->id,
@@ -68,16 +74,17 @@ class PurchaseOrder extends Controller
                 'ba' => $request->ba,
                 'vendor_no' => $vendor_id->vendor_no,
                 'status' => 'in-progress',
+                'year'=>$request->year,
             ]);
         } catch (Exception $e) {
             return $e->getMessage();
             return redirect()
-                ->route('purchase-order.show', $request->vendor_id)
+                ->route('purchase-order.index', $request->vendor_id)
                 ->with('message', 'Something is worng try agian later');
         }
         // DB::insert("INSERT INTO po_details (vendor_id, po_number) values ($request->vendor_id, '$request->po_no')");
         return redirect()
-            ->route('purchase-order.show', $request->vendor_id)
+            ->route('purchase-order.index', $request->vendor_id)
             ->with('success', 'Purchase Number Added Successfully');
     }
 
@@ -107,8 +114,9 @@ class PurchaseOrder extends Controller
     public function edit($id)
     {
         //
-
-        return response()->json([ModelsPurchaseOrder::find($id)]);
+        $order = ModelsPurchaseOrder::where('id',$id)->with('user')->first();
+        $vendor = Vendor::all();
+        return view('PurchaseOrder.edit',['order'=>$order,'vendor'=>$vendor]);
     }
 
     /**
@@ -121,21 +129,25 @@ class PurchaseOrder extends Controller
     public function update(Request $request, $id)
     {
         //
+        $vendor_id = Vendor::where('user_id', $request->vendor_id)->first();
         try {
-            ModelsPurchaseOrder::find($request->vendor_id)->update([
+            ModelsPurchaseOrder::find($id)->update([
+                'vendor_id' => $vendor_id->id,
+                'user_id' => $request->vendor_id,
                 'po_number' => $request->po_no,
                 'erms_amount' => $request->erms_amount,
                 // 'erms_se_no' => $request->erms_se_no,
-                'ba' => $request->ba
+                'ba' => $request->ba,
+                'year'=>$request->year,
             ]);
         } catch (Exception $e) {
             return $e->getMessage();
             return redirect()
-                ->back()
+                ->route('purchase-order.index')
                 ->with('message', 'Something is worng try agian later');
         }
         return redirect()
-        ->back()
+        ->route('purchase-order.index')
         ->with('success', 'Update Successfully');
     }
 

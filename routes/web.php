@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FilterMapController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\PrintServiceController;
 use App\Http\Controllers\PurchaseOrder;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VendorController;
+use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\FilterMapper;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -39,6 +41,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get-ba-by-vendor/{id}',[DashboardController::class,'getBA']);
     Route::get('/get-vendor-by-vendor/{vendor}/{ba}',[DashboardController::class,'getData']);
     Route::get('/get-all-service-no/{po_no}',[ServiceController::class,'getAll']);
+    Route::get('/map-filter',[FilterMapController::class,'show']);
+    Route::get('/get-purchase-order-by-vendor/{id}',[FilterMapController::class,'getPo']);
+    Route::get('/get-sn-by-po/{sn}',[FilterMapController::class,'getSn']);
+
     // Route::get('/get-map-point-by-po-number/{po}',[MapController::class,'getByPo']);
 });
 

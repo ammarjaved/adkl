@@ -48,10 +48,10 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">ADKL</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('purchase-order.index') }}">Purchase Order</a></li>
-                        <li class="breadcrumb-item active">create</li>
+                        <li class="breadcrumb-item active">edit</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Add Purchase Order </h4>
+                <h4 class="page-title">Edit Purchase Order </h4>
             </div>
         </div>
     </div>
@@ -61,8 +61,9 @@
 
             <div class="card p-3 ">
 
-                <h3 class="text-center">Vendor</h3>
-                <form onsubmit="return vendorID()" method="POST" action="{{ route('purchase-order.store') }}">
+                <h3 class="text-center">Edit Purchase Order</h3>
+                <form onsubmit="return vendorID()" method="POST" action="{{ route('purchase-order.update',$order->id) }}">
+                    @method('PATCH')
                     @csrf
                     <div class="modal-body">
                       
@@ -79,7 +80,7 @@
                             <div class="col-md-5">
                                 <select name="vendor_id" id="vendor_id"
                                     class="form-select @error('vendor_id') is-invalid @enderror" data-toggle="select2">
-                                    <option value="{{ old('vendor_id') }}" hidden>{{ old('vendor_id', 'Select Vendor') }}
+                                    <option value="{{ old('vendor_id',$order->user_id) }}" hidden>{{ old('vendor_id', $order->user->vendor_name) }}
                                     </option>
 
                                     @foreach ($vendor as $ven)
@@ -100,7 +101,7 @@
                             </div>
                             <div class="col-md-5"><input type="text"
                                     class="form-control @error('po_no') is-invalid @enderror"
-                                    name="po_no" id="po_no" value=""></div>
+                                    name="po_no" id="po_no" value="{{old('po_no',$order->po_number)}}"></div>
                         </div>
 
                             <div class="row p-3 pb-0">
@@ -113,7 +114,7 @@
                                 </div>
                                 <div class="col-md-5"><input type="text"
                                         class="form-control @error('erms_amount') is-invalid @enderror"
-                                        name="erms_amount" id="erms_amount" value=""></div>
+                                        name="erms_amount" id="erms_amount" value="{{old('erms_amount',$order->erms_amount)}}"></div>
                             </div>
 
 
@@ -128,7 +129,7 @@
                                 <div class="col-md-5">
                                     <select name="ba" id="ba"
                                         class="form-select @error('ba') is-invalid @enderror">
-                                        <option value="{{ old('ba') }}" hidden>{{ old('ba', '') }}</option>
+                                        <option value="{{ old('ba',$order->ba) }}" hidden>{{ old('ba', $order->ba) }}</option>
 
                                         <option value="" hidden></option>
                                         <option value="KL Barat">KL Barat</option>
@@ -150,7 +151,7 @@
                                     </div>
                                     <div class="col-md-5"><input type="number"
                                             class="form-control @error('year') is-invalid @enderror" name="year"
-                                            id="year" value=""></div>
+                                            id="year" value="{{old('year',$order->year)}}"></div>
                                 </div>
 
 

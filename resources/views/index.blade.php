@@ -313,12 +313,7 @@
 
 @section('script')
     <!-- third party js -->
-    <script src="{{ asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/selectize/selectize.min.js') }}"></script>
-    <!-- third party js ends -->
-
-    <!-- demo app -->
+   
     <script src="{{ asset('assets/libs/jquery-sparkline/jquery-sparkline.min.js') }}"></script>
     <script src="{{ asset('assets/libs/admin-resources/admin-resources.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/dashboard-1.init.js') }}"></script>
@@ -327,12 +322,7 @@
     <script src="{{ asset('assets/libs/pdfmake/pdfmake.min.js') }}"></script>
     <!-- third party js ends -->
 
-    <!-- demo app -->
-    <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
 
-    <script src="https://code.highcharts.com/stock/highstock.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
     <script src="{{ asset('assets/js/pages/dashboard-2.init.js') }}"></script>

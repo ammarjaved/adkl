@@ -23,17 +23,29 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="card ">
-                <div class="col-md-12 text-center p-3">
+            <div class="card px-2 py-3">
+                <div class="col-md-12 text-center ">
                     @if (Session::has('message'))
-                        <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}
-                        </p>
+                        <div class="alert {{ Session::get('alert-class', 'alert-secondary') }}" role="alert">
+                            {{ Session::get('message') }}
+
+                            <button type="button" class="close border-0 bg-transparent" data-dismiss="alert"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                        </div>
+                    @endif
+                    @if (Session::has('success'))
+                        <div class="alert {{ Session::get('alert-class', 'alert-success') }}" role="alert">
+                            {{ Session::get('success') }}
+                            <button type="button" class="close border-0 bg-transparent" data-dismiss="alert"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     @endif
 
-                    @if (Session::has('success'))
-                    <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}
-                    </p>
-                @endif
                 </div>
 
                 <div class="card-body">
@@ -46,8 +58,10 @@
             
                                 <th>Vendor Name</th>
                                 <th>Purchase Order</th>
-                                <th>Service No</th>
+                                
+                                <th>Business Administrative</th>
                                 <th>Year</th>
+                                <th>Total sn</th>
                                 <th>Action</th>
 
                             </tr>
@@ -55,38 +69,39 @@
                         @foreach ($orders as $order)
                             <tr>
                              
-                              <td>{{$order->vendor_name}}</td>
-                              <td>{{$order->po_no}}</td>
-                              <td>{{$order->sn}}</td>
-                              <td>{{$order->year}}</td>
+                              <td>{{$order->user->vendor_name}}</td>
+                              <td>{{$order->po_number}}</td>
+                              <td>{{$order->ba}}</td>
+                              <td>{{$order->year == ''?'0000':$order->year}}</td>
+                              <td class="text-center">{{$order->service_no_count}}</td>
                               <td class="text-center p-1">
-                                <a href="{{ route('service-no.show', $order->sn) }}"
-                                    class="btn  btn-sm btn-secondary">Detail</a>
-                                {{-- <div class="dropdown">
+                                {{-- <a href="{{ route('service-no.show', $order->sn) }}"
+                                    class="btn  btn-sm btn-secondary">Detail</a> --}}
+                                <div class="dropdown">
                                     <button class="btn" type="button" id="dropdownMenuButton1"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         <img src="{{ URL::asset('images/three-dots-vertical.svg') }}">
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                                        <li><a href="{{ route('purchase-order.show', $order->sn) }}"
+                              {{--           <li><a href="{{ route('purchase-order.show', $order->sn) }}"
                                                 class="btn  btn-sm dropdown-item">Detail</a>
-                                        </li>
+                                        </li>--}}
 
-                                        <li><a href="{{ route('vendor.edit', $order->id) }}"
+                                        <li><a href="{{ route('purchase-order.edit', $order->id) }}"
                                                 class="btn btn-sm dropdown-item">Edit</a></li>
 
 
                                         <li>
                                             <form method="POST"
-                                                action="{{ route('vendor.destroy', $order->id) }}">
+                                                action="{{ route('purchase-order.destroy', $order->id) }}">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn  btn-sm dropdown-item"
                                                     onclick="return confirm('Are you Sure')">Delete</button>
                                             </form>
                                         </li>
-
+{{--
                                         <li>
                                             
                                         </li>

@@ -43,13 +43,35 @@
                     </div>
                 </li>
 
-                <li>
-                    <a href="{{ route('purchase-order.index') }}">
+               <li>
+                    <a href="#sidebarPO" data-bs-toggle="collapse">
                         <i data-feather="file"></i>
-
-                        <span> Purchase Orders </span>
+                        <span> Purchase Order </span>
+                        <span class="menu-arrow"></span>
                     </a>
+                    <div class="collapse" id="sidebarPO">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('purchase-order.create') }}">
 
+                                    <span>create</span>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('purchase-order.index') }}">show</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="/map-filter" >
+                        <i data-feather="map"></i>
+                        <span> Map </span>
+                        
+                    </a>
                 </li>
 
 

@@ -35,7 +35,6 @@ class MapController extends Controller
          ");
             return $data[0]->geojson;
 
-        return $data[0]->geojson;
     }
 
 
