@@ -96,14 +96,14 @@
                
 
               
-
+{{-- 
                 <div class="row p-3 pb-0">
                     <div class="col-md-4"><label for="year">Year</label><br>
 
                     </div>
                     <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="year"
                             value="{{ $user->vendor->year }}"></div>
-                </div>
+                </div> --}}
              
 
                 <div class="row p-3 pb-0">

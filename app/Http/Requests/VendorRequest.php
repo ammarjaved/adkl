@@ -30,7 +30,7 @@ class VendorRequest extends FormRequest
             'vendor_name' => 'required',
             'email' => ['required', 'email', Rule::unique('users') . $this->user()->id],
             'phone_no' => 'required|min:9|max:11',
-            'year' => 'required',
+            // 'year' => 'required',
             'name' => ['required', Rule::unique('users')],
             'password' => 'required|string|min:8',
             'password_confirmation' => 'required|same:password|min:8',

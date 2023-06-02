@@ -122,7 +122,7 @@
 
                     
 
-                    <div class="row p-3 pb-0">
+                    {{-- <div class="row p-3 pb-0">
                         <div class="col-md-4"><label for="year">Year</label><br>
                             <span class="text-danger">
                                 @error('year')
@@ -133,7 +133,7 @@
                         <div class="col-md-5"><input type="text"
                                 class="form-control @error('year') is-invalid @enderror" name="year" id="year"
                                 value="{{ old('year',$user->vendor->year) }}"></div>
-                    </div>
+                    </div> --}}
                   
 
                     <div class="row p-3 pb-0">

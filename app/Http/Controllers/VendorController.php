@@ -64,7 +64,7 @@ class VendorController extends Controller
 
             $vendor = Vendor::create([
                 'user_id' => $user->id,
-                'year' => $request->year,
+                // 'year' => $request->year,
                 'vendor_name' => $request->vendor_name,
                 'vendor_no'=>$request->vendor_no
             ]);
@@ -126,7 +126,7 @@ class VendorController extends Controller
             ]);
 
             $vendor = Vendor::where('user_id', $id)->update([
-                'year' => $request->year,
+                // 'year' => $request->year,
                 'vendor_name' => $request->vendor_name,
                 'vendor_no'=>$request->vendor_no
             ]);
