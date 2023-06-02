@@ -101,7 +101,7 @@
                                     <tr>
                                         <th>PO NO</th>
                                         <th>ERMS AMOUNT</th>
-                                        <th>ERMS SE NO</th>
+                                        {{-- <th>ERMS SE NO</th> --}}
                                         <th>BUSINESS ADMINISTRATIVE</th>
                                         <th>STATUS</th>
                                         <th>ACTION</th>
@@ -117,8 +117,8 @@
                                             <td id="{{ $order->id }}_po">{{ $order->po_number }}</td>
                                             <td id="{{ $order->id }}_am">
                                                 {{ $order->erms_amount == '' ? 'null' : $order->erms_amount }}</td>
-                                            <td id="{{ $order->id }}_se">
-                                                {{ $order->erms_se_no == '' ? 'null' : $order->erms_se_no }}</td>
+                                            {{-- <td id="{{ $order->id }}_se">
+                                                {{ $order->erms_se_no == '' ? 'null' : $order->erms_se_no }}</td> --}}
                                             <td id="{{ $order->id }}_ba">{{ $order->ba == '' ? 'null' : $order->ba }}
                                             </td>
                                             <td>{{ $order->status == '' ? 'null' : $order->status }}</td>
@@ -225,7 +225,7 @@
                                 </div>
                             </div>
 
-                            <div class="row p-2 pb-0">
+                            {{-- <div class="row p-2 pb-0">
                                 <div class="col-md-6"><label for="erms_se_no">ERMS SE No</label><br>
                                     <span class="text-danger" id="er_erms_se_no">
 
@@ -233,7 +233,7 @@
                                 </div>
                                 <div class="col-md-6"><input type="text" class="form-control rounded-0"
                                         name="erms_se_no" id="erms_se_no" value="{{ old('erms_se_no') }}"></div>
-                            </div>
+                            </div> --}}
 
 
                         </div>
@@ -299,7 +299,7 @@
                                 </div>
                             </div>
 
-                            <div class="row p-2 pb-0">
+                            {{-- <div class="row p-2 pb-0">
                                 <div class="col-md-6"><label for="erms_se_no">ERMS SE No</label><br>
                                     <span class="text-danger" id="e_er_erms_se_no">
 
@@ -307,7 +307,7 @@
                                 </div>
                                 <div class="col-md-6"><input type="text" class="form-control rounded-0"
                                         name="erms_se_no" id="e_erms_se_no" value="{{ old('erms_se_no') }}"></div>
-                            </div>
+                            </div> --}}
 
 
                         </div>
@@ -344,12 +344,12 @@
 
 
                 var check = true;
-                if ($('#erms_se_no').val() == '') {
-                    $('#er_erms_se_no').html('This feild is required')
-                    check = false
-                } else {
-                    $('#er_erms_se_no').html('')
-                }
+                // if ($('#erms_se_no').val() == '') {
+                //     $('#er_erms_se_no').html('This feild is required')
+                //     check = false
+                // } else {
+                //     $('#er_erms_se_no').html('')
+                // }
                 if ($('#po_no').val() == '') {
                     $('#er_po_no').html('This feild is required')
                     check = false
@@ -375,12 +375,12 @@
 
             function SubmitEditModal() {
                 var check = true;
-                if ($('#e_erms_se_no').val() == '') {
-                    $('#e_er_erms_se_no').html('This feild is required')
-                    check = false
-                } else {
-                    $('#e_er_erms_se_no').html('')
-                }
+                // if ($('#e_erms_se_no').val() == '') {
+                //     $('#e_er_erms_se_no').html('This feild is required')
+                //     check = false
+                // } else {
+                //     $('#e_er_erms_se_no').html('')
+                // }
                 if ($('#e_po_no').val() == '') {
                     $('#e_er_po_no').html('This feild is required')
                     check = false
@@ -411,7 +411,7 @@
 
                         console.log(data);
                         $('#e_maid_id').val(id)
-                        $('#e_erms_se_no').val(data[0].erms_se_no)
+                        // $('#e_erms_se_no').val(data[0].erms_se_no)
 
                         $('#e_po_no').val(data[0].po_number)
                         $('#e_ba').append(`

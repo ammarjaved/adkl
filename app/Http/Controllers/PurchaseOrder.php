@@ -64,7 +64,7 @@ class PurchaseOrder extends Controller
                 'user_id' => $request->vendor_id,
                 'po_number' => $request->po_no,
                 'erms_amount' => $request->erms_amount,
-                'erms_se_no' => $request->erms_se_no,
+                // 'erms_se_no' => $request->erms_se_no,
                 'ba' => $request->ba,
                 'vendor_no' => $vendor_id->vendor_no,
                 'status' => 'in-progress',
@@ -125,7 +125,7 @@ class PurchaseOrder extends Controller
             ModelsPurchaseOrder::find($request->vendor_id)->update([
                 'po_number' => $request->po_no,
                 'erms_amount' => $request->erms_amount,
-                'erms_se_no' => $request->erms_se_no,
+                // 'erms_se_no' => $request->erms_se_no,
                 'ba' => $request->ba
             ]);
         } catch (Exception $e) {

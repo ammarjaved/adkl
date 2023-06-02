@@ -227,13 +227,14 @@
 
                 </table>
 
+                <div class="p-3">
+                    <div id="map{{$item->id}}" class="map" style="height: 300px; marign :20px ;"></div>
+
+                </div>
              
                 @endforeach
 
-                <div class="p-3">
-                    <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
-
-                </div>
+               
 
             </div> 
 
@@ -247,15 +248,20 @@
 @endsection
  @section('script')
     <script>
-        map = L.map('map').setView([3.016603, 101.858382], 11);
-        document.getElementById('map').style.cursor = 'pointer'
+       
+        // document.getElementById('map').style.cursor = 'pointer'
 
         var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
         //.addTo(map);
+
+        @foreach ($order->service_no as $item)
+       var  map{{$item->id}} = L.map('map{{$item->id}}').setView([3.016603, 101.858382], 11);
         var st1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 16,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        }).addTo(map);
+        }).addTo(map{{$item->id}});
+
+        @endforeach 
 
         var myLayer;
 
@@ -266,39 +272,26 @@
                 url: `/get-geom-by-purchase-order/` + {{ $order->po_number }},
 
                 success: function(data) {
-                    // console.log(JSON.parse(data));
-                    var myLayer = L.geoJSON(JSON.parse(data), {
-                        onEachFeature: function(feature, layer) {
+                    console.log(JSON.parse(data));
+                    var parseData = JSON.parse(data);
+                    console.log(parseData.features.length);
 
-                            layer.bindPopup(` <table class="table table-striped table-bordered table-condensed custom-table-css" >
-                    <tr>
-                        <th>PO No</th>
-                        <td>${feature.properties.po_no}</td>
-                        </tr>
-                        <tr>
-                        <th>SN No</th>
-                        <td>${feature.properties.sn}</td>
-                        </tr>
-                        <tr>
-                        <th>Date</th>
-                        <td>${feature.properties.date}</td>
-                        </tr>
-                        <tr>
-                        <th>Detail</th>
-                        <td><a href="/purchase-order/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
-                        </tr>
+                    parseData.features.forEach(function(point) {
+                        let mapId = "map" + point.id; // Create the map ID dynamically based on the point's ID
+                        let map = window[mapId]; // Access the map object using the map ID
+
+
+                        console.log(map);
                         
-                    </table>`);
-                        }
-                    }).addTo(map);
-                    setTimeout(function() {
-                        map.fitBounds(myLayer.getBounds());
-                    }, 1000);
+                          let myLayerm =   L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]).addTo(map);
+                            map.setView([point.geometry.coordinates[1], point.geometry.coordinates[0]], 11)
+                        
+                        })
+
         
                 },
             });
 
-            //},2000)
         });
         window.addEventListener('afterprint', function() {
           

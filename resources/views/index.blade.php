@@ -290,7 +290,7 @@
                                             </tr>
                                         @endforeach --}}
                                     <tr>
-                                        <td colspan="4" class="text-center">Select Vendor</td>
+                                        <td colspan="5" class="text-center">Select Vendor</td>
                                     </tr>
 
 
@@ -415,7 +415,7 @@
                                                             </td>
                                                     </tr>
                                                     <tr id="tr">
-                                                      <td colspan='4' id="tr"> 
+                                                      <td colspan='5' id="tr"> 
                                                         <div  id="collapseExample-${po.po_number}" style="display:none">
                                                         
                                                         </div>
@@ -455,7 +455,7 @@
                 success: function(data) {
                     console.log(data[0]);
 
-                    $(`#collapseExample-${id}`).append(
+                    $(`#collapseExample-${id}`).html(
                         `
                                 <table class="table table-borderless table-nowrap table-dark table-hover table-centered m-0" id="purchase-order">
                                     <thead >
