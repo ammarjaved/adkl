@@ -69,7 +69,7 @@ class VendorController extends Controller
                 'vendor_no'=>$request->vendor_no
             ]);
         } catch (Exception $e) {
-            // return redirect()->route('vendor.index')->witth('message','something is worng try again later');
+            return redirect()->route('vendor.index')->witth('message','something is worng try again later');
             return $e->getMessage();
         }
 

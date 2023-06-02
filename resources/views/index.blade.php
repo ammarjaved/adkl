@@ -372,14 +372,14 @@
                 },
             });
 
-           
+          
         });
 
         function getPO(id) {
 
             $.ajax({
                 type: "GET",
-                url: `/get-purchase-order-by-vendor/${id}`,
+                url: `/get-purchase-order-by-vendor-d/${id}`,
                 success: function(data) {
                     console.log(data[1]);
                     $('#purchase-order').remove()

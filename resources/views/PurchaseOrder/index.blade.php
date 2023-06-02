@@ -101,6 +101,8 @@
                                                     onclick="return confirm('Are you Sure')">Delete</button>
                                             </form>
                                         </li>
+                                        <li><a target="_blank" href="/get-all-service-no/{{$order->po_number}}"
+                                            class="btn btn-sm dropdown-item">Print</a></li>
 {{--
                                         <li>
                                             

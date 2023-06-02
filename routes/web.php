@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get-map-point-by-sn-number/{id}',[MapController::class,'show']);
     Route::get('/get-geom-by-vendor-no/{id}',[MapController::class,'showByVendor']);
     Route::get('/get-geom',[MapController::class,'index']);
-    Route::get('/get-purchase-order-by-vendor/{id}',[VendorController::class,'getPoByVendor']);
+    Route::get('/get-purchase-order-by-vendor-d/{id}',[VendorController::class,'getPoByVendor']);
     Route::get('/get-serive-number-by-purchase-order/{id}',[PurchaseOrder::class,'getSnByPo']);
     Route::get('/get-geom-by-purchase-order/{id}',[MapController::class,'getMapByPo']);
     Route::get('/print-vendor-detail/{id}',[PrintServiceController::class,'index']);
