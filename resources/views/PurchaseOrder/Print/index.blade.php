@@ -97,7 +97,7 @@
                     </tr>
                     <tr class="">
                         <th class="col-md-6">Date</th>
-                        <td>{{ $order['service']->date }}</td>
+                        <td>{{ date('Y-m-d',strtotime($order['service']->date )) }}</td>
                     </tr>
                     <tr class="">
                         <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>

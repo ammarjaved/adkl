@@ -104,7 +104,7 @@
 
                     </div>
                     <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="ba"
-                            value="{{ $order['service']->date }}"></div>
+                            value="{{ date('Y-m-d',strtotime($order['service']->date )) }} "></div>
                 </div>
                 <div class="row p-3">
                     <h4 class="text-center">Before Images </h4><br>
