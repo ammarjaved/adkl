@@ -3,11 +3,19 @@
         <html lang="en">   
             <head>
                         <!-- App css -->
-                <link href="http://127.0.0.1:8000/assets/css/config/default/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
+                <link href="http://adkl.com/assets/css/config/default/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
                 <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-                <script src="http://127.0.0.1:8000/map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
-            </head>
+                <script src="http://adkl.com/map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
+                <style>
+                .table-borderles,
+                .table-borderles tbody,
+               .table-borderles tr,
+               .table-borderles td {
+  border: none !important;
+}
+                </style>
+                </head>
         
             <body>        
                 <div class="content-page">
@@ -16,11 +24,15 @@
                             <div class="container  col-md-7">
                                 <div class="card p-3 ">
                                     <h3 class="text-center">Purchase Order</h3>
-                                    <div class="row p-3">
-                                    <table class="table col-md-5">
+                                    <div class="col-6 p-3">
+                                    <table class="table table-borderles" id="for-border">
                                         <tr >
                                             <td class="col-md-6"><strong> Vendor Name</strong></td>
                                             <td>power_corporation</td>
+                                        </tr>
+                                        <tr >
+                                            <td class="col-md-6"><strong> Vendor Email</strong></td>
+                                            <td>test@email.com</td>
                                         </tr>
                                         <tr >
                                             <td class="col-md-6"><strong> Vendor No</strong></td>
@@ -31,28 +43,11 @@
                                             <td>41460609</td>
                                         </tr>
                                         <tr >
-                                            <td class="col-md-6"><strong> Vendor Email</strong></td>
-                                            <td>test@email.com</td>
+                                            <td class="col-md-6"><strong>Status</strong></td>
+                                            <td>completed</td>
                                         </tr>
+                                        
                                     </table>
-                                        <div class="row">
-                                            <div class="col-md-3"><strong> Vendor Name</strong></div>
-                                            <div class="col-md-5">power_corporation</div>
-                                        </div>
-            
-                                        <div class="row">
-                                            <div class="col-md-3"><strong>Vendor No</strong></div>
-                                            <div class="col-md-5">26752481</div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3"><strong>PO No</strong></div>
-                                            <div class="col-md-5">41460609</div>
-                                        </div>
-        
-                                        <div class="row">
-                                            <div class="col-md-3"><strong>Vendor Email</strong></div>
-                                            <div class="col-md-5">test@email.com</div>
-                                        </div>
                                     </div>
                                         <table class="table table-bordered my-3"> 
                                             <tbody> 

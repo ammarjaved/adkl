@@ -29,7 +29,7 @@ class UploadImagesController extends Controller
 
         $application = ServiceNo::find($request->id);
         if(!$application){
-            return response()->json(['status'=>'404','message'=>"user not found"]);
+            return response()->json(['statusCode'=>'404','message'=>"user not found"]);
         }
 
 
@@ -100,9 +100,9 @@ class UploadImagesController extends Controller
             DB::disconnect();
         }catch(Exception $e){ 
             DB::disconnect();
-            return response()->json(['status'=>'500' ,'message'=>"failed"]);
+            return response()->json(['statusCode'=>'500' ,'message'=>"failed"]);
             return $e->getMessage();
         }
-        return response()->json(['status'=>'200','message'=>"success"]);
+        return response()->json(['statusCode'=>'200','message'=>"success"]);
     }
 }

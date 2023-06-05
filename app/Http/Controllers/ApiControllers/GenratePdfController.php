@@ -8,6 +8,7 @@ use PDF;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use App\Models\PurchaseOrder;
+use Exception;
 
 class GenratePdfController extends Controller
 {
@@ -32,7 +33,15 @@ class GenratePdfController extends Controller
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
                 <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
                 <script src="'.asset("map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js") .'"></script>
-            </head>
+                <style>
+                .table-borderles,
+                .table-borderles tbody,
+               .table-borderles tr,
+               .table-borderles td {
+  border: none !important;
+}
+                </style>
+                </head>
         
             <body>        
                 <div class="content-page">
@@ -41,11 +50,15 @@ class GenratePdfController extends Controller
                             <div class="container  col-md-7">
                                 <div class="card p-3 ">
                                     <h3 class="text-center">Purchase Order</h3>
-                                    <div class="col-md-6 p-3">
-                                    <table class="table table-borderless">
+                                    <div class="col-6 p-3">
+                                    <table class="table table-borderles" id="for-border">
                                         <tr >
                                             <td class="col-md-6"><strong> Vendor Name</strong></td>
                                             <td>'.$getPo->user->name.'</td>
+                                        </tr>
+                                        <tr >
+                                            <td class="col-md-6"><strong> Vendor Email</strong></td>
+                                            <td>'.$getPo->user->email.'</td>
                                         </tr>
                                         <tr >
                                             <td class="col-md-6"><strong> Vendor No</strong></td>
@@ -56,9 +69,10 @@ class GenratePdfController extends Controller
                                             <td>'.$getPo->po_number.'</td>
                                         </tr>
                                         <tr >
-                                            <td class="col-md-6"><strong> Vendor Email</strong></td>
-                                            <td>'.$getPo->user->email.'</td>
+                                            <td class="col-md-6"><strong>Status</strong></td>
+                                            <td>'.$getPo->status.'</td>
                                         </tr>
+                                        
                                     </table>
                                     </div>';
                                     foreach ($getPo->service_no as $item){
@@ -205,19 +219,31 @@ class GenratePdfController extends Controller
                 </div>
             </body>
         </html>';
+        try{
         $bytesWritten = File::put(public_path('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.html'), $htmlContent);
-       return  $path = public_path("assets\PurhaseOrderPDF");
+        }catch(Exception $e){
+
+        }
+        $path = public_path("assets\PurhaseOrderPDF");
+
         if ($bytesWritten !== false) {
-            // return asset('assets\PurhaseOrderPDF\wkhtmltopdf\bin\text.php?po_no='.$po_no.'&&path='.$path);
-            file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\bin\text.php?po_no='.$po_no.'&&path='.$path));
-        // dd('asdasdasd');
-        return "sadas";
-            $message = 'HTML content saved successfully.';
+
+           $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\bin\text.php?po_no='.$po_no.'&&path='.$path));
+
+        if($response !== false && !empty($response)){
+            // return response()->download(asset('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.pdf'));
+            try{
+                PurchaseOrder::where('po_number',$po_no)->update(['report'=>asset('assets/PurhaseOrderPDF/pdfs/'.$getPo->po_number.'.pdf')]);
+                return response()->json(['statusCode' => 200, 'message' => 'Report Genrated'], 200);
+            }catch(Exception $e){
+                
+            }     
+
+        }
+
         } 
-
-
-
-        return 'HTML file created successfully!';
+        return response()->json(['statusCode' => 500, 'message' => 'failed'], 500);
+       
     }
 
 }

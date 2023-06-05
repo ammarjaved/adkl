@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiControllers\ApiServceController;
 use App\Http\Controllers\ApiControllers\ChangePasswordController;
+use App\Http\Controllers\ApiControllers\DownloadReportController;
 use App\Http\Controllers\ApiControllers\GenratePdfController;
 
 /*
@@ -37,5 +38,6 @@ Route::post("/upload-images",[UploadImagesController::class,'insert']);
 Route::post('/login',[App\Http\Controllers\ApiControllers\LoginController::class,"login"]);
 Route::get('/get-all-service-no/{po_no}',[ApiServceController::class,'getAll']);
 Route::get('/genrate-purchase-no-pdf/{po_no}',[GenratePdfController::class,'index']);
+Route::get('/download-purchase-order-report/{po_no}',[DownloadReportController::class,'index']);
 
 Route::post('/change-password',[ChangePasswordController::class,'newPassword']);
