@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class ChangePasswordController extends Controller
@@ -56,6 +57,7 @@ class ChangePasswordController extends Controller
             'message' => 'Server error',
         ], 500);
     }
+    DB::disconnect();
 }
 
 }

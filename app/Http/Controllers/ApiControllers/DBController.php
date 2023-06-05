@@ -18,6 +18,7 @@ class DBController extends Controller
         
         try {
             $data = DB::select($req->qury);
+            DB::disconnect();
         } 
             catch (Exception $e) {
               return  response()
@@ -26,6 +27,8 @@ class DBController extends Controller
                     'data'=>[]
                     ]) ;
             }
+
+           
 
         return $req->function_name == "InsertQuery" ?
              response()
@@ -44,6 +47,7 @@ class DBController extends Controller
         
         try {
             $data = DB::select($req->qury);
+            DB::disconnect();
         } 
             catch (Exception $e) {
                 return response()->json([
@@ -60,6 +64,7 @@ class DBController extends Controller
     {       
         try {
             $data = DB::select($req->qury);
+            DB::disconnect();
         } 
             catch (Exception $e) {
                 return response()->json([
