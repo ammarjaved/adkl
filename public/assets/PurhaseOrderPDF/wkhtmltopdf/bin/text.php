@@ -1,8 +1,9 @@
 <?php 
 
- $file_path = 'D:\xampp\htdocs\abdl\adkl\public\assets\PurhaseOrderPDF';
+ echo $file_path = $_REQUEST['path'];
 
- $app_no = "41460609";
+echo $app_no = $_REQUEST['po_no'];
+// exit();
 
 echo exec("c:\WINDOWS\system32\cmd.exe /c START test.bat ".$app_no." ".$file_path); 
  

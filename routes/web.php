@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
    
     // Route::get('/get-map-point-by-po-number/{po}',[MapController::class,'getByPo']);
 });
- Route::get('/pdf-test',[PrintServiceController::class,'test']);
+ 
 // Route::group(['prefix' => '/'], function () {
 //     Route::get('', [RoutingController::class, 'index'])->name('root');
 //     Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');

@@ -93,7 +93,10 @@ class UploadImagesController extends Controller
             
             
             DB::insert("UPDATE service_no_details set geom = st_geomfromtext('POINT('||$request->long||' '||$request->lat||')',4326) where id = $request->id");
-            PurchaseOrder::where('po_number',$application->po_no)->update(['status'=>$request->status]);
+            if ($request->has('status')) {
+                PurchaseOrder::where('po_number',$application->po_no)->update(['status'=>$request->status]);
+            }
+           
             DB::disconnect();
         }catch(Exception $e){ 
             DB::disconnect();
