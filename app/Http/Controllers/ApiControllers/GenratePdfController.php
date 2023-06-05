@@ -38,8 +38,8 @@ class GenratePdfController extends Controller
                 .table-borderles tbody,
                .table-borderles tr,
                .table-borderles td {
-  border: none !important;
-}
+                    border: none !important;
+                }
                 </style>
                 </head>
         
