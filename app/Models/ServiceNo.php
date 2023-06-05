@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ServiceNo extends Model
 {
@@ -31,5 +32,16 @@ class ServiceNo extends Model
     public function poDetail()
     {
         return $this->belongsTo(PurchaseOrder::class, 'po_number', 'po_no');
+    }
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Disconnect the database connection after each query
+        static::retrieved(function ($model) {
+            DB::disconnect();
+        });
     }
 }

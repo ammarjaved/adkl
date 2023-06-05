@@ -1,0 +1,188 @@
+
+        <!DOCTYPE html>
+        <html lang="en">   
+            <head>
+                        <!-- App css -->
+                <link href="http://127.0.0.1:8000/assets/css/config/default/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
+                <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+                <script src="http://127.0.0.1:8000/map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
+            </head>
+        
+            <body>        
+                <div class="content-page">
+                    <div class="content">
+                        <div class="row">
+                            <div class="container  col-md-7">
+                                <div class="card p-3 ">
+                                    <h3 class="text-center">Purchase Order</h3>
+                                    <div class="row p-3">
+                                    <table class="table col-md-5">
+                                        <tr >
+                                            <td class="col-md-6"><strong> Vendor Name</strong></td>
+                                            <td>power_corporation</td>
+                                        </tr>
+                                        <tr >
+                                            <td class="col-md-6"><strong> Vendor No</strong></td>
+                                            <td>26752481</td>
+                                        </tr>
+                                        <tr >
+                                            <td class="col-md-6"><strong>PO No</strong></td>
+                                            <td>41460609</td>
+                                        </tr>
+                                        <tr >
+                                            <td class="col-md-6"><strong> Vendor Email</strong></td>
+                                            <td>test@email.com</td>
+                                        </tr>
+                                    </table>
+                                        <div class="row">
+                                            <div class="col-md-3"><strong> Vendor Name</strong></div>
+                                            <div class="col-md-5">power_corporation</div>
+                                        </div>
+            
+                                        <div class="row">
+                                            <div class="col-md-3"><strong>Vendor No</strong></div>
+                                            <div class="col-md-5">26752481</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3"><strong>PO No</strong></div>
+                                            <div class="col-md-5">41460609</div>
+                                        </div>
+        
+                                        <div class="row">
+                                            <div class="col-md-3"><strong>Vendor Email</strong></div>
+                                            <div class="col-md-5">test@email.com</div>
+                                        </div>
+                                    </div>
+                                        <table class="table table-bordered my-3"> 
+                                            <tbody> 
+                                                <tr>
+                                                    <th class="text-center" style="background: black ; color:white" colspan="2">
+                                                    SERVICE NO DEATIL 
+                                                    </th>
+                                                </tr>
+                                                <tr class="" >
+                                                    <th class="col-md-6">Service No</th>
+                                                    <td>110002134</td>
+                                                </tr>
+                                                <tr class="">
+                                                    <th class="col-md-6">Created At</th>
+                                                    <td>2023-06-02</td>
+                                                </tr>
+                                                <tr class="">
+                                                    <th class="col-md-6">Address</th>
+                                                    <td>lorong 123</td>
+                                                </tr>
+            
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
+
+                                                </tr><tr> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/110002134-before-image-1-1685675929.jpg" width="275" height="275">
+                                                            </td> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/110002134-before-image-2-1685675929.jpg" width="275" height="275">
+                                                            </td></tr><tr> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/110002134-before-image-3-1685675929.jpg" width="275" height="275">
+                                                            </td>
+                                                            <td></td>
+                                                            </tr>
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> During Images </strong><br></th>
+
+                                                </tr><tr> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/110002134-during-image-1-1685675929.jpg" width="275" height="275">
+                                                            </td> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/110002134-during-image-2-1685675929.jpg" width="275" height="275">
+                                                            </td></tr>
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> After Images </strong><br></th>
+
+                                                </tr><tr> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/110002134-after-image-1-1685675929.jpg" width="275" height="275">
+                                                            </td> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/110002134-after-image-2-1685675929.jpg" width="275" height="275">
+                                                            </td></tr>
+                                            </tbody>
+                                        </table> 
+                                    <div class="p-3">
+                                        <div id="map55" class="map" style="height: 300px; marign :20px ;"></div>
+                                    </div>
+                                <script>
+                                    map = L.map("map55").setView([3.1895305, 101.7606113], 11);
+                                    document.getElementById("map55").style.cursor = "pointer"
+                                    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                                    L.marker([3.1895305, 101.7606113]).addTo(map)
+                                </script>   
+                                
+                                        <table class="table table-bordered my-3"> 
+                                            <tbody> 
+                                                <tr>
+                                                    <th class="text-center" style="background: black ; color:white" colspan="2">
+                                                    SERVICE NO DEATIL 
+                                                    </th>
+                                                </tr>
+                                                <tr class="" >
+                                                    <th class="col-md-6">Service No</th>
+                                                    <td>123456789</td>
+                                                </tr>
+                                                <tr class="">
+                                                    <th class="col-md-6">Created At</th>
+                                                    <td>2023-06-02</td>
+                                                </tr>
+                                                <tr class="">
+                                                    <th class="col-md-6">Address</th>
+                                                    <td>jalan 123</td>
+                                                </tr>
+            
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
+
+                                                </tr><tr> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/123456789-before-image-1-1685680441.jpg" width="275" height="275">
+                                                            </td> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/123456789-before-image-2-1685680441.jpg" width="275" height="275">
+                                                            </td></tr>
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> During Images </strong><br></th>
+
+                                                </tr><tr> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/123456789-during-image-1-1685680441.jpg" width="275" height="275">
+                                                            </td> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/123456789-during-image-2-1685680441.jpg" width="275" height="275">
+                                                            </td></tr>
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> After Images </strong><br></th>
+
+                                                </tr><tr> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/123456789-after-image-1-1685680441.jpg" width="275" height="275">
+                                                            </td> 
+                                                            <td class="text-center">
+                                                            <img src="http://121.121.232.54:9090/asset/images/upload-images/123456789-after-image-2-1685680441.jpg" width="275" height="275">
+                                                            </td></tr>
+                                            </tbody>
+                                        </table> 
+                                    <div class="p-3">
+                                        <div id="map56" class="map" style="height: 300px; marign :20px ;"></div>
+                                    </div>
+                                <script>
+                                    map = L.map("map56").setView([3.1730054, 101.7526008], 11);
+                                    document.getElementById("map56").style.cursor = "pointer"
+                                    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                                    L.marker([3.1730054, 101.7526008]).addTo(map)
+                                </script>   
+                                
+                </div>
+            </body>
+        </html>

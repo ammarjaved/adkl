@@ -33,6 +33,7 @@ class MapController extends Controller
             WHERE id = '$id'
         ) AS tbl1;
          ");
+         DB::disconnect();
             return $data[0]->geojson;
 
     }
@@ -64,6 +65,7 @@ class MapController extends Controller
             WHERE created_by = '$id'
         ) AS tbl1;
          ");
+         DB::disconnect();
             return $data[0]->geojson;
     }
 
@@ -91,6 +93,7 @@ class MapController extends Controller
             FROM service_no_details
         ) AS tbl1;
          ");
+         DB::disconnect();
             return $data[0]->geojson;
 
     }
@@ -121,6 +124,7 @@ class MapController extends Controller
             WHERE po_no = '$id'
         ) AS tbl1;
          ");
+         DB::disconnect();
             return $data[0]->geojson;
     }
 

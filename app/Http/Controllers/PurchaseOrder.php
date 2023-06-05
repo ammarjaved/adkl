@@ -164,6 +164,7 @@ class PurchaseOrder extends Controller
            $po =  ModelsPurchaseOrder::find($id);
           ServiceNo::where('po_no',$po->po_number)->delete();
           $po->delete();
+          
         }catch(Exception $e){
             return redirect()->back()->with('meesgae',"Somethins is worng try again later");
         }

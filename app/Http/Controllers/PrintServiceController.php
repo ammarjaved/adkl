@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PurchaseOrder;
 use App\Models\ServiceNo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDF;
 use Illuminate\Support\Facades\File;
 
@@ -23,6 +25,10 @@ class PrintServiceController extends Controller
 
     public function test()
     {
+        $getPo =  PurchaseOrder::with(['service_no'=> function ($query) {
+            $query->select('*', DB::raw('ST_X(geom) as x'), DB::raw('ST_Y(geom) as y'));
+        }])->with('user')->where('po_number','41460609')->first();
+       
         $htmlContent = '
         <!DOCTYPE html>
         <html lang="en">   
@@ -42,620 +48,188 @@ class PrintServiceController extends Controller
                                 <div class="card p-3 ">
                                     <h3 class="text-center">Purchase Order</h3>
                                     <div class="row p-3">
+                                    <table class="table col-md-5">
+                                        <tr >
+                                            <td class="col-md-6"><strong> Vendor Name</strong></td>
+                                            <td>'.$getPo->user->name.'</td>
+                                        </tr>
+                                        <tr >
+                                            <td class="col-md-6"><strong> Vendor No</strong></td>
+                                            <td>'.$getPo->vendor_no.'</td>
+                                        </tr>
+                                        <tr >
+                                            <td class="col-md-6"><strong>PO No</strong></td>
+                                            <td>'.$getPo->po_number.'</td>
+                                        </tr>
+                                        <tr >
+                                            <td class="col-md-6"><strong> Vendor Email</strong></td>
+                                            <td>'.$getPo->user->email.'</td>
+                                        </tr>
+                                    </table>
                                         <div class="row">
-                                            <div class="col-md-3">Vendor Name</div>
-                                            <div class="col-md-5">power_corporation</div>
+                                            <div class="col-md-3"><strong> Vendor Name</strong></div>
+                                            <div class="col-md-5">'.$getPo->user->name.'</div>
                                         </div>
             
                                         <div class="row">
-                                            <div class="col-md-3">Vendor No</div>
-                                            <div class="col-md-5">26752481</div>
+                                            <div class="col-md-3"><strong>Vendor No</strong></div>
+                                            <div class="col-md-5">'.$getPo->vendor_no.'</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3"><strong>PO No</strong></div>
+                                            <div class="col-md-5">'.$getPo->po_number.'</div>
                                         </div>
         
                                         <div class="row">
-                                            <div class="col-md-3">Vendor Email</div>
-                                            <div class="col-md-5">test@email.com</div>
+                                            <div class="col-md-3"><strong>Vendor Email</strong></div>
+                                            <div class="col-md-5">'.$getPo->user->email.'</div>
                                         </div>
+                                    </div>';
+                                    foreach ($getPo->service_no as $item){
+                                      $htmlContent .='
+                                        <table class="table table-bordered my-3"> 
+                                            <tbody> 
+                                                <tr>
+                                                    <th class="text-center" style="background: black ; color:white" colspan="2">
+                                                    SERVICE NO DEATIL 
+                                                    </th>
+                                                </tr>
+                                                <tr class="" >
+                                                    <th class="col-md-6">Service No</th>
+                                                    <td>'. $item->sn .'</td>
+                                                </tr>
+                                                <tr class="">
+                                                    <th class="col-md-6">Created At</th>
+                                                    <td>'. date('Y-m-d',strtotime($item->date )) .'</td>
+                                                </tr>
+                                                <tr class="">
+                                                    <th class="col-md-6">Address</th>
+                                                    <td>'. $item->address .'</td>
+                                                </tr>
+            
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
+
+                                                </tr>';
+
+                                                if ($item->before_images != ''){
+                                                    $before = json_decode( $item->before_images);
+
+                                                    foreach ($before as $index =>$image){
+                                                        if ($index % 2 == 0){
+                                                            $htmlContent .='<tr>';
+                                                            }     
+                                                        $htmlContent.=' 
+                                                            <td class="text-center">
+                                                            <img src="'. $image .'" width="275" height="275">
+                                                            </td>';
+
+                                                        if ($index % 2 != 0){
+                                                        $htmlContent.='</tr>';
+                                                        }
+                                                        elseif ($index === count(json_decode(json_encode($before), true)) - 1) {
+                                                        $htmlContent .='
+                                                            <td></td>
+                                                            </tr>';
+                                                        }
+                                                    }
+                                                }    
+                                                else{
+                                                    $htmlContent .='
+                                                        <tr>
+                                                            <td colspan="2">No Image found</td>
+                                                        </tr>';
+                                                }
+
+                                                $htmlContent.='
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> During Images </strong><br></th>
+
+                                                </tr>';
+
+                                                if ($item->during_images != ''){
+                                                    $during = json_decode( $item->during_images);
+
+                                                    foreach ($during as $index =>$image){
+                                                        if ($index % 2 == 0){
+                                                            $htmlContent .='<tr>';
+                                                            }     
+                                                        $htmlContent.=' 
+                                                            <td class="text-center">
+                                                            <img src="'. $image .'" width="275" height="275">
+                                                            </td>';
+
+                                                        if ($index % 2 != 0){
+                                                        $htmlContent.='</tr>';
+                                                        }
+                                                        elseif ($index === count(json_decode(json_encode($during), true)) - 1) {
+                                                        $htmlContent .='
+                                                            <td></td>
+                                                            </tr>';
+                                                        }
+                                                    }
+                                                }    
+                                                else{
+                                                    $htmlContent .='
+                                                        <tr>
+                                                            <td colspan="2">No Image found</td>
+                                                        </tr>';
+                                                }
+
+                                                $htmlContent.='
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> After Images </strong><br></th>
+
+                                                </tr>';
+
+                                                if ($item->after_images != ''){
+                                                    $after = json_decode( $item->after_images);
+
+                                                    foreach ($after as $index =>$image){
+                                                        if ($index % 2 == 0){
+                                                            $htmlContent .='<tr>';
+                                                            }     
+                                                        $htmlContent.=' 
+                                                            <td class="text-center">
+                                                            <img src="'. $image .'" width="275" height="275">
+                                                            </td>';
+
+                                                        if ($index % 2 != 0){
+                                                        $htmlContent.='</tr>';
+                                                        }
+                                                        elseif ($index === count(json_decode(json_encode($after), true)) - 1) {
+                                                        $htmlContent .='
+                                                            <td></td>
+                                                            </tr>';
+                                                        }
+                                                    }
+                                                }    
+                                                else{
+                                                    $htmlContent .='
+                                                        <tr>
+                                                            <td colspan="2">No Image found</td>
+                                                        </tr>';
+                                                }
+
+                                                $htmlContent.='
+                                            </tbody>
+                                        </table> 
+                                    <div class="p-3">
+                                        <div id="map'.$item->id.'" class="map" style="height: 300px; marign :20px ;"></div>
                                     </div>
-                            
-                                    <table class="table table-bordered my-3">
-                                        <tbody>
-                                            <tr>
-                                                <th class="text-center" style="background: black ; color:white" colspan="2">
-                                                SERVICE NO DEATIL
-                                                </th>
-                                            </tr>
-                                            <tr class="" >
-                                                <th class="col-md-6">Service No</th>
-                                                <td>1110002255171</td>
-                                            </tr>
-                                            <tr class="">
-                                                <th class="col-md-6">Created At</th>
-                                                <td>2023-05-31</td>
-                                            </tr>
-                                            <tr class="">
-                                                <th class="col-md-6">Address</th>
-                                                <td>Lahore Punjab Pakistan</td>
-                                            </tr>
-                                            <tr class="">
-                                                <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
-                                            </tr>
-                                            <tr>
-                                            <td class="text-center">
-                                                <a href="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-before-image-1-1685538257.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-before-image-1-1685538257.jpg"
-                                                        width="275" height="275"></a>
-                                            </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-before-image-2-1685538257.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-before-image-2-1685538257.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-before-image-3-1685538257.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-before-image-3-1685538257.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    <td></td>
-                                        </tr>
-                                                                                                          <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> During Images </strong><br></th>
-        
-                            </tr>
-        
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-during-image-1-1685538257.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-during-image-1-1685538257.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    <td></td>
-                                        </tr>
-                                                                                
-                    <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> After Images </strong><br></th>
-        
-                            </tr>
-        
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-after-image-1-1685538257.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-after-image-1-1685538257.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-after-image-2-1685538257.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-after-image-2-1685538257.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-after-image-3-1685538257.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/1110002255171-after-image-3-1685538257.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    <td></td>
-                                        </tr>
-                                                                                                </tbody>
-        
-        
-                        </table>
-        
-                     
-                               
-                         <table class="table table-bordered my-3">
-                        
-                            <tbody>
-                                 <tr>
-                                <th class="text-center" style="background: black ; color:white" colspan="2">
-                                   SERVICE NO DEATIL
-                                </th>
-                         </tr>
-                            <tr class="" >
-                                <th class="col-md-6">Service No</th>
-                                <td>111222172</td>
-                            </tr>
-                            <tr class="">
-                                <th class="col-md-6">Created At</th>
-                                <td>2023-05-31</td>
-                            </tr>
-                            <tr class="">
-                                <th class="col-md-6">Address</th>
-                                <td>Lahore Cantt., Lahore, Punjab, Pakistan</td>
-                            </tr>
-                    
-                            <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
-        
-                            </tr>
-                            
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222172-before-image-1-1685542970.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222172-before-image-1-1685542970.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222172-before-image-2-1685542970.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222172-before-image-2-1685542970.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                          <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> During Images </strong><br></th>
-        
-                            </tr>
-        
-                                                    <tr>
-                                    <td colspan="2">No Image found</td>
-                                </tr>
-                            
-                    <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> After Images </strong><br></th>
-        
-                            </tr>
-        
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222172-after-image-1-1685542970.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222172-after-image-1-1685542970.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222172-after-image-2-1685542970.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222172-after-image-2-1685542970.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222172-after-image-3-1685542970.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222172-after-image-3-1685542970.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    <td></td>
-                                        </tr>
-                                                                                                </tbody>
-        
-        
-                        </table>
-        
-                     
-                               
-                         <table class="table table-bordered my-3">
-                        
-                            <tbody>
-                                 <tr>
-                                <th class="text-center" style="background: black ; color:white" colspan="2">
-                                   SERVICE NO DEATIL
-                                </th>
-                         </tr>
-                            <tr class="" >
-                                <th class="col-md-6">Service No</th>
-                                <td>111222173</td>
-                            </tr>
-                            <tr class="">
-                                <th class="col-md-6">Created At</th>
-                                <td>2023-05-31</td>
-                            </tr>
-                            <tr class="">
-                                <th class="col-md-6">Address</th>
-                                <td>Lahore Cantt., Lahore, Punjab, Pakistan</td>
-                            </tr>
-                    
-                            <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
-        
-                            </tr>
-                            
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-1-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-1-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-2-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-2-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-3-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-3-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-4-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-4-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-5-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-before-image-5-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    <td></td>
-                                        </tr>
-                                                                                                          <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> During Images </strong><br></th>
-        
-                            </tr>
-        
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-during-image-1-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-during-image-1-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    <td></td>
-                                        </tr>
-                                                                                
-                    <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> After Images </strong><br></th>
-        
-                            </tr>
-        
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-1-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-1-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-2-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-2-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-3-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-3-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-4-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-4-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-5-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-5-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-6-1685543066.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/111222173-after-image-6-1685543066.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                </tbody>
-        
-        
-                        </table>
-        
-                     
-                               
-                         <table class="table table-bordered my-3">
-                        
-                            <tbody>
-                                 <tr>
-                                <th class="text-center" style="background: black ; color:white" colspan="2">
-                                   SERVICE NO DEATIL
-                                </th>
-                         </tr>
-                            <tr class="" >
-                                <th class="col-md-6">Service No</th>
-                                <td>11100011225</td>
-                            </tr>
-                            <tr class="">
-                                <th class="col-md-6">Created At</th>
-                                <td>2023-06-01</td>
-                            </tr>
-                            <tr class="">
-                                <th class="col-md-6">Address</th>
-                                <td>Link Road Lahore Pakistan, Street 4.</td>
-                            </tr>
-                    
-                            <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
-        
-                            </tr>
-                            
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-1-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-1-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-2-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-2-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-3-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-3-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-4-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-4-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-5-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-5-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-6-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-6-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-7-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-7-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-8-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-8-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-9-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-9-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-10-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-before-image-10-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                          <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> During Images </strong><br></th>
-        
-                            </tr>
-        
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-during-image-1-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-during-image-1-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-during-image-2-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-during-image-2-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                
-                    <tr class="">
-                                <th class="col-md-6 text-center" colspan="2"><strong> After Images </strong><br></th>
-        
-                            </tr>
-        
-                                                                                                                                    <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-1-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-1-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-2-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-2-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-3-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-3-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                                        
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-4-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-4-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    </tr>
-                                                                                                                        <tr>
-                                    
-                                    <td class="text-center">
-                                        <a href="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-5-1685635344.jpg" data-lightbox="roadtrip"><img src="http://121.121.232.54:9090/asset/images/upload-images/11100011225-after-image-5-1685635344.jpg"
-                                                width="275" height="275"></a>
-        
-                                    </td>
-        
-        
-                                                                    <td></td>
-                                        </tr>
-                                                                                                </tbody>
-        
-        
-                        </table>
-        
-                     
-                        
-                        
-        
-            <div id="map" class="map" style="height: 400px; "></div>
-        
-                    </div>
-        
-        
-        
+                                <script>
+                                    map = L.map("map'.$item->id.'").setView(['.$item->y.', '.$item->x.'], 11);
+                                    document.getElementById("map'.$item->id.'").style.cursor = "pointer"
+                                    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+                                    L.marker(['.$item->y.', '.$item->x.']).addTo(map)
+                                </script>   
+                                '; 
+                            }
+                        $htmlContent.='
                 </div>
-        
-        
-            </div>
-            </div>
-                    </div>
-                    <!-- content -->
-        
-                    
-        
-                </div>
-        
-                <!-- ============================================================== -->
-                <!-- End Page content -->
-                <!-- ============================================================== -->
-        
-            </div>
-          
-        
-            <script>
-                map = L.map("map").setView([3.016603, 101.858382], 11);
-                document.getElementById("map").style.cursor = "pointer"
-                L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-                L.marker([3.016603, 101.858382]).addTo(map)
-            </script>
-        
-        
-        
-            
-        
-        </body>
-        
+            </body>
         </html>';
-        File::put(public_path('example.html'), $htmlContent);
+        File::put(public_path('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.html'), $htmlContent);
 
         return 'HTML file created successfully!';
     }

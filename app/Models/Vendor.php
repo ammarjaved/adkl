@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Vendor extends Model
 {
@@ -21,5 +22,15 @@ class Vendor extends Model
     public function PurchaseOrder()
     {
         return $this->hasMany(PurchaseOrder::class, 'vendor_id');
+    }
+
+    protected static function boot()
+    { 
+        parent::boot();
+
+        // Disconnect the database connection after each query
+        static::retrieved(function ($model) {
+            DB::disconnect();
+        });
     }
 }
