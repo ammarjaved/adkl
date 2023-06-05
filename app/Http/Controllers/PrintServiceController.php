@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\ServiceNo;
 use Illuminate\Http\Request;
+use PDF;
+use Illuminate\Support\Facades\File;
+
+
 
 class PrintServiceController extends Controller
 {
@@ -17,5 +21,15 @@ class PrintServiceController extends Controller
         $order['before_images'] = $order['service']->before_images != '' ? json_decode($order['service']->before_images) : '';
 
         return view('PurchaseOrder.Print.index',['order'=>$order]);
+    }
+
+
+    public function test()
+    {
+        $htmlContent = '<html><head><title>Example HTML File</title></head><body><h1>Hello, Laravel!</h1></body></html>';
+        File::put(public_path('example.html'), $htmlContent);
+        
+        return 'HTML file created successfully!';
+        
     }
 }

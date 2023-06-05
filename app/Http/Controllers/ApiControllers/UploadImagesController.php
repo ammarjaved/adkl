@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\PurchaseOrder;
 use App\Models\ServiceNo;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class UploadImagesController extends Controller
         }
 
 
-        if ($request->hasFile('before')) {
+        if ($request->hasFile('before') && $request->before != []) {
+            
         
             $images = $request->file('before');
             $before = 1;
@@ -48,7 +50,7 @@ class UploadImagesController extends Controller
         }
     
 
-        if ($request->hasFile('during')) {
+        if ($request->hasFile('during') && $request->during != []) {
         
             $images = $request->file('during');
             $during = 1;
@@ -63,7 +65,7 @@ class UploadImagesController extends Controller
             $application->during_images = $during_image;
         }
 
-        if ($request->hasFile('after')) {
+        if ($request->hasFile('after') && $request->after != []) {
         
             $images = $request->file('after');
             $after = 1;
@@ -79,27 +81,19 @@ class UploadImagesController extends Controller
         }
      
        
-    
+            
             
             $user_sql="Select id from users where name = '$request->created_by' limit 1";
-           // echo $user_sql;
             $user_id=DB::select($user_sql);
-
-           // print_r($user_id);
-            // echo $user_id[0]->id;
-            // exit();
-           // $application->created_by = $request->created_by;
-           $application->created_by = $user_id[0]->id;
-
-
+            $application->created_by = $user_id[0]->id;
             $application->date       = $request->date;
-
-        // return $application;
 
         try {
             $application->update();
             
+            
             DB::insert("UPDATE service_no_details set geom = st_geomfromtext('POINT('||$request->long||' '||$request->lat||')',4326) where id = $request->id");
+            PurchaseOrder::where('po_number',$application->po_no)->update(['status'=>$request->status]);
         }catch(Exception $e){ 
             return response()->json(['status'=>'500' ,'message'=>"failed"]);
             return $e->getMessage();

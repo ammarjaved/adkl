@@ -6,7 +6,7 @@ use App\Http\Controllers\ApiControllers\UploadImagesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiControllers\ApiServceController;
-
+use App\Http\Controllers\ApiControllers\ChangePasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +35,5 @@ Route::post("/upload-images",[UploadImagesController::class,'insert']);
 
 Route::post('/login',[App\Http\Controllers\ApiControllers\LoginController::class,"login"]);
 Route::get('/get-all-service-no/{po_no}',[ApiServceController::class,'getAll']);
+
+Route::post('/change-password',[ChangePasswordController::class,'newPassword']);

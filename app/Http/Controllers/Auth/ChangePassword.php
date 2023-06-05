@@ -27,23 +27,36 @@ class ChangePassword extends Controller
     public function newPassword(Request $req)
     {
         $req->validate([
+            'name' => 'required',
             'old_password' => 'required',
             'new_password' => 'required|string|min:8',
             'new_password_confirm' => 'required|same:new_password|min:8',
         ]);
-
-        $user = User::find(Auth::user()->id);
-        if (!Hash::check($req->old_password, $user->password)) {
-            return back()->with('message', 'Old password does not match');
-        }
-
         try {
-            User::where('name', Auth::user()->name)->update([
-                'password' => Hash::make($req->new_password),
+            $user = User::where('name', $req->name)->first();
+            if ($user) {
+                if (!Hash::check($req->old_password, $user->password)) {
+                    return response()->json('message', 'Old password does not match');
+                }
+                if ($req->validate->fails()) {
+                    return response()->json($req->validate->messages(), 400);
+                }
+                $user->update([
+                    'password' => Hash::make($req->new_password),
+                ]);
+            } else {
+                return response()->json(['statusCode' => 404, 'message' => 'user not found']);
+            }
+
+            return response()->json([
+                'statusCode' => 200,
+                'message' => 'Success',
             ]);
-            return back()->with('message', 'Your password is update successfully');
         } catch (Exception $e) {
-            return back()->with('message', 'Something is worng try again later');
+            return response()->jsonjson([
+                'statusCode' => 200,
+                'message' => 'Success',
+            ]);
         }
     }
 
@@ -75,7 +88,7 @@ class ChangePassword extends Controller
     {
         // return base64_encode(361566297);
 
-         $d_token = base64_decode($token);
+        $d_token = base64_decode($token);
 
         if (
             ModelsChangePassword::where('user_name', $username)
