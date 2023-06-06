@@ -99,9 +99,9 @@ class UploadImagesController extends Controller
 
             DB::statement("UPDATE service_no_details SET geom = ST_GeomFromText('POINT(' || CAST(? AS text) || ' ' || CAST(? AS text) || ')', 4326) WHERE id = ?", [$request->long, $request->lat, $request->id]);
 // 
-            if ($request->has('status')) {
-                PurchaseOrder::where('po_number',$application->po_no)->update(['status'=>$request->status]);
-            }
+            // if ($request->has('status')) {
+            //     PurchaseOrder::where('po_number',$application->po_no)->update(['status'=>$request->status]);
+            // }
            
             DB::disconnect();
         }catch(Exception $e){ 
