@@ -103,9 +103,9 @@
                                         {{-- <button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal"
                                         onclick="maidID({{ $user->id }})">Add PO</button> --}}
-                                        <a href="{{ route('purchase-order.show', $user->id) }}"
+                                        <!-- <a href="{{ route('purchase-order.show', $user->id) }}"
                                             class="btn btn-sm dropdown-item">Po Detail</a>
-
+ -->
                                     </ul>
                                 </div>
                             </td>

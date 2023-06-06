@@ -87,7 +87,7 @@
                         </div>
                         <div class="col-md-5"><input type="text"
                                 class="form-control @error('vendor_no') is-invalid @enderror" name="vendor_no" id="vendor_no"
-                                value="{{ 'vendor_no' }}"></div>
+                                value="{{ old('vendor_no') }}"></div>
                     </div>
 
                     <div class="row p-3 pb-0">
