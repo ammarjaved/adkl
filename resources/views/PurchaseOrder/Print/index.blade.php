@@ -95,6 +95,10 @@
                         <th class="col-md-6">Address</th>
                         <td>{{ $order['service']->Address }}</td>
                     </tr>
+                    <tr >
+                                            <td class="col-md-6"><strong>Status</strong></td>
+                                            <td>{{$order['service']->status}}</td>
+                                        </tr>
                     <tr class="">
                         <th class="col-md-6">Date</th>
                         <td>{{ date('Y-m-d',strtotime($order['service']->date )) }}</td>

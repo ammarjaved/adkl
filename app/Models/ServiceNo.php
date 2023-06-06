@@ -26,7 +26,8 @@ class ServiceNo extends Model
         'sn',
         'before_images',
         'during_images',
-        'after_images'
+        'after_images',
+        'status'
     ];
 
     public function poDetail()

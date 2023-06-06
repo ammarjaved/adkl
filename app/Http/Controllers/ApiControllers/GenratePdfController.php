@@ -68,10 +68,7 @@ class GenratePdfController extends Controller
                                             <td class="col-md-6"><strong>PO No</strong></td>
                                             <td>'.$getPo->po_number.'</td>
                                         </tr>
-                                        <tr >
-                                            <td class="col-md-6"><strong>Status</strong></td>
-                                            <td>'.$getPo->status.'</td>
-                                        </tr>
+                                        
                                         
                                     </table>
                                     </div>';
@@ -92,6 +89,10 @@ class GenratePdfController extends Controller
                                                     <th class="col-md-6">Created At</th>
                                                     <td>'. date('Y-m-d',strtotime($item->date )) .'</td>
                                                 </tr>
+                                                <tr >
+                                            <td class="col-md-6"><strong>Status</strong></td>
+                                            <td>'.$item->status.'</td>
+                                        </tr>
                                                 <tr class="">
                                                     <th class="col-md-6">Address</th>
                                                     <td>'. $item->address .'</td>

@@ -121,6 +121,10 @@
                         <th class="col-md-6">Created At</th>
                         <td>{{ date('Y-m-d',strtotime($item->date )) }}</td>
                     </tr>
+                    <tr >
+                                            <td class="col-md-6"><strong>Status</strong></td>
+                                            <td>{{ $item->status }}</td>
+                                        </tr>
                     <tr class="">
                         <th class="col-md-6">Address</th>
                         <td>{{ $item->address }}</td>

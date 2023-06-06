@@ -89,6 +89,9 @@ class UploadImagesController extends Controller
             $application->date       = $request->date;
 
         try {
+            if ($request->has('status')) {
+               $application->status = $request->status;
+            }
             $application->update();
             
             
