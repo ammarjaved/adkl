@@ -84,11 +84,18 @@ class UploadImagesController extends Controller
         if ($request->has('address')) {
             $application->address = $request->address;
          }
+            if ($request->has('created_by')) {
+                // code...
             
             $user_sql="Select id from users where name = '$request->created_by' limit 1";
             $user_id=DB::select($user_sql);
             $application->created_by = $user_id[0]->id;
-            $application->date       = $request->date;
+             }
+
+             if ($request->has('date')) {
+                 $application->date       = $request->date;
+             }
+           
 
         try {
             if ($request->has('status')) {
@@ -97,14 +104,10 @@ class UploadImagesController extends Controller
             $application->update();
             
             
-            // DB::insert("UPDATE service_no_details set geom = st_geomfromtext('POINT('||$request->long||' '||$request->lat||')',4326) where id = $request->id");
-
+            if ($request->has('lat') && $request->has('long')) {
             DB::statement("UPDATE service_no_details SET geom = ST_GeomFromText('POINT(' || CAST(? AS text) || ' ' || CAST(? AS text) || ')', 4326) WHERE id = ?", [$request->long, $request->lat, $request->id]);
-// 
-            // if ($request->has('status')) {
-            //     PurchaseOrder::where('po_number',$application->po_no)->update(['status'=>$request->status]);
-            // }
-           
+        }
+
             DB::disconnect();
         }catch(Exception $e){ 
             DB::disconnect();
