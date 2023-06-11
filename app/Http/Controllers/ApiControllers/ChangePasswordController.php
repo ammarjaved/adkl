@@ -57,7 +57,7 @@ class ChangePasswordController extends Controller
             'message' => 'Server error',
         ], 500);
     }
-    DB::disconnect();
+    // DB::disconnect();
 }
 
 }

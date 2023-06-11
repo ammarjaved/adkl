@@ -18,7 +18,7 @@ class DBController extends Controller
         
         try {
             $data = DB::select($req->qury);
-            DB::disconnect();
+            // DB::disconnect();
         } 
             catch (Exception $e) {
               return  response()
@@ -47,7 +47,7 @@ class DBController extends Controller
         
         try {
             $data = DB::select($req->qury);
-            DB::disconnect();
+            // DB::disconnect();
         } 
             catch (Exception $e) {
                 return response()->json([
@@ -64,7 +64,7 @@ class DBController extends Controller
     {       
         try {
             $data = DB::select($req->qury);
-            DB::disconnect();
+            // DB::disconnect();
         } 
             catch (Exception $e) {
                 return response()->json([

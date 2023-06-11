@@ -36,13 +36,13 @@ class ServiceNo extends Model
     }
 
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        // Disconnect the database connection after each query
-        static::retrieved(function ($model) {
-            DB::disconnect();
-        });
-    }
+    //     // Disconnect the database connection after each query
+    //     static::retrieved(function ($model) {
+    //         DB::disconnect();
+    //     });
+    // }
 }

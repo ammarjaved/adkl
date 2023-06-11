@@ -19,7 +19,7 @@ class LoginController extends Controller
 
 
         if (  auth()->attempt(['name' => $input['name'], 'password' => $input['password']])) {
-            DB::disconnect();
+            // DB::disconnect();
             return response()
                     ->json([
                         'statusCode' => 200, 

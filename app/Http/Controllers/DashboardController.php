@@ -28,7 +28,7 @@ class DashboardController extends Controller
             ->get();
 
         //   return $data;
-        DB::disconnect();
+        // DB::disconnect();
         return view('index', ['data' => $data]);
     }
 
