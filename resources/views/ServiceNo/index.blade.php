@@ -251,7 +251,7 @@
                         </tr>
                         <tr>
                         <th>Detail</th>
-                        <td><a href="/purchase-order/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
+                        <td><a href="/service-no/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
                         </tr>
                         
                     </table>`);
