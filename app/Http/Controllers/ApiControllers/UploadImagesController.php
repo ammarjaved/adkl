@@ -23,7 +23,7 @@ class UploadImagesController extends Controller
 
         $destinationPath = 'asset/images/upload-images';
         // $img_exits = public_path().'/asset/images/upload-images/';
-        $url = asset('asset/images/upload-images');
+        $url = 'asset/images/upload-images';
 
         $application = ServiceNo::find($request->id);
         if (!$application) {
