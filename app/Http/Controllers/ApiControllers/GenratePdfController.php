@@ -229,16 +229,18 @@ class GenratePdfController extends Controller
 
         if ($bytesWritten !== false) {
 
-           $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\bin\text.php?po_no='.$po_no.'&&path='.$path));
-
-        // if($response !== false && !empty($response)){
-            // return response()->download(asset('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.pdf'));
             try{
                 PurchaseOrder::where('po_number',$po_no)->update(['report'=>asset('assets/PurhaseOrderPDF/pdfs/'.$getPo->po_number.'.pdf')]);
                 return response()->json(['statusCode' => 200, 'message' => 'Report Genrated'], 200);
             }catch(Exception $e){
                 
-            }     
+            }   
+
+           $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\bin\text.php?po_no='.$po_no.'&&path='.$path));
+
+        // if($response !== false && !empty($response)){
+            // return response()->download(asset('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.pdf'));
+              
 
         // }
 
