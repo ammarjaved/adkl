@@ -230,7 +230,7 @@ class GenratePdfController extends Controller
         if ($bytesWritten !== false) {
 
             try{
-                PurchaseOrder::where('po_number',$po_no)->update(['report'=>asset('assets/PurhaseOrderPDF/pdfs/'.$getPo->po_number.'.pdf')]);
+                PurchaseOrder::where('po_number',$po_no)->update(['report'=>'assets/PurhaseOrderPDF/pdfs/'.$getPo->po_number.'.pdf']);
                 
             }catch(Exception $e){
                 
