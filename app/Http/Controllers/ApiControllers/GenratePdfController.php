@@ -112,7 +112,7 @@ class GenratePdfController extends Controller
                                                             }     
                                                         $htmlContent.=' 
                                                             <td class="text-center">
-                                                            <img src="'. $image .'" width="275" height="275">
+                                                            <img src="'.asset( $image) .'" width="275" height="275">
                                                             </td>';
 
                                                         if ($index % 2 != 0){
@@ -147,7 +147,7 @@ class GenratePdfController extends Controller
                                                             }     
                                                         $htmlContent.=' 
                                                             <td class="text-center">
-                                                            <img src="'. $image .'" width="275" height="275">
+                                                            <img src="'. asset($image) .'" width="275" height="275">
                                                             </td>';
 
                                                         if ($index % 2 != 0){
@@ -182,7 +182,7 @@ class GenratePdfController extends Controller
                                                             }     
                                                         $htmlContent.=' 
                                                             <td class="text-center">
-                                                            <img src="'. $image .'" width="275" height="275">
+                                                            <img src="'. asset($image) .'" width="275" height="275">
                                                             </td>';
 
                                                         if ($index % 2 != 0){
