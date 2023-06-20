@@ -112,8 +112,8 @@
                         @foreach ($order['before_images'] as $during)
                             <div class="col-md-6">
                                 <div class="text-center mb-3">
-                                    <a href="{{ $during }}" class="ml-4" data-lightbox="roadtrip"><img
-                                            src="{{ $during }}" width="400" height="400"></a>
+                                    <a href="{{ asset($during) }}" class="ml-4" data-lightbox="roadtrip"><img
+                                            src="{{ asset($during) }}" width="400" height="400"></a>
                                 </div>
                             </div>
                         @endforeach
@@ -128,8 +128,8 @@
                         @foreach ($order['during_images'] as $during)
                             <div class="col-md-6">
                                 <div class="text-center mb-3">
-                                    <a href="{{ $during }}" class="ml-4" data-lightbox="roadtrip"><img
-                                            src="{{ $during }}" width="400" height="400"></a>
+                                    <a href="{{asset( $during) }}" class="ml-4" data-lightbox="roadtrip"><img
+                                            src="{{ asset($during) }}" width="400" height="400"></a>
                                 </div>
                             </div>
                         @endforeach
@@ -145,8 +145,8 @@
                         @foreach ($order['after_images'] as $during)
                             <div class="col-md-6">
                                 <div class="text-center mb-3">
-                                    <a href="{{ $during }}" class="ml-4" data-lightbox="roadtrip"><img
-                                            src="{{ $during }}" width="400" height="400"></a>
+                                    <a href="{{asset( $during )}}" class="ml-4" data-lightbox="roadtrip"><img
+                                            src="{{ asset($during) }}" width="400" height="400"></a>
                                 </div>
                             </div>
                         @endforeach

@@ -114,7 +114,7 @@
                             @endif
 
                             <td class="text-center">
-                                <a href="{{ $image }}" data-lightbox="roadtrip"><img src="{{ $image }}"
+                                <a href="{{ asset($image )}}" data-lightbox="roadtrip"><img src="{{ asset($image )}}"
                                         width="275" height="275"></a>
 
                             </td>
@@ -144,7 +144,7 @@
                             @endif
 
                             <td class="text-center">
-                                <a href="{{ $image }}" data-lightbox="roadtrip"><img src="{{ $image }}"
+                                <a href="{{ asset($image )}}" data-lightbox="roadtrip"><img src="{{ asset($image) }}"
                                         width="275" height="275"></a>
 
                             </td>
@@ -175,7 +175,7 @@
                             @endif
 
                             <td class="text-center">
-                                <a href="{{ $image }}" data-lightbox="roadtrip"><img src="{{ $image }}"
+                                <a href="{{ asset($image )}}" data-lightbox="roadtrip"><img src="{{ asset($image) }}"
                                         width="275" height="275"></a>
 
                             </td>
