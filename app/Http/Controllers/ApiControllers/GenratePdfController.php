@@ -221,9 +221,10 @@ class GenratePdfController extends Controller
             </body>
         </html>';
 
-        
+
         try{
         $bytesWritten = File::put(public_path('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.html'), $htmlContent);
+        echo "227";
         }catch(Exception $e){
 
         }
@@ -233,11 +234,11 @@ class GenratePdfController extends Controller
 
             try{
                 PurchaseOrder::where('po_number',$po_no)->update(['report'=>'assets/PurhaseOrderPDF/pdfs/'.$getPo->po_number.'.pdf']);
-
+echo "237";
             }catch(Exception $e){
 
             }
-
+echo "240";
            $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path));
 
            return response()->json(['statusCode' => 200, 'message' => 'Report Genrated'], 200);
