@@ -225,6 +225,7 @@ class GenratePdfController extends Controller
         try{
         $bytesWritten = File::put(public_path('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.html'), $htmlContent);
         echo "227";
+        exit();
         }catch(Exception $e){
 
         }
@@ -239,6 +240,7 @@ echo "237";
 
             }
 echo "240";
+
            $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path));
 
            return response()->json(['statusCode' => 200, 'message' => 'Report Genrated'], 200);
