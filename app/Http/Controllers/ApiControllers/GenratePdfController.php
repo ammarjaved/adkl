@@ -206,7 +206,7 @@ class GenratePdfController extends Controller
                                             </tbody>
                                         </table> 
                                     <div class="p-3">
-                                        <div id="map'.$item->id.'" class="map" style="height: 300px; marign :20px ;"></div>
+                                        <div id="map'.$item->id.'" class="map" style="height: 300px;width:800px; marign :20px ;"></div>
                                     </div>
                                 <script>
                                     map = L.map("map'.$item->id.'").setView(['.$item->y.', '.$item->x.'], 11);
