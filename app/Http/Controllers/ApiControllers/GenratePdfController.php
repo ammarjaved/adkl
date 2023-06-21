@@ -241,15 +241,15 @@ echo "237";
             }
 echo "240";
 
-        //    $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path));
-        $endpoint = asset('assets/PurhaseOrderPDF/wkhtmltopdf/text.php');
-$queryString = http_build_query(['po_no' => $po_no, 'path' => $path]);
-$url = $endpoint . '?' . $queryString;
+           $response =  file_get_contents('http://adklservice.com/assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path);
+//         $endpoint = asset('assets/PurhaseOrderPDF/wkhtmltopdf/text.php');
+// $queryString = http_build_query(['po_no' => $po_no, 'path' => $path]);
+// $url = $endpoint . '?' . $queryString;
 
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-curl_close($ch);
+// $ch = curl_init($url);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// $response = curl_exec($ch);
+// curl_close($ch);
 
 
            return response()->json(['statusCode' => 200, 'message' => 'Report Genrated'], 200);
