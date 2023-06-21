@@ -225,7 +225,7 @@ class GenratePdfController extends Controller
         try{
         $bytesWritten = File::put(public_path('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.html'), $htmlContent);
         // echo "227";
-        exit();
+        // exit();
         }catch(Exception $e){
 
         }
