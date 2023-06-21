@@ -240,8 +240,9 @@ echo "237";
 
             }
 echo "240";
+$context=stream_context_create(array('http' => array('header'=>"Host: www.google.com\r\n")));
 
-           $response =  file_get_contents('http://adklservice.com/assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path);
+           $response =  file_get_contents('http://adklservice.com/assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path, false, $context);
 //         $endpoint = asset('assets/PurhaseOrderPDF/wkhtmltopdf/text.php');
 // $queryString = http_build_query(['po_no' => $po_no, 'path' => $path]);
 // $url = $endpoint . '?' . $queryString;
