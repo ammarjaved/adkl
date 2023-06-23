@@ -23,10 +23,10 @@ class GenratePdfController extends Controller
         if (!$getPo) {
             return response()->json(['statusCode' => 404, 'message' => 'Purchase order not found'], 404);
         }
-       
+
         $htmlContent = '
         <!DOCTYPE html>
-        <html lang="en">   
+        <html lang="en">
             <head>
                         <!-- App css -->
                 <link href="'.asset("assets/css/config/default/bootstrap.min.css").'" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
@@ -40,10 +40,13 @@ class GenratePdfController extends Controller
                .table-borderles td {
                     border: none !important;
                 }
+                .service-page {
+                    page-break-before: always;
+                }
                 </style>
                 </head>
-        
-            <body>        
+
+            <body>
                 <div class="content-page">
                     <div class="content">
                         <div class="row">
@@ -68,17 +71,24 @@ class GenratePdfController extends Controller
                                             <td class="col-md-6"><strong>PO No</strong></td>
                                             <td>'.$getPo->po_number.'</td>
                                         </tr>
-                                        
-                                        
+
+
                                     </table>
                                     </div>';
-                                    foreach ($getPo->service_no as $item){
+                                    foreach ($getPo->service_no as $snIndex=>$item){
                                       $htmlContent .='
+                                      <div class="';
+                                      if ($snIndex != 0) {
+                                        $htmlContent.='
+                                      service-page';
+                                      }
+                                      $htmlContent.='
+                                      ">
                                         <table class="table table-bordered my-3"> 
                                             <tbody> 
                                                 <tr>
                                                     <th class="text-center" style="background: black ; color:white" colspan="2">
-                                                    SERVICE NO DEATIL 
+                                                    SERVICE NO DEATIL
                                                     </th>
                                                 </tr>
                                                 <tr class="" >
@@ -97,7 +107,7 @@ class GenratePdfController extends Controller
                                                     <th class="col-md-6">Address</th>
                                                     <td>'. $item->address .'</td>
                                                 </tr>
-            
+
                                                 <tr class="">
                                                     <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
 
@@ -109,8 +119,8 @@ class GenratePdfController extends Controller
                                                     foreach ($before as $index =>$image){
                                                         if ($index % 2 == 0){
                                                             $htmlContent .='<tr>';
-                                                            }     
-                                                        $htmlContent.=' 
+                                                            }
+                                                        $htmlContent.='
                                                             <td class="text-center">
                                                             <img src="'.asset( $image) .'" width="275" height="275">
                                                             </td>';
@@ -124,7 +134,7 @@ class GenratePdfController extends Controller
                                                             </tr>';
                                                         }
                                                     }
-                                                }    
+                                                }
                                                 else{
                                                     $htmlContent .='
                                                         <tr>
@@ -144,8 +154,8 @@ class GenratePdfController extends Controller
                                                     foreach ($during as $index =>$image){
                                                         if ($index % 2 == 0){
                                                             $htmlContent .='<tr>';
-                                                            }     
-                                                        $htmlContent.=' 
+                                                            }
+                                                        $htmlContent.='
                                                             <td class="text-center">
                                                             <img src="'. asset($image) .'" width="275" height="275">
                                                             </td>';
@@ -159,7 +169,7 @@ class GenratePdfController extends Controller
                                                             </tr>';
                                                         }
                                                     }
-                                                }    
+                                                }
                                                 else{
                                                     $htmlContent .='
                                                         <tr>
@@ -179,8 +189,8 @@ class GenratePdfController extends Controller
                                                     foreach ($after as $index =>$image){
                                                         if ($index % 2 == 0){
                                                             $htmlContent .='<tr>';
-                                                            }     
-                                                        $htmlContent.=' 
+                                                            }
+                                                        $htmlContent.='
                                                             <td class="text-center">
                                                             <img src="'. asset($image) .'" width="275" height="275">
                                                             </td>';
@@ -194,7 +204,7 @@ class GenratePdfController extends Controller
                                                             </tr>';
                                                         }
                                                     }
-                                                }    
+                                                }
                                                 else{
                                                     $htmlContent .='
                                                         <tr>
@@ -204,24 +214,31 @@ class GenratePdfController extends Controller
 
                                                 $htmlContent.='
                                             </tbody>
+
                                         </table> 
-                                    <div class="p-3">
+                                        
+                                    <div class="p-3" style=" overflow: hidden;">
+
                                         <div id="map'.$item->id.'" class="map" style="height: 300px;width:800px; marign :20px ;"></div>
                                     </div>
+                                    </div>
                                 <script>
-                                    map = L.map("map'.$item->id.'").setView(['.$item->y.', '.$item->x.'], 11);
+                                    map = L.map("map'.$item->id.'").setView(['.$item->y.', '.$item->x.'], 17);
                                     document.getElementById("map'.$item->id.'").style.cursor = "pointer"
                                     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
                                     L.marker(['.$item->y.', '.$item->x.']).addTo(map)
-                                </script>   
-                                '; 
+                                </script>
+                                ';
                             }
                         $htmlContent.='
                 </div>
             </body>
         </html>';
+
+
         try{
         $bytesWritten = File::put(public_path('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.html'), $htmlContent);
+   
         }catch(Exception $e){
 
         }
@@ -231,24 +248,35 @@ class GenratePdfController extends Controller
 
             try{
                 PurchaseOrder::where('po_number',$po_no)->update(['report'=>'assets/PurhaseOrderPDF/pdfs/'.$getPo->po_number.'.pdf']);
-                
+echo "237";
             }catch(Exception $e){
-                
-            }   
 
-           $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\bin\text.php?po_no='.$po_no.'&&path='.$path));
+            }
+echo "240";
+$context=stream_context_create(array('http' => array('header'=>"Host: www.google.com\r\n")));
+
+           $response =  file_get_contents('http://adklservice.com/assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path, false, $context);
+//         $endpoint = asset('assets/PurhaseOrderPDF/wkhtmltopdf/text.php');
+// $queryString = http_build_query(['po_no' => $po_no, 'path' => $path]);
+// $url = $endpoint . '?' . $queryString;
+
+// $ch = curl_init($url);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// $response = curl_exec($ch);
+// curl_close($ch);
+
 
            return response()->json(['statusCode' => 200, 'message' => 'Report Genrated'], 200);
 
         // if($response !== false && !empty($response)){
             // return response()->download(asset('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.pdf'));
-              
+
 
         // }
 
-        } 
+        }
         return response()->json(['statusCode' => 500, 'message' => 'failed'], 500);
-       
+
     }
 
 }
