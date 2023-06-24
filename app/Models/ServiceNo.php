@@ -27,6 +27,7 @@ class ServiceNo extends Model
         'before_images',
         'during_images',
         'after_images',
+        'other_images',
         'status'
     ];
 
@@ -35,14 +36,4 @@ class ServiceNo extends Model
         return $this->belongsTo(PurchaseOrder::class, 'po_number', 'po_no');
     }
 
-
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     // Disconnect the database connection after each query
-    //     static::retrieved(function ($model) {
-    //         DB::disconnect();
-    //     });
-    // }
 }

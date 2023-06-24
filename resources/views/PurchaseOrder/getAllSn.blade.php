@@ -230,6 +230,39 @@
                             <td colspan="2">No Image found</td>
                         </tr>
                     @endif
+
+                    <tr class="">
+                        <th class="col-md-6 text-center" colspan="2"><strong> Other Images </strong><br></th>
+
+                    </tr>
+                    @if ($item->other_images != '')
+                    @php
+                        $other = json_decode( $item->other_images)
+                    @endphp
+                        @foreach ($other as $image)
+                            @if ($loop->index % 2 == 0)
+                                <tr>
+                            @endif
+
+                            <td class="text-center">
+                                <a href="{{ asset($image )}}" data-lightbox="roadtrip"><img src="{{ asset($image )}}"
+                                        width="275" height="275"></a>
+
+                            </td>
+
+
+                            @if ($loop->index % 2 != 0)
+                                </tr>
+                            @elseif ($loop->index === count(json_decode(json_encode($after), true)) - 1)
+                                <td></td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="2">No Image found</td>
+                        </tr>
+                    @endif
                 </tbody>
 
 

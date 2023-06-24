@@ -69,6 +69,20 @@ class UploadImagesController extends Controller
             $application->after_images = $after_image;
         }
 
+        if ($request->hasFile('other') && $request->other != []) {
+            $images = $request->file('other');
+            $other = 1;
+            foreach ($images as $image) {
+                $exc = $image->getClientOriginalExtension();
+                $filename = $application->sn . '-other-image-' . $other . '-' . strtotime(now()) . '.' . $exc;
+                $image->move($destinationPath, $filename);
+                $other_image[] = $url . '/' . $filename;
+                $other++;
+            }
+            // return"qsdsad";
+            $application->other_images = $other_image;
+        }
+
         if ($request->has('address')) {
             $application->address = $request->address;
         }

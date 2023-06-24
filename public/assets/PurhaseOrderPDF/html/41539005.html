@@ -1,12 +1,12 @@
 
         <!DOCTYPE html>
-        <html lang="en">   
+        <html lang="en">
             <head>
                         <!-- App css -->
-                <link href="http://adklservice.com/assets/css/config/default/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
+                <link href="http://127.0.0.1:8000/assets/css/config/default/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
                 <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-                <script src="http://adklservice.com/map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
+                <script src="http://127.0.0.1:8000/map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
                 <style>
                 .table-borderles,
                 .table-borderles tbody,
@@ -14,10 +14,13 @@
                .table-borderles td {
                     border: none !important;
                 }
+                .service-page {
+                    page-break-before: always;
+                }
                 </style>
                 </head>
-        
-            <body>        
+
+            <body>
                 <div class="content-page">
                     <div class="content">
                         <div class="row">
@@ -42,15 +45,17 @@
                                             <td class="col-md-6"><strong>PO No</strong></td>
                                             <td>41539005</td>
                                         </tr>
-                                        
-                                        
+
+
                                     </table>
                                     </div>
+                                      <div class="
+                                      ">
                                         <table class="table table-bordered my-3"> 
                                             <tbody> 
                                                 <tr>
                                                     <th class="text-center" style="background: black ; color:white" colspan="2">
-                                                    SERVICE NO DEATIL 
+                                                    SERVICE NO DEATIL
                                                     </th>
                                                 </tr>
                                                 <tr class="" >
@@ -69,54 +74,68 @@
                                                     <th class="col-md-6">Address</th>
                                                     <td>jalan 5/6</td>
                                                 </tr>
-            
+
                                                 <tr class="">
                                                     <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
 
-                                                </tr><tr> 
+                                                </tr><tr>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/110005487-before-image-1-1687244121.jpg" width="275" height="275">
-                                                            </td> 
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/110005487-before-image-1-1687244121.jpg" width="275" height="275">
+                                                            </td>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/110005487-before-image-2-1687244121.jpg" width="275" height="275">
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/110005487-before-image-2-1687244121.jpg" width="275" height="275">
                                                             </td></tr>
                                                 <tr class="">
                                                     <th class="col-md-6 text-center" colspan="2"><strong> During Images </strong><br></th>
 
-                                                </tr><tr> 
+                                                </tr><tr>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/110005487-during-image-1-1687244121.jpg" width="275" height="275">
-                                                            </td> 
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/110005487-during-image-1-1687244121.jpg" width="275" height="275">
+                                                            </td>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/110005487-during-image-2-1687244121.jpg" width="275" height="275">
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/110005487-during-image-2-1687244121.jpg" width="275" height="275">
                                                             </td></tr>
                                                 <tr class="">
                                                     <th class="col-md-6 text-center" colspan="2"><strong> After Images </strong><br></th>
 
-                                                </tr><tr> 
+                                                </tr><tr>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/110005487-after-image-1-1687244121.jpg" width="275" height="275">
-                                                            </td> 
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/110005487-after-image-1-1687244121.jpg" width="275" height="275">
+                                                            </td>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/110005487-after-image-2-1687244121.jpg" width="275" height="275">
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/110005487-after-image-2-1687244121.jpg" width="275" height="275">
                                                             </td></tr>
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> Other Images </strong><br></th>
+
+                                                </tr>
+                                                        <tr>
+                                                            <td colspan="2">No Image found</td>
+                                                        </tr>
                                             </tbody>
+
                                         </table> 
-                                    <div class="p-3">
-                                        <div id="map121" class="map" style="height: 300px; marign :20px ;"></div>
+                                        
+                                    <div class="p-3" style=" overflow: hidden;">
+
+                                        <div id="map121" class="map" style="height: 300px;width:800px; marign :20px ;"></div>
+                                    </div>
                                     </div>
                                 <script>
-                                    map = L.map("map121").setView([5.3249124, 103.1369215], 11);
+                                    map = L.map("map121").setView([5.3249124, 103.1369215], 17);
                                     document.getElementById("map121").style.cursor = "pointer"
                                     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
                                     L.marker([5.3249124, 103.1369215]).addTo(map)
-                                </script>   
+                                </script>
                                 
+                                      <div class="
+                                      service-page
+                                      ">
                                         <table class="table table-bordered my-3"> 
                                             <tbody> 
                                                 <tr>
                                                     <th class="text-center" style="background: black ; color:white" colspan="2">
-                                                    SERVICE NO DEATIL 
+                                                    SERVICE NO DEATIL
                                                     </th>
                                                 </tr>
                                                 <tr class="" >
@@ -135,48 +154,61 @@
                                                     <th class="col-md-6">Address</th>
                                                     <td>jalan 4/3</td>
                                                 </tr>
-            
+
                                                 <tr class="">
                                                     <th class="col-md-6 text-center" colspan="2"><strong> Before Images </strong><br></th>
 
-                                                </tr><tr> 
+                                                </tr><tr>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/1100223654-before-image-1-1687244180.jpg" width="275" height="275">
-                                                            </td> 
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/1100223654-before-image-1-1687244180.jpg" width="275" height="275">
+                                                            </td>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/1100223654-before-image-2-1687244180.jpg" width="275" height="275">
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/1100223654-before-image-2-1687244180.jpg" width="275" height="275">
                                                             </td></tr>
                                                 <tr class="">
                                                     <th class="col-md-6 text-center" colspan="2"><strong> During Images </strong><br></th>
 
-                                                </tr><tr> 
+                                                </tr><tr>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/1100223654-during-image-1-1687244180.jpg" width="275" height="275">
-                                                            </td> 
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/1100223654-during-image-1-1687244180.jpg" width="275" height="275">
+                                                            </td>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/1100223654-during-image-2-1687244180.jpg" width="275" height="275">
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/1100223654-during-image-2-1687244180.jpg" width="275" height="275">
                                                             </td></tr>
                                                 <tr class="">
                                                     <th class="col-md-6 text-center" colspan="2"><strong> After Images </strong><br></th>
 
-                                                </tr><tr> 
+                                                </tr><tr>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/1100223654-after-image-1-1687244180.jpg" width="275" height="275">
-                                                            </td> 
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/1100223654-after-image-1-1687244180.jpg" width="275" height="275">
+                                                            </td>
                                                             <td class="text-center">
-                                                            <img src="http://adklservice.com/asset/images/upload-images/1100223654-after-image-2-1687244180.jpg" width="275" height="275">
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/1100223654-after-image-2-1687244180.jpg" width="275" height="275">
                                                             </td></tr>
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> Other Images </strong><br></th>
+
+                                                </tr><tr>
+                                                            <td class="text-center">
+                                                            <img src="http://127.0.0.1:8000/asset/images/upload-images/1100223654-other-image-1-1687637565.PNG" width="275" height="275">
+                                                            </td>
+                                                            <td></td>
+                                                            </tr>
                                             </tbody>
+
                                         </table> 
-                                    <div class="p-3">
-                                        <div id="map120" class="map" style="height: 300px; marign :20px ;"></div>
+                                        
+                                    <div class="p-3" style=" overflow: hidden;">
+
+                                        <div id="map120" class="map" style="height: 300px;width:800px; marign :20px ;"></div>
+                                    </div>
                                     </div>
                                 <script>
-                                    map = L.map("map120").setView([5.3248692, 103.1369518], 11);
+                                    map = L.map("map120").setView([5.3248692, 103.1369518], 17);
                                     document.getElementById("map120").style.cursor = "pointer"
                                     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
                                     L.marker([5.3248692, 103.1369518]).addTo(map)
-                                </script>   
+                                </script>
                                 
                 </div>
             </body>

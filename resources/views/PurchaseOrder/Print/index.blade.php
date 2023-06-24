@@ -93,7 +93,7 @@
                     </tr>
                     <tr class="">
                         <th class="col-md-6">Address</th>
-                        <td>{{ $order['service']->Address }}</td>
+                        <td>{{ $order['service']->address }}</td>
                     </tr>
                     <tr >
                                             <td class="col-md-6"><strong>Status</strong></td>
@@ -194,6 +194,36 @@
                         </tr>
                     @endif
 
+                    <tr class="">
+                        <th class="col-md-6 text-center" colspan="2"><strong> Other Images </strong><br></th>
+
+                    </tr>
+
+                    @if ($order['other_images'] != '')
+                    @foreach ($order['other_images'] as $image)
+                        @if ($loop->index % 2 == 0)
+                            <tr>
+                        @endif
+
+                        <td class="text-center">
+                            <a href="{{ asset($image )}}" data-lightbox="roadtrip"><img src="{{ asset($image) }}"
+                                    width="275" height="275"></a>
+
+                        </td>
+
+
+                        @if ($loop->index % 2 != 0)
+                            </tr>
+                        @elseif ($loop->index === count(json_decode(json_encode($order['other_images']), true)) - 1)
+                            <td></td>
+                            </tr>
+                        @endif
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="2">No Image found</td>
+                    </tr>
+                @endif
 
 
                 </table>

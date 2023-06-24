@@ -212,6 +212,43 @@ class GenratePdfController extends Controller
                                                         </tr>';
                                                 }
 
+
+                                                $htmlContent.='
+                                                <tr class="">
+                                                    <th class="col-md-6 text-center" colspan="2"><strong> Other Images </strong><br></th>
+
+                                                </tr>';
+
+                                                if ($item->other_images != ''){
+                                                    $other = json_decode( $item->other_images);
+
+                                                    foreach ($other as $index =>$image){
+                                                        if ($index % 2 == 0){
+                                                            $htmlContent .='<tr>';
+                                                            }
+                                                        $htmlContent.='
+                                                            <td class="text-center">
+                                                            <img src="'. asset($image) .'" width="275" height="275">
+                                                            </td>';
+
+                                                        if ($index % 2 != 0){
+                                                        $htmlContent.='</tr>';
+                                                        }
+                                                        elseif ($index === count(json_decode(json_encode($other), true)) - 1) {
+                                                        $htmlContent .='
+                                                            <td></td>
+                                                            </tr>';
+                                                        }
+                                                    }
+                                                }
+                                                else{
+                                                    $htmlContent .='
+                                                        <tr>
+                                                            <td colspan="2">No Image found</td>
+                                                        </tr>';
+                                                }
+
+
                                                 $htmlContent.='
                                             </tbody>
 
@@ -238,7 +275,7 @@ class GenratePdfController extends Controller
 
         try{
         $bytesWritten = File::put(public_path('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.html'), $htmlContent);
-   
+   exit();
         }catch(Exception $e){
 
         }

@@ -96,7 +96,7 @@
 
                     </div>
                     <div class="col-md-5"><input type="text" readonly disabled class="form-control " id="phone_no"
-                            value="{{ $order['service']->Address }}"></div>
+                            value="{{ $order['service']->address }}"></div>
                 </div>
 
                 <div class="row p-3 pb-0">
@@ -155,6 +155,26 @@
                     @endif
 
                 </div>
+
+
+                <div class="row p-3">
+                    <h4 class="text-center">Other Images </h4><br>
+                    @if ($order['other_images'] != '')
+                        @foreach ($order['other_images'] as $other)
+                            <div class="col-md-6">
+                                <div class="text-center mb-3">
+                                    <a href="{{asset( $other )}}" class="ml-4" data-lightbox="roadtrip"><img
+                                            src="{{ asset($other) }}" width="400" height="400"></a>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <label>No Image Found</label>
+                    @endif
+
+                </div>
+
+                
 
 
 

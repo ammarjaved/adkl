@@ -93,7 +93,7 @@
                     </tr>
                     <tr class="">
                         <th class="col-md-6">Address</th>
-                        <td>{{ $order['service']->Address }}</td>
+                        <td>{{ $order['service']->address }}</td>
                     </tr>
                     <tr class="">
                         <th class="col-md-6">Date</th>
@@ -189,6 +189,8 @@
                             <td colspan="2">No Image found</td>
                         </tr>
                     @endif
+
+                    
 
 
 
