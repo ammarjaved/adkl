@@ -33,6 +33,7 @@ class MobileMial extends Mailable
     {
         // dd($this->details);
         return $this->subject($this->details['subject'])
-        ->view('Mail.MobileMail');
+        ->view('Mail.test')
+        ->with('details', $this->details);;
     }
 }

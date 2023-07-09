@@ -275,7 +275,7 @@ class GenratePdfController extends Controller
 
         try{
         $bytesWritten = File::put(public_path('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.html'), $htmlContent);
-//    exit();
+
         }catch(Exception $e){
 
         }
@@ -285,31 +285,12 @@ class GenratePdfController extends Controller
 
             try{
                 PurchaseOrder::where('po_number',$po_no)->update(['report'=>'assets/PurhaseOrderPDF/pdfs/'.$getPo->po_number.'.pdf']);
-// echo "237";
-            }catch(Exception $e){
+            }catch(Exception $e){   }
 
-            }
-// echo "240";
-$context=stream_context_create(array('http' => array('header'=>"Host: www.google.com\r\n")));
-
-           $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path), false, $context);
-//         $endpoint = asset('assets/PurhaseOrderPDF/wkhtmltopdf/text.php');
-// $queryString = http_build_query(['po_no' => $po_no, 'path' => $path]);
-// $url = $endpoint . '?' . $queryString;
-
-// $ch = curl_init($url);
-// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-// $response = curl_exec($ch);
-// curl_close($ch);
-
-
-           return response()->json(['statusCode' => 200, 'message' => 'Report Genrated'], 200);
-
-        // if($response !== false && !empty($response)){
-            // return response()->download(asset('assets/PurhaseOrderPDF/html/'.$getPo->po_number.'.pdf'));
-
-
-        // }
+        $context=stream_context_create(array('http' => array('header'=>"Host: www.google.com\r\n")));
+        $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path), false, $context);
+        
+        return response()->json(['statusCode' => 200, 'message' => 'Report Genrated'], 200);
 
         }
         return response()->json(['statusCode' => 500, 'message' => 'failed'], 500);

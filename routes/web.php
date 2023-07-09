@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FilterMapController;
 use App\Http\Controllers\MapController;
@@ -47,7 +48,11 @@ Route::group(['middleware' => 'auth'], function () {
    
     // Route::get('/get-map-point-by-po-number/{po}',[MapController::class,'getByPo']);
 });
- 
+
+Route::view('/privacy-policy','Privacy.index');
+Route::resource('/contact-us',ContactUsController::class);
+Route::view('/mail-test','Mail.test');
+
 // Route::group(['prefix' => '/'], function () {
 //     Route::get('', [RoutingController::class, 'index'])->name('root');
 //     Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');
