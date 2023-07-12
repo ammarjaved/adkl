@@ -288,7 +288,7 @@ class GenratePdfController extends Controller
             }catch(Exception $e){   }
 
         $context=stream_context_create(array('http' => array('header'=>"Host: www.google.com\r\n")));
-        $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path), false, $context);
+        $response =  file_get_contents(asset('assets\PurhaseOrderPDF\wkhtmltopdf\text.php?po_no='.$po_no.'&&path='.$path));
         
         return response()->json(['statusCode' => 200, 'message' => 'Report Genrated'], 200);
 
