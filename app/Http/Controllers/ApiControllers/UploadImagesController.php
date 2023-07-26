@@ -17,15 +17,15 @@ class UploadImagesController extends Controller
 
     public function insert(Request $request)
     {
-        if (!$request->has('id')) {
-            return response()->json(['message' => 'application id is required']);
+        if (!$request->has('sn')) {
+            return response()->json(['message' => 'application sn is required']);
         }
 
         $destinationPath = 'asset/images/upload-images';
         // $img_exits = public_path().'/asset/images/upload-images/';
         $url = 'asset/images/upload-images';
 
-        $application = ServiceNo::find($request->id);
+        $application = ServiceNo::where('sn',$request->sn)->first();
         if (!$application) {
             return response()->json(['statusCode' => '404', 'message' => 'user not found']);
         }
@@ -107,7 +107,7 @@ class UploadImagesController extends Controller
             $application->update();
 
             if ($request->has('lat') && $request->has('long')) {
-                DB::statement("UPDATE service_no_details SET geom = ST_GeomFromText('POINT(' || CAST(? AS text) || ' ' || CAST(? AS text) || ')', 4326) WHERE id = ?", [$request->long, $request->lat, $request->id]);
+                DB::statement("UPDATE service_no_details SET geom = ST_GeomFromText('POINT(' || CAST(? AS text) || ' ' || CAST(? AS text) || ')', 4326) WHERE sn = ?", [$request->long, $request->lat, $request->sn]);
             }
 
             // DB::disconnect();
