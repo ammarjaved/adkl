@@ -12,15 +12,15 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        '/api/database/GetResults',
-        '/api/database/insert',
-        '/api/database/update',
-        '/api/upload-images',
-        '/api/login',
-        '/api/genrate-purchase-no-pdf',
-        '/api/get-all-service-no',
-        '/api/download-purchase-order-report',
-        '/api/change-password'
+        'http://adklservice.com/api/database/GetResults',
+        'http://adklservice.com/api/database/insert',
+        'http://adklservice.com/api/database/update',
+        'http://adklservice.com/api/upload-images',
+        'http://adklservice.com/api/login',
+        'http://adklservice.com/api/genrate-purchase-no-pdf',
+        'http://adklservice.com/api/get-all-service-no',
+        'http://adklservice.com/api/download-purchase-order-report',
+        'http://adklservice.com/api/change-password'
     ];
     
 }
