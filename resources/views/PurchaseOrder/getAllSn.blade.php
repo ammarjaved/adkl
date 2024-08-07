@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Aero '])
+@extends('layouts.vertical', ['page_title' => $order->po_number.'-'.$order->user->name])
 @section('css')
     <link rel="stylesheet" href="print.css" media="print">
 

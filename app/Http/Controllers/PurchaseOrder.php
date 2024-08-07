@@ -11,6 +11,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Psr\Http\Message\ResponseInterface;
+use Illuminate\Support\Facades\Auth;
+
 
 class PurchaseOrder extends Controller
 {
@@ -29,8 +31,16 @@ class PurchaseOrder extends Controller
         // ON po_details.po_number=service_no_details.po_no
         // INNER JOIN vendor ON po_details.vendor_id= vendor.id
         // INNER JOIN users ON vendor.user_id=users.id");
+        $username = Auth::user()->name;
+        $userid = Auth::user()->id;
+
+     if($username=='admin'){
       $order = ModelsPurchaseOrder::withCount('service_no')->with('user')->get();
         return view('PurchaseOrder.index', ['orders' => $order]);
+     }else{
+        $order = ModelsPurchaseOrder::withCount('service_no')->with('user')->where('user_id', '=', $userid)->get();
+        return view('PurchaseOrder.index', ['orders' => $order]);
+     }
     }
 
     /**
@@ -41,8 +51,16 @@ class PurchaseOrder extends Controller
     public function create()
     {
         //
+        $username = Auth::user()->name;
+        $userid = Auth::user()->id;
+
+     if($username=='admin'){
         $vendor = Vendor::all();
         return view('PurchaseOrder.create',['vendor'=>$vendor]);
+     }else{
+        $vendor = Vendor::where('user_id', '=', $userid)->get();
+        return view('PurchaseOrder.create',['vendor'=>$vendor]);
+     }
     }
 
     /**

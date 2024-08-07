@@ -19,7 +19,7 @@
 
                 <li class="menu-title mt-2">Apps</li>
 
-
+                @if(Auth::user()->type === 'admin')
                 <li>
                     <a href="#sidebarMaid" data-bs-toggle="collapse">
                         <i class="fa fas fa-male"></i>
@@ -42,7 +42,7 @@
                         </ul>
                     </div>
                 </li>
-
+               @endif
                <li>
                     <a href="#sidebarPO" data-bs-toggle="collapse">
                         <i data-feather="file"></i>

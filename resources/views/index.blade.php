@@ -155,7 +155,7 @@
                                 </div> --}}
                             </div>
 
-                            <h4 class="header-title mb-3">Sales Analytics</h4>
+                            <h4 class="header-title mb-3">Analytics</h4>
 
                             <div dir="ltr">
                                 <div id="sales-analytic" class="mt-4" data-colors="#1abc9c,#4a81d4"></div>

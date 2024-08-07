@@ -11,6 +11,7 @@ use App\Models\Vendor;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Mockery\Expectation;
+use Illuminate\Support\Facades\Auth;
 
 class VendorController extends Controller
 {
@@ -24,11 +25,21 @@ class VendorController extends Controller
     public function index()
     {
         //
+        $username = Auth::user()->name;
+        $userid = Auth::user()->id;
+
+     if($username=='admin'){
         $users = User::with('Vendor')
             ->where('type', 'vendor')
             ->get();
-
         return view('Vendor.index', ['users' => $users]);
+     }else{
+        $users = User::with('Vendor')
+        ->where('type', 'vendor')
+        ->where('id',$userid )
+        ->get();
+        return view('Vendor.index', ['users' => $users]);
+     }
     }
 
     /**
