@@ -1,7 +1,7 @@
 @extends('layouts.vertical', ['page_title' => 'Map', 'mode' => $mode ?? '', 'demo' => $demo ?? ''])
 
 @section('css')
-       
+
 <link href="{{asset('assets/libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
@@ -21,18 +21,29 @@
 </div>
     <div class="container-fluid">
 
-       
+
 <div class="card p-3">
     <h4>Filtered Map</h4>
     <div class="row p-3 pt-0">
         <div class="col-md-2"></div>
         <div class="col-md-4">
-            <select name="vendor" id="vendor" class="form-select"  data-toggle="select2" onchange="vendorChange()" >
-                <option value="" hidden>Select Vendor</option>
-                @foreach ($vendor as $ven)
-                    <option value="{{$ven->user_id}}">{{$ven->vendor_name}}</option>
-                @endforeach
-               
+            <select name="vendor" id="vendor" class="form-select"  data-toggle="select2" onchange="vendorChange()"   >
+
+                @if (Auth::user()->type == 'admin')
+                    <option value="" hidden>Select Vendor</option>
+                    @foreach ($vendor as $ven)
+                        <option value="{{$ven->user_id}}">{{$ven->vendor_name}}</option>
+                    @endforeach
+
+                @else
+                    @foreach ($vendor as $ven)
+                        @if (Auth::user()->id == $ven->user_id)
+                            <option value="{{$ven->user_id}}">{{$ven->vendor_name}}</option>
+                        @endif
+                    @endforeach
+                @endif
+
+
             </select>
         </div>
         <div class="col-md-3">
@@ -48,7 +59,7 @@
     </div>
 
         <div class=" bg-white">
-           
+
             <div id="map" class="map" style="height: 500px; marign :20px ;"></div>
 
         </div></div>
@@ -71,7 +82,7 @@
         }).addTo(map);
 
         var myLayer;
-
+        var userType = "{{Auth::user()->type}}"
         $(document).ready(function() {  //document ready
             $.ajax({
                 type: "GET",
@@ -83,7 +94,9 @@
             $('#vendor').select2();
         $('#purchase_order').select2();
         $('#sn').select2();
-        
+            if (userType !== 'admin') {
+                vendorChange()
+            }
         });     //end document ready
 
 
@@ -115,7 +128,7 @@
                     geom(data);
                 }
             })
-           
+
         }
 
         function poChange(){
@@ -185,7 +198,7 @@
                         <th>Detail</th>
                         <td><a href="/service-no/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
                         </tr>
-                        
+
                     </table>`);
                 }
             }).addTo(map);

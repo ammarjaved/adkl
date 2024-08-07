@@ -188,6 +188,9 @@
                         </div>
 
                         <h4 class="header-title ">Vendors</h4>
+                        @if (Auth::user()->type == 'admin')
+
+
                         <div class="d-flex justify-content-end">
                             <div class="col-md-3 p-1"> <select name="" id="vendor" class="form-select">
                                     <option value="" hidden>Select Vendor</option>
@@ -204,6 +207,7 @@
                             <div class="col-md-2 p-1"><button class="btn btn-secondary rounded-0"
                                     onclick="getBA()">Search</button></div>
                         </div>
+                        @endif
                         <div class="table-responsive" style="overflow-y:auto ; max-height:400px;" id="vendor-table">
 
                             <table class="table table-borderless table-hover table-nowrap table-centered m-0 nowrap w-100"
@@ -354,7 +358,7 @@
         // }).addTo(map);
 
         var myLayer;
-
+        var userType = "{{Auth::user()->type}}"
         $(document).ready(function() {
             addChart()
             addpie()
@@ -372,7 +376,9 @@
                 },
             });
 
-          
+            if (userType !== 'admin') {
+                getPO({{Auth::user()->id}})
+            }
         });
 
         function getPO(id) {
@@ -394,11 +400,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-            
+
                                     ${
                                         data[1].po_detail.length === 0
                                         ? `<tr><td colspan="4" class="text-center">No Record Found</td></tr>`
-                                        : 
+                                        :
                                         data[1].po_detail.map(po => `
                                                     <tr>
                                                         <td>${po.po_number}</td>
@@ -414,13 +420,13 @@
                                                             </td>
                                                     </tr>
                                                     <tr id="tr">
-                                                      <td colspan='5' id="tr"> 
+                                                      <td colspan='5' id="tr">
                                                         <div  id="collapseExample-${po.po_number}" style="display:none">
-                                                        
+
                                                         </div>
                                                         </td>
                                                     </tr>
-                                                       
+
                                                 `).join('')
                             }
                                     </tbody>
@@ -466,10 +472,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    
+
                                         ${data[0].length === 0
                                             ? `<tr><td colspan="4" class="text-center">No Record Found</td></tr>`
-                                            : 
+                                            :
                                             data[0].map(po => `
                                                                                 <tr>
                                                         <td>${po.sn}</td>
@@ -478,10 +484,10 @@
                                                         <td>
                                                              <a  class="btn btn-dark btn-sm" href="/service-no/${po.sn}" >Detail</a>
                                                         </td>
-                                                        
+
                                                     </tr>
-                                                    
-                                        
+
+
                                                 `).join('')
                                             }
                                         </tbody>
@@ -528,12 +534,12 @@
                         <th>Detail</th>
                         <td><a href="/service-no/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
                         </tr>
-                        
+
                     </table>`);
                 }
             }).addTo(map);
             setTimeout(function() {
-               
+
                 map.fitBounds(myLayer.getBounds());
             }, 1000);
 
@@ -566,10 +572,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    
+
                                         ${data[0].length === 0
                                             ? `<tr><td colspan="4" class="text-center">No Record Found</td></tr>`
-                                            : 
+                                            :
                                             data[0].map(po => `
                                                                                 <tr>
                                                         <td>${po.user ?  po.user.vendor_name : `nan`}</td>
@@ -579,15 +585,15 @@
                                                             <button onclick="getPO(${po.user_id})" style=" cursor:pointer" class="btn btn-sm btn-secondary">Detail</button>
                                                         </td>
                                                     </tr>
-                                                    
-                                        
+
+
                                                 `).join('')
                                             }
                                         </tbody>
                                     </table>
                                     `)
                                     $('#basic-datatable').DataTable();
-              
+
                 }
             })
         }
@@ -616,7 +622,7 @@
 
     //                                 ${data[0].length === 0
     //                                     ? `<tr><td colspan="4" class="text-center">No Record Found</td></tr>`
-    //                                     : 
+    //                                     :
     //                                     data[0].map(po => `
         //                                                                     <tr>
         //                                             <td>${po.ponumber}</td>
@@ -733,7 +739,7 @@
                 },
                 plotOptions: {
                     bar: {
-                        columnWidth: '50%'
+                        columnWidth: '30%'
                     }
                 },
                 colors: colors,

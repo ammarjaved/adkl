@@ -31,16 +31,19 @@ class PurchaseOrder extends Controller
         // ON po_details.po_number=service_no_details.po_no
         // INNER JOIN vendor ON po_details.vendor_id= vendor.id
         // INNER JOIN users ON vendor.user_id=users.id");
-        $username = Auth::user()->name;
-        $userid = Auth::user()->id;
+        $user = Auth::user();
 
-     if($username=='admin'){
-      $order = ModelsPurchaseOrder::withCount('service_no')->with('user')->get();
+        $order  = ModelsPurchaseOrder::withCount('service_no')->with('user');
+
+        if($user->name !== 'admin')
+        {
+            $order->where('user_id', '=', $user->id);
+        }
+
+        $order = $order->get();
+
         return view('PurchaseOrder.index', ['orders' => $order]);
-     }else{
-        $order = ModelsPurchaseOrder::withCount('service_no')->with('user')->where('user_id', '=', $userid)->get();
-        return view('PurchaseOrder.index', ['orders' => $order]);
-     }
+
     }
 
     /**
@@ -182,7 +185,7 @@ class PurchaseOrder extends Controller
            $po =  ModelsPurchaseOrder::find($id);
           ServiceNo::where('po_no',$po->po_number)->delete();
           $po->delete();
-          
+
         }catch(Exception $e){
             return redirect()->back()->with('meesgae',"Somethins is worng try again later");
         }

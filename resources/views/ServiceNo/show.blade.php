@@ -76,9 +76,12 @@
                     <div class="col-md-4"><label for="email">Vendor Name</label><br>
 
                     </div>
-                    <?php $name = App\Models\Vendor::where('user_id', $order['service']->created_by)->first(); ?>
+                    @if ($order['service']->created_by != '')
+                        <?php $name = App\Models\Vendor::where('user_id', $order['service']->created_by)->first(); ?>
+
+                    @endif
                     <div class="col-md-5"><input type="" class="form-control "readonly disabled id="email"
-                            value="{{ $name->vendor_name }}"></div>
+                            value="{{ $order['service']->created_by != ''? $name->vendor_name:'' }}"></div>
 
                 </div>
 
@@ -87,7 +90,7 @@
 
                     </div>
                     <div class="col-md-5"><input type="" class="form-control "readonly disabled id="email"
-                            value="{{ $name->vendor_no }}"></div>
+                            value="{{ $order['service']->created_by != ''? $name->vendor_no : ''}}"></div>
 
                 </div>
 
@@ -174,7 +177,7 @@
 
                 </div>
 
-                
+
 
 
 
@@ -234,7 +237,7 @@
                         <th>Detail</th>
                         <td><a href="/purchase-order/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
                         </tr>
-                        
+
                     </table>`);
                         }
                     }).addTo(map);

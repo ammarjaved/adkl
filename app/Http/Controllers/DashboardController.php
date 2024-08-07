@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -15,20 +16,42 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $data = [];
-        $data['count'] = DB::select("SELECT a.total_vendor ,b.total_po ,c.today_po FROM
-        (SELECT count(*) total_vendor from users where type = 'vendor') a,
-        (SELECT count(*) total_po from service_no_details ) b,
-        (select count(*) today_po from service_no_details where date::date < now()::date )c");
-        $data['vendor'] = User::where('type', 'vendor')->get();
-        $data['po'] = PurchaseOrder::count();
-        $data['chart'] = User::select('name')
-            ->withCount(['PoDetail', 'serviceNo'])
-            ->where('type', 'vendor')
-            ->get();
 
-        //   return $data;
-        // DB::disconnect();
+        $user = Auth::user();
+        $data = [];
+
+        if ($user->type == 'admin')
+        {
+
+            $data['count'] = DB::select("SELECT a.total_vendor ,b.total_po ,c.today_po FROM
+            (SELECT count(*) total_vendor from users where type = 'vendor') a,
+            (SELECT count(*) total_po from service_no_details ) b,
+            (select count(*) today_po from service_no_details where date::date < now()::date )c");
+            $data['vendor'] = User::where('type', 'vendor')->get();
+            $data['po'] = PurchaseOrder::count();
+            $data['chart'] = User::select('name')
+                ->withCount(['PoDetail', 'serviceNo'])
+                ->where('type', 'vendor')
+                ->get();
+
+        }
+        else
+        {
+            $data['count'] = DB::select("SELECT a.total_vendor ,b.total_po ,c.today_po FROM
+            (SELECT COUNT(*) total_vendor FROM users WHERE type = 'vendor' AND id = $user->id ) a,
+            (SELECT count(*) total_po from service_no_details WHERE created_by = $user->id ) b,
+            (select count(*) today_po from service_no_details where date::date < now()::date AND created_by = $user->id )c");
+            $data['vendor'] = User::where('type', 'vendor')->where('id',$user->id)->get();
+            $data['po'] = PurchaseOrder::where('user_id',$user->id)->count();
+            $data['chart'] = User::select('name')
+                ->where('id',$user->id)
+                ->withCount(['PoDetail', 'serviceNo'])
+                ->where('type', 'vendor')
+                ->get();
+
+        }
+
+
         return view('index', ['data' => $data]);
     }
 
