@@ -14,11 +14,17 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($poNo)
+    public function index()
     {
-        $order['service'] = ServiceNo::where('po_no',$poNo)->get();
+        // $order['service'] = ServiceNo::where('po_no',$poNo)->get();
 
-        return view('ServiceNo.index',['order'=>$order]);
+        $order = ServiceNo::query();
+        $user = \Auth::user();
+        if($user->type !== 'admin'){
+            $order->where('created_by', $user->id);
+        }
+        $order = $order->get();
+        return view('ServiceNo.index',['orders'=>$order]);
     }
 
     /**
@@ -29,6 +35,13 @@ class ServiceController extends Controller
     public function create()
     {
         //
+        $po = PurchaseOrder::query();
+        $user = \Auth::user();
+        if ($user->type !== 'admin') {
+            $po->where('user_id' ,$user->id );
+        }
+        $po = $po->get();
+        return view("ServiceNo.create",['pos'=>$po]);
     }
 
     /**
@@ -101,10 +114,12 @@ class ServiceController extends Controller
 
     public function getAll($po_no)
     {
-        try{
-       $getPo =  PurchaseOrder::with('service_no','user')->where('po_number',$po_no)->first();
-       return $getPo ? view('PurchaseOrder.getAllSn',['order'=>$getPo]) : abort(404) ;
-        }catch(Exception $e){
+        try
+        {
+            $getPo =  PurchaseOrder::with('service_no','user')->where('po_number',$po_no)->first();
+            return $getPo ? view('PurchaseOrder.getAllSn',['order'=>$getPo]) : abort(404) ;
+        }
+        catch(Exception $e){
             return redirect()->route('vendor.index')->with('message', 'Something is wrong try again later');
         }
     }

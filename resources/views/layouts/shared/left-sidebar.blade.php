@@ -53,9 +53,7 @@
                         <ul class="nav-second-level">
                             <li>
                                 <a href="{{ route('purchase-order.create') }}">
-
                                     <span>create</span>
-
                                 </a>
                             </li>
                             <li>
@@ -67,10 +65,31 @@
                 </li>
 
                 <li>
+                    <a href="#sidebarSN" data-bs-toggle="collapse">
+                        <i data-feather="file"></i>
+                        <span> Service No </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarSN">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('service-no.create') }}">
+                                    <span>create</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('service-no.index') }}">show</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
                     <a href="/map-filter" >
                         <i data-feather="map"></i>
                         <span> Map </span>
-                        
+
                     </a>
                 </li>
 
