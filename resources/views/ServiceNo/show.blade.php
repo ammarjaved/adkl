@@ -81,7 +81,7 @@
 
                     @endif
                     <div class="col-md-5"><input type="" class="form-control "readonly disabled id="email"
-                            value="{{ $order['service']->created_by != ''? $name->vendor_name:'' }}"></div>
+                            value="{{ $name!= ''? $name->vendor_name:'' }}"></div>
 
                 </div>
 
@@ -90,7 +90,7 @@
 
                     </div>
                     <div class="col-md-5"><input type="" class="form-control "readonly disabled id="email"
-                            value="{{ $order['service']->created_by != ''? $name->vendor_no : ''}}"></div>
+                            value="{{ $name != ''? $name->vendor_no : ''}}"></div>
 
                 </div>
 
@@ -235,7 +235,7 @@
                         </tr>
                         <tr>
                         <th>Detail</th>
-                        <td><a href="/purchase-order/${feature.properties.sn}" class="btn btn-sm btn-dark text-white">Detail</a></td>
+                        <td><a href="/purchase-order/${feature.properties.id}" class="btn btn-sm btn-dark text-white">Detail</a></td>
                         </tr>
 
                     </table>`);

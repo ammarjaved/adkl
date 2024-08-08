@@ -66,7 +66,7 @@
 
                 <h3 class="text-center">ADD SERVICE NO</h3>
                 {{-- FORM START --}}
-                <form method="POST" id="snForm" action="{{ route('service-no.store') }}">
+                <form method="POST" id="snForm" action="{{ route('service-no.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
 
@@ -94,23 +94,23 @@
 
                         {{-- SERVICE NUMBER --}}
                         <div class="row p-3 pb-0">
-                            <div class="col-md-4"><label for="vendor_id">Service Number</label><br>
-                                <span class="text-danger" id="er_vendor_id">
-                                    @error('vendor_id')
+                            <div class="col-md-4"><label for="sn">Service Number</label><br>
+                                <span class="text-danger" id="er_sn">
+                                    @error('sn')
                                         {{ $message }}
                                     @enderror
                                 </span>
                             </div>
                             <div class="col-md-5">
-                                <input type="text" class="form-control @error('year') is-invalid @enderror" required name="vendor_id" id="vendor_id" value="">
+                                <input type="text" class="form-control @error('year') is-invalid @enderror" required name="sn" id="sn" value="">
 
 
                             </div>
                         </div>
 
                         {{-- YEAR --}}
-                        <div class="row p-3 pb-0">
-                            <div class="col-md-4"><label for="year">Year</label><br>
+                        {{-- <div class="row p-3 pb-0">
+                            <div class="col-md-4"><label for="year">Date</label><br>
                                 <span class="text-danger" id="er_year">
                                     @error('year')
                                         {{ $message }}
@@ -118,9 +118,9 @@
                                 </span>
                             </div>
                             <div class="col-md-5">
-                                <input type="number" class="form-control @error('year') is-invalid @enderror" name="year" id="year" value="">
+                                <input type="date" class="form-control @error('year') is-invalid @enderror" name="year" id="year" value="">
                             </div>
-                        </div>
+                        </div> --}}
 
                         {{-- ADDRESS --}}
                         <div class="row p-3 pb-0">
@@ -138,84 +138,84 @@
 
                         {{-- BEFORE IMAGE 1 --}}
                         <div class="row p-3 pb-0">
-                            <div class="col-md-4"><label for="before_image_1">Before Image 1</label> </div>
-                            <div class="col-md-4">
-                                <input type="file" class="form-control " name="before_image_1" id="before_image_1"  accept="image/*" >
+                            <div class="col-md-4"><label for="before_image_1">Before Image </label> </div>
+                            <div class="col-md-5">
+                                <input type="file" class="form-control " name="before_images[]" multiple id="before_image_1"  accept="image/*" >
                             </div>
-                            <div class="col-md-4" id="before_image_1_div"></div>
+                            {{-- <div class="col-md-5" id="before_image_1_div"></div> --}}
                         </div>
 
                         {{-- BEFORE IMAGE 2 --}}
-                        <div class="row p-3 pb-0">
+                        {{-- <div class="row p-3 pb-0">
                             <div class="col-md-4"><label for="before_image_2">Before Image 2</label> </div>
                             <div class="col-md-4">
                                 <input type="file" class="form-control " name="before_image_2" id="before_image_2"  accept="image/*" >
                             </div>
                             <div class="col-md-4" id="before_image_2_div"></div>
-                        </div>
+                        </div> --}}
 
                         {{-- DURING IMAGE 1 --}}
                         <div class="row p-3 pb-0">
-                            <div class="col-md-4"><label for="year">During Image 1</label> </div>
-                            <div class="col-md-4">
-                                <input type="file" class="form-control " name="during_image_1" id="during_image_1"  accept="image/*" >
+                            <div class="col-md-4"><label for="year">During Image </label> </div>
+                            <div class="col-md-5">
+                                <input type="file" class="form-control " name="during_images[]" multiple id="during_image_1"  accept="image/*" >
                             </div>
-                            <div class="col-md-4" id="during_image_1_div"></div>
+                            {{-- <div class="col-md-5" id="during_image_1_div"></div> --}}
                         </div>
 
                         {{-- DURING IMAGE 1 --}}
-                        <div class="row p-3 pb-0">
+                        {{-- <div class="row p-3 pb-0">
                             <div class="col-md-4"><label for="during_image_2">During Image 2</label> </div>
                             <div class="col-md-4">
                                 <input type="file" class="form-control " name="during_image_2" id="during_image_2"  accept="image/*" >
                             </div>
                             <div class="col-md-4" id="during_image_2_div"></div>
-                        </div>
+                        </div> --}}
 
 
                         {{-- AFTER IMAGE 1 --}}
                         <div class="row p-3 pb-0">
-                            <div class="col-md-4"><label for="year">After Image 1</label> </div>
-                            <div class="col-md-4">
-                                <input type="file" class="form-control " name="after_image_1" id="after_image_1"  accept="image/*" >
+                            <div class="col-md-4"><label for="year">After Image </label> </div>
+                            <div class="col-md-5">
+                                <input type="file" class="form-control " name="after_images[]" multiple id="after_image_1"  accept="image/*" >
                             </div>
-                            <div class="col-md-4" id="after_image_1_div"></div>
+                            {{-- <div class="col-md-5" id="after_image_1_div"></div> --}}
                         </div>
 
                         {{-- AFTER IMAGE 1 --}}
-                        <div class="row p-3 pb-0">
+                        {{-- <div class="row p-3 pb-0">
                             <div class="col-md-4"><label for="year">After Image 2</label> </div>
                             <div class="col-md-4">
                                 <input type="file" class="form-control " name="after_image_2" id="after_image_2"  accept="image/*" >
                             </div>
                             <div class="col-md-4" id="after_image_2_div"></div>
-                        </div>
+                        </div> --}}
 
 
                         {{-- OTHER IMAGE 1 --}}
                         <div class="row p-3 pb-0">
-                            <div class="col-md-4"><label for="year">Other Image 1</label> </div>
-                            <div class="col-md-4">
-                                <input type="file" class="form-control " name="other_image_1" id="other_image_1"  accept="image/*" >
+                            <div class="col-md-4"><label for="year">Other Image </label> </div>
+                            <div class="col-md-5">
+                                <input type="file" class="form-control " name="other_images[]" multiple id="other_image_1"  accept="image/*" >
                             </div>
-                            <div class="col-md-4" id="other_image_1_div"></div>
+                            {{-- <div class="col-md-5" id="other_image_1_div"></div> --}}
                         </div>
 
                         {{-- OTHER IMAGE 1 --}}
-                        <div class="row p-3 pb-0">
+                        {{-- <div class="row p-3 pb-0">
                             <div class="col-md-4"><label for="year">Other Image 2</label> </div>
                             <div class="col-md-4">
                                 <input type="file" class="form-control " name="other_image_2" id="other_image_2"  accept="image/*" >
                             </div>
                             <div class="col-md-4" id="other_image_2_div"></div>
-                        </div>
+                        </div> --}}
 
 
 
                         {{-- COORDINATES --}}
                         <div class="row p-3 pb-0">
                             <div class="col-md-4"><label for="year">Coordinates</label> </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <input type="text" class="form-control " name="coords" id="coords"  accept="image/*" readonly required>
                             </div>
                         </div>
@@ -252,7 +252,8 @@
     $(document).ready(function() {
 
         $('input[type="file"]').on('change', function() {
-            showUploadedImage(this)
+            // showUploadedImage(this)
+            validateFiles(this)
         })
 
     });
@@ -311,6 +312,14 @@
     function removeImage(id) {
             $(`#${id}`).val('');
             $(`#${id}_div`).empty();
+        }
+
+        function validateFiles(inp) {
+            const input = inp;
+            if (input.files.length > 3) {
+                alert('You can only upload a maximum of 3 images');
+                input.value = ''; // Clear the input field
+            }
         }
 </script>
 @endsection

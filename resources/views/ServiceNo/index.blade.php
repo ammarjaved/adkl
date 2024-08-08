@@ -12,11 +12,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/">ADKL</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Purchase Order</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Service Number</a></li>
                         <li class="breadcrumb-item active">index</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Purchase Order</h4>
+                <h4 class="page-title">Service Number</h4>
             </div>
         </div>
     </div>
@@ -25,31 +25,30 @@
         <div class="col-12">
             <div class="card px-2 py-3">
                 <div class="col-md-12 text-center ">
-                    @if (Session::has('message'))
-                        <div class="alert {{ Session::get('alert-class', 'alert-secondary') }}" role="alert">
-                            {{ Session::get('message') }}
+                    @if (Session::has('failed'))
+                    <div class="alert {{ Session::get('alert-class', 'alert-secondary') }}" role="alert">
+                        {{ Session::get('failed') }}
 
-                            <button type="button" class="close border-0 bg-transparent" data-dismiss="alert"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <button type="button" class="close border-0 bg-transparent" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
 
-                        </div>
+                    </div>
                     @endif
                     @if (Session::has('success'))
-                        <div class="alert {{ Session::get('alert-class', 'alert-success') }}" role="alert">
-                            {{ Session::get('success') }}
-                            <button type="button" class="close border-0 bg-transparent" data-dismiss="alert"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                    <div class="alert {{ Session::get('alert-class', 'alert-success') }}" role="alert">
+                        {{ Session::get('success') }}
+                        <button type="button" class="close border-0 bg-transparent" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                     @endif
+
 
                 </div>
 
                 <div class="card-body">
-                    <h4 class="header-title">Purchase Order</h4>
+                    <h4 class="header-title">Service Number</h4>
 
                     <table class="table table-borderless table-hover table-nowrap table-centered m-0 nowrap "
                     id="basic-datatable">
@@ -58,7 +57,7 @@
 
                                 <th>SERVICE NO</th>
                                 <th>PURCHASE ORDER</th>
-                                <th>BA</th>
+                                {{-- <th>BA</th> --}}
                                 <th>DATE</th>
                                 <th>STATUS</th>
                                 <th>ACTION</th>
@@ -70,12 +69,10 @@
 
                               <td>{{$order->sn}}</td>
                               <td>{{$order->po_no}}</td>
-                              <td>{{$order->ba}}</td>
-                              <td>{{$order->year == ''?'0000':$order->date}}</td>
+                              {{-- <td>{{$order->ba}}</td> --}}
+                              <td>{{$order->date !== ''? date('Y-m-d',strtotime($order->date )) : '' }}</td>
                               <td class="text-center">{{$order->status}}</td>
                               <td class="text-center p-1">
-                                {{-- <a href="{{ route('service-no.show', $order->sn) }}"
-                                    class="btn  btn-sm btn-secondary">Detail</a> --}}
                                 <div class="dropdown">
                                     <button class="btn" type="button" id="dropdownMenuButton1"
                                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,34 +80,21 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                              {{--           <li><a href="{{ route('purchase-order.show', $order->sn) }}"
-                                                class="btn  btn-sm dropdown-item">Detail</a>
-                                        </li>--}}
-
-                                        <li><a href="{{ route('purchase-order.edit', $order->id) }}"
-                                                class="btn btn-sm dropdown-item">Edit</a></li>
-
-
+                                        <li><a href="{{ route('service-no.edit', $order->id) }}" class="btn btn-sm dropdown-item">Edit</a></li>
+                                        <li><a href="{{route('service-no.show', $order->id)}}" class="btn btn-sm dropdown-item">show</a></li>
                                         <li>
                                             <form method="POST"
-                                                action="{{ route('purchase-order.destroy', $order->id) }}">
+                                                action="{{ route('service-no.destroy', $order->id) }}">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn  btn-sm dropdown-item"
                                                     onclick="return confirm('Are you Sure')">Delete</button>
                                             </form>
                                         </li>
-                                        <li><a target="_blank" href="/get-all-service-no/{{$order->po_number}}"
-                                            class="btn btn-sm dropdown-item">Print</a></li>
-{{--
-                                        <li>
-
-                                        </li>
-
 
                                     </ul>
-                                </div> --}}
-                            </td>
+                                </div>
+                              </td>
 
                             </tr>
                         @endforeach
